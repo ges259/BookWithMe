@@ -7,14 +7,13 @@
 
 import Foundation
 
-enum ReadingStatus {
-    case recommended
-    case reading
-    case completed
-    case paused
-    case wishlist
-    
-    case none
+enum ReadingStatus: String {
+    case recommended = "recommended"
+    case reading = "reading"
+    case completed = "completed"
+    case paused = "paused"
+    case wishlist = "wishlist"
+    case none = "none"
     
     var title: String {
         switch self {

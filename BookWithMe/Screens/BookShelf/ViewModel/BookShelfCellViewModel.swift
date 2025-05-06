@@ -9,7 +9,7 @@ import SwiftUI
 
 final class BookShelfCellViewModel {
     var readingStatus: ReadingStatus
-    var bookArray: [Book]
+    var bookArray: [Book] = []
     
     init(
         readingStatus: ReadingStatus,
@@ -32,4 +32,13 @@ final class BookShelfCellViewModel {
     var title: String {
         return self.readingStatus.title
     }
+    
+    func imageUrl() -> String {
+        
+        return ""
+    }
+    
+    
+    
+    
 }

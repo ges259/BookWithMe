@@ -14,6 +14,16 @@ struct Book {
 }
 
 extension Book {
+    static func fromEntity(_ entity: BookEntity) -> Book {
+        return Book(
+            bookId: entity.bookId ?? "",
+            bookName: entity.bookName ?? "",
+            imageString: entity.imagePath ?? ""
+        )
+    }
+}
+
+extension Book {
     static var DUMMY_BOOK: Book = Book(
         bookId: "bookId",
         bookName: "불편한 편의점",

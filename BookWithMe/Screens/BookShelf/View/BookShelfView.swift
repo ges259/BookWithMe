@@ -18,7 +18,7 @@ struct BookShelfView: View {
                     self.lazyVStackView
                 }
             }
-        }
+        }.background(Color.baseBackground)
     }
 }
 
