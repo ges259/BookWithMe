@@ -8,12 +8,10 @@
 import SwiftUI
 
 // MARK: - UI Constants
-enum BookShelfUI {
+enum BookShelfConstants {
     static let cardSize = CGSize(width: 80, height: 120)
-    static let cornerRadius: CGFloat = 16
+    
     static let horizontalSpacing: CGFloat = 12
-    static let shadowRadius: CGFloat = 4
-    static let shadowYOffset: CGFloat = 2
     static let headerTopPadding: CGFloat = 25
 }
 
@@ -29,24 +27,13 @@ struct BookShelfCellView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             header
-            Button {
-                print(self.viewModel.bookArray)
-            } label: {
-                Text("뭐냐")
-            }
-
             horizontalBookScroll
         }
         .padding(.bottom, 5)
         .padding(.horizontal)
         .background(Color.contentsBackground1)
-        .clipShape(RoundedRectangle(cornerRadius: BookShelfUI.cornerRadius))
-        .shadow(
-            color: .black.opacity(0.1),
-            radius: BookShelfUI.shadowRadius,
-            x: 0,
-            y: BookShelfUI.shadowYOffset
-        )
+        .defaultCornerRadius()
+        .defaultShadow()
         .padding(.horizontal)
     }
 }
@@ -56,9 +43,10 @@ private extension BookShelfCellView {
     var header: some View {
         return HeaderTitleView(title: self.viewModel.title)
     }
+    
     var horizontalBookScroll: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: BookShelfUI.horizontalSpacing) {
+            LazyHStack(spacing: BookShelfConstants.horizontalSpacing) {
                 ForEach(viewModel.bookArray, id: \.bookId) { book in
                     BookCardView(imageURL: book.imageString)
                 }

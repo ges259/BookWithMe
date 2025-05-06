@@ -30,7 +30,7 @@ struct HeaderTitleView: View {
                 Image.chevronRight
                     .foregroundStyle(.black)
             }
-        }.padding(.top, BookShelfUI.headerTopPadding)
+        }.padding(.top, BookShelfConstants.headerTopPadding)
     }
 }
 

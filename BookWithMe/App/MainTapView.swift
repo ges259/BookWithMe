@@ -8,41 +8,85 @@
 import SwiftUI
 
 struct MainTapView: View {
-    let bookShelfView = BookShelfView(
-        viewModel: BookShelfViewModel(
-            coreDataManager: CoreDataManager.shared)
-    )
-    let readingHistoryView = ReadingHistoryView(
-        viewModel: ReadingHistoryViewModel(
-            coreDataManager: CoreDataManager.shared)
-    )
-    let searchView = SearchView()
-    let analyticsView = AnalyticsView()
-    let setttingView = SettingView()
-    
     var body: some View {
         TabView {
-            self.bookShelfView
-                .tabItem { Image.bookShelf }
-                .tag(0)
-                
-            self.readingHistoryView
-                .tabItem { Image.readingHistroy }
-                .tag(1)
-            
-            self.searchView
-                .tabItem { Image.search }
-                .tag(2)
-            
-            self.analyticsView
-                .tabItem { Image.analytics }
-                .tag(3)
-            
-            self.setttingView
-                .tabItem { Image.setting }
-                .tag(4)
+            ForEach(TabItem.allCases, id: \.tag) { tabItem in
+                NavigationStack {
+                    tabItem.view
+                        .background(Color.baseBackground)
+                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationTitle(tabItem.navTitle)
+                }
+                .tabItem {
+                    tabItem.iconImage
+                }
+                .tag(tabItem.tag)
+            }
         }
         .tint(Color.baseButton)
+    }
+}
+
+private enum TabItem: CaseIterable {
+    case bookShelf
+    case readingHistory
+    case search
+    case analytics
+    case setting
+    
+    var tag: Int {
+        switch self {
+        case .bookShelf: return 0
+        case .readingHistory: return 1
+        case .search: return 2
+        case .analytics: return 3
+        case .setting: return 4
+        }
+    }
+    
+    var iconImage: Image {
+        switch self {
+        case .bookShelf: return Image.bookShelf
+        case .readingHistory: return Image.readingHistroy
+        case .search: return Image.search
+        case .analytics: return Image.analytics
+        case .setting: return Image.setting
+        }
+    }
+    
+    @ViewBuilder
+    var view: some View {
+        switch self {
+        case .bookShelf:
+            BookShelfView(
+                viewModel: BookShelfViewModel(
+                    coreDataManager: CoreDataManager.shared
+                )
+            )
+        case .readingHistory:
+            ReadingHistoryView(
+                viewModel: ReadingHistoryViewModel(
+                    coreDataManager: CoreDataManager.shared
+                )
+            )
+        case .search:
+            SearchView()
+        case .analytics:
+            AnalyticsView()
+        case .setting:
+            SettingView()
+        }
+    }
+    
+    
+    var navTitle: String {
+        switch self {
+        case .bookShelf: return ""
+        case .readingHistory: return "나의 독서 기록"
+        case .search: return "검색"
+        case .analytics: return "통계"
+        case .setting: return "설정"
+        }
     }
 }
 

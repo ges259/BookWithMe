@@ -9,7 +9,6 @@ import SwiftUI
 
 enum ReadingHistoryUI {
     static let columns = Array(repeating: GridItem(.flexible()), count: 3)
-    static let cornerRadius = 16
     
     static let pageSpacing: CGFloat = 20 // 페이지 사이 기본 간격
 }

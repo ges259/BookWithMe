@@ -6,6 +6,14 @@
 //
 
 import SwiftUI
+extension UIColor {
+    static let baseBackground: UIColor = UIColor(
+        red: 204,
+        green: 224,
+        blue: 255,
+        alpha: 1)
+}
+
 extension Color {
     /// 0~255 단위의 RGB 값으로 Color 생성
     static func fromRGB(

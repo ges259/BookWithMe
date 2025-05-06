@@ -17,18 +17,13 @@ struct BookCardView: View {
             .placeholder { Color.contentsBackground2 } // 로딩 중 placeholder
             .resizable()
             .scaledToFill()
-            .frame(width: BookShelfUI.cardSize.width,
-                   height: BookShelfUI.cardSize.height)
-            .cornerRadius(BookShelfUI.cornerRadius)
-            .shadow(
-                color: .black.opacity(0.1),
-                radius: BookShelfUI.shadowRadius,
-                x: 0,
-                y: BookShelfUI.shadowYOffset
-            )
-            .clipped() // `cornerRadius`와 함께 사용될 때 필수
+            .frame(width: BookShelfConstants.cardSize.width,
+                   height: BookShelfConstants.cardSize.height)
+            .defaultCornerRadius()
+            .defaultShadow()
     }
 }
+
 #Preview {
     BookCardView(imageURL: "")
 }
