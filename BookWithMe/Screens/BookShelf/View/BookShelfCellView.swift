@@ -24,10 +24,17 @@ struct BookShelfCellView: View {
     init(viewModel: BookShelfCellViewModel) {
         self.viewModel = viewModel
     }
-
+    
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             header
+            Button {
+                print(self.viewModel.bookArray)
+            } label: {
+                Text("뭐냐")
+            }
+
             horizontalBookScroll
         }
         .padding(.bottom, 5)
@@ -47,16 +54,8 @@ struct BookShelfCellView: View {
 // MARK: - Subviews
 private extension BookShelfCellView {
     var header: some View {
-        HStack {
-            Text(viewModel.title)
-                .font(.headline)
-                .foregroundStyle(.primary)
-            Spacer()
-            Image.chevronRight
-                .foregroundStyle(.gray)
-        }.padding(.top, BookShelfUI.headerTopPadding)
+        return HeaderTitleView(title: self.viewModel.title)
     }
-
     var horizontalBookScroll: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: BookShelfUI.horizontalSpacing) {
@@ -70,5 +69,5 @@ private extension BookShelfCellView {
 }
 
 #Preview {
-    BookShelfCellView(viewModel: BookShelfCellViewModel(readingStatus: .reading, bookHistoryArray: [Book.DUMMY_BOOK]))
+    BookShelfCellView(viewModel: BookShelfCellViewModel(readingStatus: .reading))
 }

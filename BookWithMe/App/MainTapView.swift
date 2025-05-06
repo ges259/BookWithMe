@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct MainTapView: View {
-    let bookShelfView = BookShelfView()
-    let readingHistoryView = ReadingHistoryView()
+    let bookShelfView = BookShelfView(
+        viewModel: BookShelfViewModel(
+            coreDataManager: CoreDataManager.shared)
+    )
+    let readingHistoryView = ReadingHistoryView(
+        viewModel: ReadingHistoryViewModel(
+            coreDataManager: CoreDataManager.shared)
+    )
     let searchView = SearchView()
     let analyticsView = AnalyticsView()
     let setttingView = SettingView()

@@ -7,32 +7,7 @@
 
 import Foundation
 
-enum ReadingStatus: String {
-    case recommended = "recommended"
-    case reading = "reading"
-    case completed = "completed"
-    case paused = "paused"
-    case wishlist = "wishlist"
-    case none = "none"
-    
-    var title: String {
-        switch self {
-        case .recommended:  return "이 책은 어때요?"
-        case .reading:      return "읽고 있어요"
-        case .completed:    return "다 읽었어요"
-        case .paused:       return "잠시 멈췄어요"
-        case .wishlist:     return "읽고 싶어요"
-        case .none:         return ""
-        }
-    }
-    static var orderedSections: [ReadingStatus] = [
-        .recommended,
-        .reading,
-        .completed,
-        .wishlist,
-        .paused
-    ]
-}
+
 
 struct BookHistory {
     let book: Book

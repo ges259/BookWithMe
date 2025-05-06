@@ -64,6 +64,7 @@ extension CoreDataManager {
     
     
     // MARK: - 날짜순 조회
+    ///
     func fetchBookHistory(
         from startDate: Date,
         to endDate: Date
@@ -85,6 +86,47 @@ extension CoreDataManager {
             return []
         }
     }
+    
+    func fetchRecentBookHistories(
+        until targetDate: Date
+    ) -> [BookHistoryEntity] {
+        let request: NSFetchRequest<BookHistoryEntity> = BookHistoryEntity.fetchRequest()
+        
+        // targetDate 이전(포함)인 데이터만 조회
+        request.predicate = NSPredicate(
+            format: "startDate <= %@",
+            targetDate as NSDate
+        )
+        
+        // 최근 날짜 순으로 정렬
+        request.sortDescriptors = [
+            NSSortDescriptor(key: "startDate", ascending: false)
+        ]
+        
+        // 최대 20개 제한
+        request.fetchLimit = 20
+
+        do {
+            let result = try context.fetch(request)
+            return result
+        } catch {
+            print("Error fetching recent BookHistories: \(error)")
+            return []
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     func fetchReviews(
         after date: Date
     ) -> [ReviewEntity] {

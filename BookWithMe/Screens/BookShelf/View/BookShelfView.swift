@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookShelfView: View {
     
-    let viewModel: BookShelfViewModel = BookShelfViewModel()
+    let viewModel: BookShelfViewModel
     
     var body: some View {
         NavigationStack {
@@ -26,7 +26,7 @@ struct BookShelfView: View {
 private extension BookShelfView {
     var lazyVStackView: some View {
         return ForEach(
-            self.viewModel.sections,
+            self.viewModel.sectionData,
             id: \.readingStatus
         ) { cellVM in
             BookShelfCellView(viewModel: cellVM)
@@ -35,5 +35,5 @@ private extension BookShelfView {
 }
 
 #Preview {
-    BookShelfView()
+    BookShelfView(viewModel: BookShelfViewModel(coreDataManager: CoreDataManager.shared))
 }

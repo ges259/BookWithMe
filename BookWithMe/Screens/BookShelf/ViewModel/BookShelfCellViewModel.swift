@@ -7,38 +7,23 @@
 
 import SwiftUI
 
+@Observable
 final class BookShelfCellViewModel {
     var readingStatus: ReadingStatus
     var bookArray: [Book] = []
     
     init(
-        readingStatus: ReadingStatus,
-        bookHistoryArray: [Book] = [
-            Book.DUMMY_BOOK,
-            Book.DUMMY_BOOK
-        ]
+        readingStatus: ReadingStatus
     ) {
         self.readingStatus = readingStatus
-        self.bookArray = bookHistoryArray
-        
-        
-        // MARK: - Fix
-        let random = Int.random(in: 0..<4)
-        for _ in 0...random {
-            self.bookArray.append(Book.DUMMY_BOOK)
-        }
     }
     
     var title: String {
         return self.readingStatus.title
     }
     
-    func imageUrl() -> String {
-        
-        return ""
+    
+    func updateBookArray(_ book: [Book]) {
+        self.bookArray.append(contentsOf: book)
     }
-    
-    
-    
-    
 }
