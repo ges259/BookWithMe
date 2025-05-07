@@ -22,8 +22,8 @@ struct BookShelfCellView: View {
     init(viewModel: BookShelfCellViewModel) {
         self.viewModel = viewModel
     }
-    
-    
+
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             header
@@ -43,12 +43,12 @@ private extension BookShelfCellView {
     var header: some View {
         return HeaderTitleView(title: self.viewModel.title)
     }
-    
     var horizontalBookScroll: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: BookShelfConstants.horizontalSpacing) {
                 ForEach(viewModel.bookArray, id: \.bookId) { book in
-                    BookCardView(imageURL: book.imageString)
+                    BookCardView(imageURL: book.imageString,
+                                 size: .small)
                 }
             }
             .padding(.vertical, 4)
@@ -59,3 +59,4 @@ private extension BookShelfCellView {
 #Preview {
     BookShelfCellView(viewModel: BookShelfCellViewModel(readingStatus: .reading))
 }
+

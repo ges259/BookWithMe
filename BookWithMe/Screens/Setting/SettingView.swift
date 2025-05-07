@@ -7,105 +7,82 @@
 
 import SwiftUI
 
+
 struct SettingView: View {
-    private var nickname = "홍길동"
-    private var image = "default_profile_image"
+    var viewModel: SettingViewModel
+    var nickname: String = "홍길동"
     
     var body: some View {
-        VStack(alignment: .leading){
-            List {
-                profileSettingsSection
-                    .listRowBackground(Color.contentsBackground1)
-                    .listRowSeparator(.hidden)
-                
-                accountSettingsSection
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.contentsBackground1)
+        ScrollView {
+            VStack(spacing: 20) {
+                sectionList()
             }
-//            .background(Color.blue) // 여기는 하면 안 됨
-
-            
-        }
-        .listStyle(.automatic)
-        .scrollContentBackground(.hidden)
-        .defaultShadow()
-        .defaultCornerRadius()
-    }
-    
-    
-    // MARK: - 프로필 설정 Section
-    private var profileSettingsSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("프로필 설정")
-                .font(.headline)
-            profileImageChangeRow
-            nicknameChangeRow
-        }
-        .padding()
-//        .background(Color.red)
-        .cornerRadius(12)
-    }
-    
-    private var profileImageChangeRow: some View {
-        HStack {
-            Text("이미지 변경")
-            Spacer()
-            Button(action: {
-                // 이미지 변경 액션
-            }) {
-                Image(systemName: "photo.fill")
-            }
-        }
-    }
-    
-    private var nicknameChangeRow: some View {
-        HStack {
-            Text("닉네임 변경")
-            Spacer()
-            Button(action: {
-                // 닉네임 변경 액션
-            }) {
-                Text(nickname)
-            }
-        }
-    }
-    
-    // MARK: - 계정설정 Section
-    private var accountSettingsSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("계정 설정")
-                .font(.headline)
-            logoutButton
-            accountDeleteButton
-        }
-        .padding()
-//        .background(Color.red)
-        .cornerRadius(12)
-    }
-    
-    private var logoutButton: some View {
-        Button(action: {
-            // 로그아웃 액션
-        }) {
-            HStack {
-                Text("로그아웃")
-                Spacer()
-            }
-        }
-    }
-    
-    private var accountDeleteButton: some View {
-        Button(action: {
-            // 회원탈퇴 액션
-        }) {
-            HStack {
-                Text("회원탈퇴")
-                Spacer()
-            }
+            .padding()
         }
     }
 }
 
-#Preview {
-    SettingView()
+private extension SettingView {
+    func sectionList() -> some View {
+        ForEach(viewModel.sections, id: \.self) { section in
+            sectionView(section)
+        }
+    }
+    
+    func sectionView(_ section: SettingSection) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(section.rawValue)
+                .frame(height: 35)
+                .font(.headline)
+            
+            // 섹션의 셀을 설정
+            ForEach(section.items, id: \.title) { item in
+                rowView(item)
+            }
+        }
+        .padding()
+        .background(Color.contentsBackground1)
+        .cornerRadius(16)
+        .defaultShadow()
+    }
+
+    func rowView(_ item: SettingItem) -> some View {
+        HStack {
+            Text(item.title)
+                .font(.system(size: 13))
+            Spacer()
+            Button(action: {
+                handleAction(for: item)
+            }) {
+                accessoryView(for: item)
+            }
+            .frame(height: 35)
+        }
+    }
+
+    // 액션 처리
+    func handleAction(for item: SettingItem) {
+        switch item {
+        case .changeImage:
+            print("이미지 변경")
+        case .changeNickname:
+            print("닉네임 변경")
+        case .logout:
+            print("로그아웃")
+        case .deleteAccount:
+            print("회원탈퇴")
+        }
+    }
+
+    // 액세서리 뷰 처리
+    func accessoryView(for item: SettingItem) -> some View {
+        switch item {
+        case .changeImage:
+            return AnyView(Image(systemName: "photo.fill"))
+        case .changeNickname:
+            return AnyView(Text(nickname)) // 실제 닉네임을 여기서 표시
+        default:
+            return AnyView(EmptyView())
+        }
+    }
 }

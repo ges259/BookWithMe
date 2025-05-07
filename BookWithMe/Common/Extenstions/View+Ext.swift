@@ -19,4 +19,18 @@ extension View {
     func defaultCornerRadius(_ radius: CGFloat = 16) -> some View {
         return self.clipShape(RoundedRectangle(cornerRadius: radius))
     }
+    
+    @ViewBuilder
+    func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
+        }
+    }
+    
+    func bookSize(_ type: BookCardSize) -> some View {
+        let size = type.bookSize
+        return self.frame(width: size.width, height: size.height)
+    }
 }

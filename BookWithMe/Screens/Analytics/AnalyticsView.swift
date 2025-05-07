@@ -16,3 +16,12 @@ struct AnalyticsView: View {
 #Preview {
     AnalyticsView()
 }
+
+
+//final class BookDataViewModel {
+final class BookDataViewModel {
+    var book: Book = Book.DUMMY_BOOK
+    init(book: Book) {
+        self.book = book
+    }
+}

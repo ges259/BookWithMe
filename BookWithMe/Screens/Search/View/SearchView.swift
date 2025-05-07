@@ -87,8 +87,8 @@ private extension SearchView {
         .defaultCornerRadius()
     }
     
-    func bookDummy() -> SearchCellView {
-        return SearchCellView(viewModel: SearchCellViewModel(book: Book.DUMMY_BOOK))
+    func bookDummy() -> BookDataHeaderView {
+        return BookDataHeaderView(book: Book.DUMMY_BOOK, size: .small, isShadow: false)
     }
 }
 

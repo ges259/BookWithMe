@@ -11,19 +11,19 @@ import Kingfisher
 // MARK: - Book Card View
 struct BookCardView: View {
     let imageURL: String
+    let size: BookCardSize
 
     var body: some View {
         KFImage(URL(string: imageURL))
             .placeholder { Color.contentsBackground2 } // 로딩 중 placeholder
             .resizable()
             .scaledToFill()
-            .frame(width: BookShelfConstants.cardSize.width,
-                   height: BookShelfConstants.cardSize.height)
+            .bookSize(self.size)
             .defaultCornerRadius()
             .defaultShadow()
     }
 }
 
 #Preview {
-    BookCardView(imageURL: "")
+    BookCardView(imageURL: "", size: .small)
 }

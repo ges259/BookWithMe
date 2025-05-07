@@ -74,7 +74,7 @@ private enum TabItem: CaseIterable {
         case .analytics:
             AnalyticsView()
         case .setting:
-            SettingView()
+            SettingView(viewModel: SettingViewModel())
         }
     }
     
