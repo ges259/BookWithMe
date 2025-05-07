@@ -20,20 +20,18 @@ struct ReadingHistoryView: View {
     init(viewModel: ReadingHistoryViewModel) {
         self.viewModel = viewModel
     }
-
+    
     var body: some View {
-        NavigationStack {
-            // 이전/다음 페이지가 살짝 보이는 페이징 뷰
-            PagingTabView(
-                // 현재 페이지 인덱스를 PagingTabView와 연결
-                currentPage: $currentPage,
-                // 페이지들 사이의 간격
-                spacing: ReadingHistoryUI.pageSpacing
-            ) {
-                // viewModel의 sectionData를 순회하면서 각 아이템에 대한 ReadingHistoryCellView를 만들고 AnyView로 감싸서 뷰 배열로 전달
-                viewModel.sectionData.map { cellVM in
-                    AnyView(ReadingHistoryCellView(viewModel: cellVM))
-                }
+        // 이전/다음 페이지가 살짝 보이는 페이징 뷰
+        PagingTabView(
+            // 현재 페이지 인덱스를 PagingTabView와 연결
+            currentPage: $currentPage,
+            // 페이지들 사이의 간격
+            spacing: ReadingHistoryUI.pageSpacing
+        ) {
+            // viewModel의 sectionData를 순회하면서 각 아이템에 대한 ReadingHistoryCellView를 만들고 AnyView로 감싸서 뷰 배열로 전달
+            viewModel.sectionData.map { cellVM in
+                AnyView(ReadingHistoryCellView(viewModel: cellVM))
             }
         }
     }

@@ -35,7 +35,7 @@ struct BookDataHeaderView: View {
         return VStack(alignment: .leading, spacing: 8) {
             Text(book.bookName)
                 .font(.system(size: self.size.titleSize,
-                              weight: .semibold))
+                              weight: .bold))
 
             Text(book.bookAuthor)
                 .font(.system(size: 12))

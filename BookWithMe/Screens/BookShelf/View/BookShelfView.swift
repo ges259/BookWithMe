@@ -12,11 +12,9 @@ struct BookShelfView: View {
     let viewModel: BookShelfViewModel
     
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                LazyVStack {
-                    self.lazyVStackView
-                }
+        ScrollView {
+            LazyVStack {
+                self.lazyVStackView
             }
         }
     }

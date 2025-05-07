@@ -17,22 +17,20 @@ private enum SearchViewConstants {
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     @FocusState private var isFocused: Bool
-
+    
     var body: some View {
-        NavigationStack {
-            
-            VStack {
-                searchBar
-                scrollView
-                Spacer()
-            }
-            .gesture(
-                SimultaneousGesture(
-                    TapGesture().onEnded { isFocused = false },
-                    DragGesture().onChanged { _ in if isFocused { isFocused = false } }
-                )
-            )
+        VStack {
+            searchBar
+            scrollView
+            Spacer()
         }
+        .gesture(
+            SimultaneousGesture(
+                TapGesture().onEnded { isFocused = false },
+                DragGesture().onChanged { _ in if isFocused { isFocused = false } }
+            )
+        )
+        
     }
 }
 

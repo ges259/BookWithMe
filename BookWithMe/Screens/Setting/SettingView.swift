@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct SettingView: View {
     var viewModel: SettingViewModel
     var nickname: String = "홍길동"
@@ -19,6 +18,7 @@ struct SettingView: View {
             }
             .padding()
         }
+        .scrollDisabled(true)
     }
 }
 

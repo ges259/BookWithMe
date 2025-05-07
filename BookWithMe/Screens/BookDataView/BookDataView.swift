@@ -15,6 +15,7 @@ struct BookDataView: View {
             self.scrollView
             self.bottomButton
         }
+        .ignoresSafeArea(.container, edges: .bottom)
         .background(Color.baseBackground)
     }
 }
@@ -61,9 +62,14 @@ private extension BookDataView {
         return Button {
             print("bottomButton_Tapped")
         } label: {
-            Text("나의 책장에 저장하긴")
+            Text("나의 책장에 저장하기")
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(.black)
         }
+        .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 120)
         .background(Color.baseButton)
+        .roundedTopCorners()
+        .defaultShadow()
     }
 }
 

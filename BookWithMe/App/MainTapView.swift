@@ -9,21 +9,24 @@ import SwiftUI
 
 struct MainTapView: View {
     var body: some View {
-        TabView {
-            ForEach(TabItem.allCases, id: \.tag) { tabItem in
-                NavigationStack {
+        NavigationStack {
+            TabView {
+                ForEach(TabItem.allCases, id: \.tag) { tabItem in
                     tabItem.view
                         .background(Color.baseBackground)
                         .navigationBarTitleDisplayMode(.inline)
+                        .tabItem {
+                            tabItem.iconImage
+                            Text(tabItem.navTitle.isEmpty ? " " : tabItem.navTitle)
+                        }
+                        .tag(tabItem.tag)
                         .navigationTitle(tabItem.navTitle)
+                    
                 }
-                .tabItem {
-                    tabItem.iconImage
-                }
-                .tag(tabItem.tag)
             }
+            .tint(Color.baseButton)
+            .foregroundColor(Color.black)
         }
-        .tint(Color.baseButton)
     }
 }
 

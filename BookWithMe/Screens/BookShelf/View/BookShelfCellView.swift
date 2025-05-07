@@ -45,13 +45,17 @@ private extension BookShelfCellView {
     }
     var horizontalBookScroll: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: BookShelfConstants.horizontalSpacing) {
-                ForEach(viewModel.bookArray, id: \.bookId) { book in
-                    BookCardView(imageURL: book.imageString,
-                                 size: .small)
+            NavigationLink {
+                BookDataView()
+            } label: {
+                LazyHStack(spacing: BookShelfConstants.horizontalSpacing) {
+                    ForEach(viewModel.bookArray, id: \.bookId) { book in
+                        BookCardView(imageURL: book.imageString,
+                                     size: .small)
+                    }
                 }
+                .padding(.vertical, 4)
             }
-            .padding(.vertical, 4)
         }
     }
 }

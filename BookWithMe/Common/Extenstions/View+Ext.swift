@@ -9,13 +9,13 @@ import SwiftUI
 
 extension View {
     func defaultShadow() -> some View {
-          self.shadow(
-              color: .black.opacity(0.1),
-              radius: 4,
-              x: 0,
-              y: 2
-          )
-      }
+        self.shadow(
+            color: .black.opacity(0.1),
+            radius: 4,
+            x: 0,
+            y: 2
+        )
+    }
     func defaultCornerRadius(_ radius: CGFloat = 16) -> some View {
         return self.clipShape(RoundedRectangle(cornerRadius: radius))
     }
@@ -32,5 +32,12 @@ extension View {
     func bookSize(_ type: BookCardSize) -> some View {
         let size = type.bookSize
         return self.frame(width: size.width, height: size.height)
+    }
+    
+    func roundedTopCorners(_ radius: CGFloat = 35) -> some View {
+        return self.clipShape(UnevenRoundedRectangle(
+            topLeadingRadius: radius,
+            topTrailingRadius: radius
+        ))
     }
 }
