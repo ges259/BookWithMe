@@ -22,6 +22,12 @@ extension Image {
     
     static let dummpyBookImage = Image("불편한편의점_표지")
     
+    
+    
+    static let starFill = Image(systemName: "star.fill")
+    static let starHalf = Image(systemName: "star.leadinghalf.filled")
+    static let starEmpty = Image(systemName: "star")
+    
 //    static let tap_plus_Img = Image(systemName: "plus.square")
 //    static let tap_reals_Img = Image(systemName: "movieclapper")
 //    static let tap_profile_Img = Image(systemName: "person.circle")

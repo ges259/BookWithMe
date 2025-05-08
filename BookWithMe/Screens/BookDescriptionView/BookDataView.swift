@@ -12,14 +12,21 @@ struct BookDataView: View {
 
     
     var body: some View {
-        VStack {
-            BookDescriptionView(viewModel: self.descriptionViewModel)
-            BookHistoryView()
+        VStack(spacing: 10) {
+            
+            BookDescriptionView(
+                viewModel: self.descriptionViewModel)
+            if !self.descriptionViewModel.isPreviewMode {
+                BookHistoryView(history: BookHistory.DUMMY_BOOKHISTORY)
+            }
+            Spacer()
             if self.descriptionViewModel.isPreviewMode {
                 self.bottomButton
             }
         }
         .ignoresSafeArea(.container, edges: .bottom)
+        .background(Color.baseBackground)
+        
     }
 }
 

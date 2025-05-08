@@ -34,9 +34,19 @@ extension View {
         return self.frame(width: size.width, height: size.height)
     }
     
-    func roundedTopCorners(_ radius: CGFloat = 35) -> some View {
+    func roundedTopCorners(
+        _ radius: CGFloat = 35
+    ) -> some View {
         return self.clipShape(UnevenRoundedRectangle(
             topLeadingRadius: radius,
+            topTrailingRadius: radius
+        ))
+    }
+    
+    func roundedTopTrailingCorners(
+        _ radius: CGFloat = 20
+    ) -> some View {
+        return self.clipShape(UnevenRoundedRectangle(
             topTrailingRadius: radius
         ))
     }

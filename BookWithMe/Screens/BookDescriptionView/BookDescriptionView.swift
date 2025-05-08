@@ -35,18 +35,15 @@ private extension BookDescriptionView {
                 if self.viewModel.isPreviewMode {
                     self.bottomVStack
                 }
-                Spacer()
+//                    Spacer()
             }
         }
+        .scrollDisabled(true)
         .fixedSize(horizontal: false, vertical: true)
         .background(Color.contentsBackground1)
         .defaultCornerRadius()
         .defaultShadow()
         .padding(.horizontal)
-        .frame(maxWidth: .infinity,
-               maxHeight: .infinity,
-               alignment: .top
-        )
     }
     
     var bookDataHeaderView: some View {
@@ -67,6 +64,7 @@ private extension BookDescriptionView {
                 .font(.caption)
         }
         .padding(.horizontal, 22)
+        .padding(.bottom, 25)
     }
 }
 

@@ -18,11 +18,6 @@ struct Review {
     let review_detail: String
     let tags: [String]
     let memorable_quotes: String
-    
-    //
-//    let status: ReadingStatus
-//    let startDate: Date
-//    let endDate: Date
 }
 extension Review {
     static var DUMMY_REVIEW: Review = Review(
@@ -36,3 +31,11 @@ extension Review {
         memorable_quotes: "memorable_quotes"
     )
 }
+
+/*(
+ 
+ BookHistory를 날짜순으로 가져옴
+ 내부의 Book데이터를 통해 화면의 Book을 띄움
+ 해당 Book을 누르면, 화면 전환 후 Review를 볼 수 있음
+ 
+ */

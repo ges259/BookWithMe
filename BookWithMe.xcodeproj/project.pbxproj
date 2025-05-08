@@ -10,6 +10,7 @@
 		5F06A9872DC8F31700C0664E /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F06A9862DC8F31700C0664E /* PersistenceManager.swift */; };
 		5F07D0632DCA003400401B04 /* FetchBookHistoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07D0622DCA003400401B04 /* FetchBookHistoryProtocol.swift */; };
 		5F07D0652DCA1C2900401B04 /* ReadingHistoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07D0642DCA1C2900401B04 /* ReadingHistoryCellView.swift */; };
+		5F25AE0E2DCD2D5100C89B89 /* BookInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F25AE0D2DCD2D5100C89B89 /* BookInfoRow.swift */; };
 		5F437A382DCA52D600610056 /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F437A372DCA52D600610056 /* View+Ext.swift */; };
 		5F6B91B72DCCCA1D00D6C54A /* BookDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6B91B62DCCCA1D00D6C54A /* BookDataViewModel.swift */; };
 		5F6B91B92DCCE76900D6C54A /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6B91B82DCCE76900D6C54A /* TabItem.swift */; };
@@ -64,6 +65,7 @@
 		5F06A9862DC8F31700C0664E /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		5F07D0622DCA003400401B04 /* FetchBookHistoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchBookHistoryProtocol.swift; sourceTree = "<group>"; };
 		5F07D0642DCA1C2900401B04 /* ReadingHistoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingHistoryCellView.swift; sourceTree = "<group>"; };
+		5F25AE0D2DCD2D5100C89B89 /* BookInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoRow.swift; sourceTree = "<group>"; };
 		5F437A372DCA52D600610056 /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 		5F6B91B62DCCCA1D00D6C54A /* BookDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDataViewModel.swift; sourceTree = "<group>"; };
 		5F6B91B82DCCE76900D6C54A /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				5FABF21C2DCB4849000CAA61 /* BookDataHeaderView.swift */,
 				5FABF21E2DCB57D1000CAA61 /* BookCardSize.swift */,
 				5F6B91B82DCCE76900D6C54A /* TabItem.swift */,
+				5F25AE0D2DCD2D5100C89B89 /* BookInfoRow.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				5FAF4BB52DC9E0C600F6BF62 /* BookHistoryEntity+CoreDataProperties.swift in Sources */,
 				5FD9BDBC2DC9F90000568A58 /* ReadingStatus.swift in Sources */,
 				5F6B91BB2DCCEEA100D6C54A /* BookDataView.swift in Sources */,
+				5F25AE0E2DCD2D5100C89B89 /* BookInfoRow.swift in Sources */,
 				5FAF4BB62DC9E0C600F6BF62 /* ReviewEntity+CoreDataClass.swift in Sources */,
 				5FAF4BB72DC9E0C600F6BF62 /* ReviewEntity+CoreDataProperties.swift in Sources */,
 				5FAF4BB82DC9E0C600F6BF62 /* BookEntity+CoreDataClass.swift in Sources */,

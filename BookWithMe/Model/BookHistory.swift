@@ -11,6 +11,7 @@ import Foundation
 
 struct BookHistory {
     let book: Book
+    let review: Review? = nil
     
     let userId: String
     let bookId: String
