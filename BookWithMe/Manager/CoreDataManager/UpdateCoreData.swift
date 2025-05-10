@@ -16,8 +16,8 @@ extension CoreDataManager {
         newImagePath: String
     ) {
         if let book = fetchBook(by: bookId) {
-            book.bookName = newBookName
-            book.imagePath = newImagePath
+            book.title = newBookName
+            book.imageURL = newImagePath
             
             do {
                 try context.save()

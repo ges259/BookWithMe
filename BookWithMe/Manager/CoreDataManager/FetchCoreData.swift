@@ -80,6 +80,10 @@ extension CoreDataManager {
         
         do {
             let result = try context.fetch(request)
+            print("_________fetchBookHistory_________")
+            dump(result)
+            print("__________________________________")
+            
             return result
         } catch {
             print("Error fetching BookHistory by date: \(error)")

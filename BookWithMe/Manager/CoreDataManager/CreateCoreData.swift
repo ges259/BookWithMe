@@ -24,8 +24,8 @@ extension CoreDataManager {
     ) -> BookEntity? {
         let book = BookEntity(context: context)
         book.bookId = bookId
-        book.bookName = bookName
-        book.imagePath = imagePath
+        book.title = bookName
+        book.imageURL = imagePath
         
         do {
             try context.save()  // 데이터를 저장
@@ -40,21 +40,17 @@ extension CoreDataManager {
     // BookHistory 생성
     func createBookHistory(
         book: BookEntity,
-        bookId: String,
-        userId: String,
         status: String,
         startDate: Date,
         endDate: Date
     ) {
         let bookHistory = BookHistoryEntity(context: context)
-        bookHistory.bookId = bookId
-        bookHistory.userId = userId
         bookHistory.status = status
         bookHistory.startDate = startDate
         bookHistory.endDate = endDate
         
         // Book과 BookHistory
-        bookHistory.relationship = book
+        bookHistory.book = book
         
         do {
             try context.save()
@@ -63,23 +59,23 @@ extension CoreDataManager {
         }
     }
     
-    // Review 생성
     func createReview(
         book: BookEntity,
+        bookHistory: BookHistoryEntity,
         bookId: String,
-        userId: String,
         reviewSummary: String,
         reviewDetail: String
     ) {
         let review = ReviewEntity(context: context)
         review.bookId = bookId
-        review.userId = userId
         review.reviewSummary = reviewSummary
         review.reviewDetail = reviewDetail
-        review.createdAt = Date()  // 현재 시간으로 설정
-        
-        review.relationship = book
-        
+        review.updatedAt = Date()
+        review.book = book  // Book 관계 연결
+
+        // ✅ BookHistory에도 연결
+        bookHistory.review = review
+
         do {
             try context.save()
         } catch {

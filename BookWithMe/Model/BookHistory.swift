@@ -7,14 +7,9 @@
 
 import Foundation
 
-
-
 struct BookHistory {
-    let book: Book
-    let review: Review? = nil
-    
-    let userId: String
-    let bookId: String
+    var book: Book
+    var review: Review?
     
     let status: ReadingStatus
     let startDate: Date
@@ -23,8 +18,7 @@ struct BookHistory {
 extension BookHistory {
     static var DUMMY_BOOKHISTORY: BookHistory = BookHistory(
         book: Book.DUMMY_BOOK, 
-        userId: "userId",
-        bookId: "bookId",
+        review: Review.DUMMY_REVIEW,
         status: .reading,
         startDate: Date(),
         endDate: Date()

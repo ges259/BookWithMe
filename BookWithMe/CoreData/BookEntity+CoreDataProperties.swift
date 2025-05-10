@@ -2,7 +2,7 @@
 //  BookEntity+CoreDataProperties.swift
 //  BookWithMe
 //
-//  Created by 계은성 on 5/6/25.
+//  Created by 계은성 on 5/9/25.
 //
 //
 
@@ -17,8 +17,11 @@ extension BookEntity {
     }
 
     @NSManaged public var bookId: String?
-    @NSManaged public var bookName: String?
-    @NSManaged public var imagePath: String?
+    @NSManaged public var title: String?
+    @NSManaged public var imageURL: String?
+    @NSManaged public var publisher: String?
+    @NSManaged public var bookDescription: String?
+    @NSManaged public var author: String?
 
 }
 

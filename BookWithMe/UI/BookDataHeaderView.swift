@@ -20,7 +20,7 @@ struct BookDataHeaderView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
-            BookCardView(imageURL: book.imageString, size: self.size)
+            BookCardView(imageURL: book.imageURL, size: self.size)
             self.rightVStack
             Spacer()
         }
@@ -33,11 +33,11 @@ struct BookDataHeaderView: View {
     
     private var rightVStack: some View {
         return VStack(alignment: .leading, spacing: 8) {
-            Text(book.bookName)
+            Text(book.title)
                 .font(.system(size: self.size.titleSize,
                               weight: .bold))
 
-            Text(book.bookAuthor)
+            Text(book.author)
                 .font(.system(size: 12))
                 .foregroundColor(.gray)
             

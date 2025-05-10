@@ -51,8 +51,8 @@ private extension BookShelfCellView {
                 BookDataView()
             } label: {
                 LazyHStack(spacing: BookShelfConstants.horizontalSpacing) {
-                    ForEach(viewModel.bookArray, id: \.bookId) { book in
-                        BookCardView(imageURL: book.imageString,
+                    ForEach(viewModel.bookArray, id: \.id) { book in
+                        BookCardView(imageURL: book.imageURL,
                                      size: .small)
                     }
                 }

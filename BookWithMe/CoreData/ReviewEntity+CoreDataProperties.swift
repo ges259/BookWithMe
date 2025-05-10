@@ -2,7 +2,7 @@
 //  ReviewEntity+CoreDataProperties.swift
 //  BookWithMe
 //
-//  Created by 계은성 on 5/6/25.
+//  Created by 계은성 on 5/9/25.
 //
 //
 
@@ -17,14 +17,13 @@ extension ReviewEntity {
     }
 
     @NSManaged public var bookId: String?
-    @NSManaged public var createdAt: Date?
+    @NSManaged public var updatedAt: Date?
     @NSManaged public var memorableQuotes: String?
     @NSManaged public var rating: Int16
     @NSManaged public var reviewDetail: String?
     @NSManaged public var reviewSummary: String?
     @NSManaged public var tags: String?
-    @NSManaged public var userId: String?
-    @NSManaged public var relationship: BookEntity?
+    @NSManaged public var book: BookEntity?
 
 }
 

@@ -2,7 +2,7 @@
 //  BookHistoryEntity+CoreDataProperties.swift
 //  BookWithMe
 //
-//  Created by 계은성 on 5/6/25.
+//  Created by 계은성 on 5/9/25.
 //
 //
 
@@ -16,12 +16,11 @@ extension BookHistoryEntity {
         return NSFetchRequest<BookHistoryEntity>(entityName: "BookHistoryEntity")
     }
 
-    @NSManaged public var bookId: String?
     @NSManaged public var endDate: Date?
     @NSManaged public var startDate: Date?
     @NSManaged public var status: String?
-    @NSManaged public var userId: String?
-    @NSManaged public var relationship: BookEntity?
+    @NSManaged public var book: BookEntity?
+    @NSManaged public var review: ReviewEntity?
 
 }
 

@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct Review {
-    let bookId: String
-    let userId: String
-    
+    let bookid: String
     // 리뷰
-    let created_at: Date
+    let updated_at: Date
     let rating: Int
     let review_summary: String
     let review_detail: String
@@ -21,9 +19,8 @@ struct Review {
 }
 extension Review {
     static var DUMMY_REVIEW: Review = Review(
-        bookId: "bookId",
-        userId: "userId",
-        created_at: Date(),
+        bookid: "bookId",
+        updated_at: Date(),
         rating: 0,
         review_summary: "review_summary",
         review_detail: "review_detail",

@@ -7,12 +7,22 @@
 
 import Foundation
 
-enum BookInfoRow: CaseIterable, Identifiable {
+enum BookInfoRow: Identifiable {
     case status
     case period
     case rating
     case summary
     case tags
+    
+    
+    case description
+    case none
+    
+    
+    static var allCases: [BookInfoRow] {
+        return [.status, .period, .rating, .summary, .tags
+        ]
+    }
     
     var id: Self { self }
     
@@ -23,6 +33,7 @@ enum BookInfoRow: CaseIterable, Identifiable {
         case .rating: return "평점"
         case .summary: return "한줄평"
         case .tags: return "태그"
+        default: return ""
         }
     }
     
@@ -33,6 +44,7 @@ enum BookInfoRow: CaseIterable, Identifiable {
         case .rating: return "star.fill"
         case .summary: return "quote.bubble"
         case .tags: return "tag"
+        default: return ""
         }
     }
 }

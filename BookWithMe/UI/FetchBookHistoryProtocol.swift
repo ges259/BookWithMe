@@ -91,7 +91,7 @@ extension FetchBookHistoryProtocol {
     ) -> [Book] {
         let bookArray = filteredBookHistory.compactMap { bookHistory in
             // BookEntity를 Book으로 변환하여 반환
-            return convertToBook(from: bookHistory.relationship)
+            return convertToBook(from: bookHistory.book)
         }
         return bookArray
     }

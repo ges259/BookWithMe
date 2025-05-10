@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct Book {
-    let imageString: String
-    let bookId: String
-    let bookName: String
-    let bookAuthor: String
+    let imageURL: String
+    let id: String
+    let title: String
+    let author: String
     let publisher: String
     let description: String
 }
@@ -19,10 +19,10 @@ struct Book {
 extension Book {
     static func fromEntity(_ entity: BookEntity) -> Book {
         return Book(
-            imageString: entity.imagePath ?? "",
-            bookId: entity.bookId ?? "",
-            bookName: entity.bookName ?? "",
-            bookAuthor: "김호연",
+            imageURL: entity.imageURL ?? "",
+            id: entity.bookId ?? "",
+            title: entity.title ?? "",
+            author: "김호연",
             publisher: "나무옆의자",
             description:
     """
@@ -34,10 +34,10 @@ extension Book {
 
 extension Book {
     static var DUMMY_BOOK: Book = Book(
-        imageString: "불편한편의점_표지",
-        bookId: "9791161571331",
-        bookName: "불편한 편의점",
-        bookAuthor: "김호연",
+        imageURL: "불편한편의점_표지",
+        id: "9791161571331",
+        title: "불편한 편의점",
+        author: "김호연",
         publisher: "나무옆의자",
         description:
 """
