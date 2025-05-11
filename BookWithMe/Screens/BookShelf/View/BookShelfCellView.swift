@@ -26,7 +26,7 @@ struct BookShelfCellView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            header
+            headerView
             horizontalBookScroll
         }
         .padding(.top, 12)
@@ -41,7 +41,7 @@ struct BookShelfCellView: View {
 
 // MARK: - Subviews
 private extension BookShelfCellView {
-    var header: some View {
+    var headerView: some View {
         return HeaderTitleView(
             title: self.viewModel.title,
             appFont: .bookShelfCell)

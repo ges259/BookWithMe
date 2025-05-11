@@ -14,9 +14,9 @@ struct ReadingHistoryCellView: View {
     
     var body: some View {
         VStack {
-            self.header
+            self.headerView
             ScrollView {
-                self.lazyVGrid
+                self.lazyVGridView
             }
         }
         .padding(.horizontal)
@@ -26,14 +26,14 @@ struct ReadingHistoryCellView: View {
 }
 
 private extension ReadingHistoryCellView {
-    var header: some View {
+    var headerView: some View {
         HeaderTitleView(
             title: self.viewModel.title,
             appFont: .readingHistorySectionTitle,
             showChevron: false)
     }
     
-    var lazyVGrid: some View {
+    var lazyVGridView: some View {
         return LazyVGrid(
             columns: ReadingHistoryUI.columns,
             alignment: .leading,

@@ -7,8 +7,13 @@
 
 import SwiftUI
 import BottomSheet
+import HorizonCalendar
 
 struct BookDataView: View {
+    @State var startDate: Date? = Date()
+    @State var endDate: Date? = nil
+    
+    
     @State var viewModel: BookDataViewModel = BookDataViewModel(book: Book.DUMMY_BOOK)
 
     private let labelWidth: CGFloat = 60
@@ -73,7 +78,6 @@ private extension BookDataView {
         return VStack(spacing: 0) {
             // 헤더
             self.header
- 
             //
             ForEach(self.viewModel.allCases) { row in
                 HStack(alignment: .top, spacing: 20) {
@@ -97,7 +101,6 @@ private extension BookDataView {
             appFont: .bookDataTitle,
             showChevron: false
         )
-        .frame(height: 70)
         .padding(.horizontal)
     }
     
@@ -156,13 +159,16 @@ private extension BookDataView {
         case .status:
             HistoryStatusView()
         case .period:
-            TestView()
+            HistoryTermView(
+                startDate: $startDate,
+                endDate: $endDate,
+                selectionMode: .end)
         case .rating:
-            TestView()
+            TestView2()
         case .summary:
-            TestView()
+            TestView2()
         case .tags:
-            TestView()
+            TestView2()
         case .description:
             let viewModel: BookDataViewModel = BookDataViewModel(
                 book: Book.DUMMY_BOOK,
@@ -172,9 +178,10 @@ private extension BookDataView {
                 viewModel: viewModel
             )
         default:
-            TestView()
+            TestView2()
         }
     }
+    
 }
 
 
@@ -184,7 +191,7 @@ private extension BookDataView {
 
 
 
-struct TestView: View {
+struct TestView2: View {
     var body: some View {
         Text("Test View")
     }

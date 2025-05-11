@@ -35,6 +35,7 @@
 		5FAF4BBC2DC9E5F500F6BF62 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5FAF4BBB2DC9E5F500F6BF62 /* Kingfisher */; };
 		5FAF4BBF2DC9EC7F00F6BF62 /* BookCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAF4BBE2DC9EC7F00F6BF62 /* BookCardView.swift */; };
 		5FB85A762DCA5E12003DF6FC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB85A752DCA5E12003DF6FC /* SearchViewModel.swift */; };
+		5FCE61812DD0BE6800B3280B /* HorizonCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 5FCE61802DD0BE6800B3280B /* HorizonCalendar */; };
 		5FD0BF4D2DCF8B5400E3CA35 /* HistoryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF4C2DCF8B5400E3CA35 /* HistoryStatusView.swift */; };
 		5FD0BF4F2DCF8B6C00E3CA35 /* HistoryTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF4E2DCF8B6C00E3CA35 /* HistoryTermView.swift */; };
 		5FD0BF512DCF8B7700E3CA35 /* HistoryRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF502DCF8B7700E3CA35 /* HistoryRatingView.swift */; };
@@ -133,6 +134,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FAF4BBC2DC9E5F500F6BF62 /* Kingfisher in Frameworks */,
+				5FCE61812DD0BE6800B3280B /* HorizonCalendar in Frameworks */,
 				5F331B4C2DCE44A80061E046 /* BottomSheet in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,6 +440,7 @@
 			packageProductDependencies = (
 				5FAF4BBB2DC9E5F500F6BF62 /* Kingfisher */,
 				5F331B4B2DCE44A80061E046 /* BottomSheet */,
+				5FCE61802DD0BE6800B3280B /* HorizonCalendar */,
 			);
 			productName = BookWithMe;
 			productReference = 5F86504F2DC798BC00784088 /* BookWithMe.app */;
@@ -470,6 +473,7 @@
 			packageReferences = (
 				5FAF4BBA2DC9E5F500F6BF62 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				5F331B4A2DCE44A80061E046 /* XCRemoteSwiftPackageReference "BottomSheet" */,
+				5FCE617F2DD0BE6800B3280B /* XCRemoteSwiftPackageReference "HorizonCalendar" */,
 			);
 			productRefGroup = 5F8650502DC798BC00784088 /* Products */;
 			projectDirPath = "";
@@ -774,6 +778,14 @@
 				minimumVersion = 8.3.2;
 			};
 		};
+		5FCE617F2DD0BE6800B3280B /* XCRemoteSwiftPackageReference "HorizonCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/HorizonCalendar.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -786,6 +798,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5FAF4BBA2DC9E5F500F6BF62 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		5FCE61802DD0BE6800B3280B /* HorizonCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5FCE617F2DD0BE6800B3280B /* XCRemoteSwiftPackageReference "HorizonCalendar" */;
+			productName = HorizonCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -31,9 +31,6 @@ private extension HistoryStatusView {
             showChevron: false,
             alignment: .center
         )
-        .frame(maxWidth: .infinity)
-        .background(Color.contentsBackground1)
-        .defaultCornerRadius()
     }
     
     var lazyVGridView: some View {

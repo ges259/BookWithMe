@@ -38,7 +38,10 @@ struct HeaderTitleView: View {
                     .foregroundStyle(.black)
             }
         }
+        .frame(maxWidth: .infinity)
         .padding(.vertical, 15)
+        .background(Color.contentsBackground1)
+        .defaultCornerRadius()
     }
 }
 

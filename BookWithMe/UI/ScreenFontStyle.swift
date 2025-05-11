@@ -15,6 +15,8 @@ enum AppFontStyle {
     case readingHistorySectionTitle
     
     case historyHeaderViewFont
+    case historyTermHeader
+    
 
     var font: Font {
         switch self {
@@ -28,7 +30,8 @@ enum AppFontStyle {
             return .system(size: 14)
         case .readingHistorySectionTitle: 
             return .system(size: 18, weight: .medium)
-        case .historyHeaderViewFont:
+        case .historyHeaderViewFont,
+                .historyTermHeader:
             return .system(size: 17)
         }
     }
