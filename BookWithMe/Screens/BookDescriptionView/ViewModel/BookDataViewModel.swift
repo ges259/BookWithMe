@@ -11,8 +11,9 @@ import BottomSheet
 enum ViewModeType {
     case preview
     case edit
-    case detail
+//    case detail
 }
+
 
 @Observable
 final class BookDataViewModel {
@@ -21,8 +22,9 @@ final class BookDataViewModel {
     
     /// BookDescriptionView + 하단 버튼
     var descriptionMode: ViewModeType = .preview
-    var isPreviewMode: Bool {
-        return self.descriptionMode == .preview
+    
+    var isEditMode: Bool {
+        return self.descriptionMode == .edit
     }
     
     
@@ -47,16 +49,10 @@ final class BookDataViewModel {
     }
     
     
-    func descriptionModeToggle() {
-        descriptionMode = descriptionMode == .preview 
-        ? .edit
-        : .preview
+    func turnToEditMode() {
+        self.descriptionMode = .edit
     }
     
-    
-    var initDescriptionMode: ViewModeType {
-        return .preview
-    }
     
     
     

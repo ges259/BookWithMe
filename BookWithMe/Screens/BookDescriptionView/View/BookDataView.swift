@@ -11,10 +11,7 @@ import BottomSheet
 struct BookDataView: View {
     @State var viewModel: BookDataViewModel = BookDataViewModel(book: Book.DUMMY_BOOK)
 
-    
     private let labelWidth: CGFloat = 60
-    
-    
     
     var body: some View {
         VStack(spacing: 10) {
@@ -23,13 +20,14 @@ struct BookDataView: View {
             
             // 프리뷰 모드가 아닐 때,
             // 중간의 '나의 기록' 화면
-            if !self.viewModel.isPreviewMode {
+            if self.viewModel.isEditMode {
                 self.bodyVStack
             }
+            
             Spacer()
             // 프리뷰 모드일 때,
             // 하단의 '하단 버튼'
-            if self.viewModel.isPreviewMode {
+            if !self.viewModel.isEditMode {
                 self.bottomButton
             }
         }
@@ -39,8 +37,12 @@ struct BookDataView: View {
             bottomSheetPosition: self.$viewModel.sheetState,
             switchablePositions: [.hidden, .dynamic]
         ) {
-            self.moveToBookHistory
-                .padding(.bottom, 100)
+            
+            self.moveToBottomSheet
+                .safeAreaPadding(.bottom)
+                .bottomSheetGesture {
+                    self.viewModel.sheetState = .hidden
+                }
         }
         .dragIndicatorColor(Color.white)
         .customBackground(Color.baseButton.cornerRadius(30))
@@ -59,7 +61,7 @@ private extension BookDataView {
     var bookDescriptionView: some View {
         return BookDescriptionView(
             book: Book.DUMMY_BOOK,
-            descriptionMode: self.viewModel.initDescriptionMode
+            viewModel: self.viewModel
         )
         .onTapGesture {
             self.viewModel.updateSheetState(row: .description)
@@ -71,6 +73,7 @@ private extension BookDataView {
         return VStack(spacing: 0) {
             // 헤더
             self.header
+ 
             //
             ForEach(self.viewModel.allCases) { row in
                 HStack(alignment: .top, spacing: 20) {
@@ -89,13 +92,12 @@ private extension BookDataView {
         .padding(.horizontal)
     }
     var header: some View {
-        return HStack {
-            Text("나의 기록")
-                .font(.title2)
-                .frame(height: 70)
-            Spacer()
-            Image.chevronRight
-        }
+        return HeaderTitleView(
+            title: "나의 기록",
+            appFont: .bookDataTitle,
+            showChevron: false
+        )
+        .frame(height: 70)
         .padding(.horizontal)
     }
     
@@ -108,9 +110,8 @@ private extension BookDataView {
             .background(Color.contentsBackground2)
             .font(.subheadline)
             .foregroundColor(.black)
-            .if(row == .status) { view in
-                view.roundedTopTrailingCorners()
-            }
+            .if(row == .status) { $0.roundedTopTrailingCorners() }
+        
     }
     func detailText(_ row: BookInfoRow) -> some View {
         return Text(self.viewModel.value(for: row))
@@ -127,7 +128,7 @@ private extension BookDataView {
         return Button {
             print("bottomButton_Tapped")
             
-            self.viewModel.descriptionModeToggle()
+            self.viewModel.turnToEditMode()
         } label: {
             Text("나의 책장에 저장하기")
                 .font(.system(size: 20, weight: .semibold))
@@ -150,10 +151,10 @@ private extension BookDataView {
 // MARK: - 화면 이동
 private extension BookDataView {
     @ViewBuilder
-    var moveToBookHistory: some View {
+    var moveToBottomSheet: some View {
         switch self.viewModel.selectedRow {
         case .status:
-            TestView()
+            HistoryStatusView()
         case .period:
             TestView()
         case .rating:
@@ -163,15 +164,26 @@ private extension BookDataView {
         case .tags:
             TestView()
         case .description:
+            let viewModel: BookDataViewModel = BookDataViewModel(
+                book: Book.DUMMY_BOOK,
+                history: BookHistory.DUMMY_BOOKHISTORY)
             BookDescriptionView(
                 book: Book.DUMMY_BOOK,
-                descriptionMode: .detail
+                viewModel: viewModel
             )
         default:
             TestView()
         }
     }
 }
+
+
+
+
+
+
+
+
 struct TestView: View {
     var body: some View {
         Text("Test View")

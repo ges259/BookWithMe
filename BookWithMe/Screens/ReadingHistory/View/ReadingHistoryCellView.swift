@@ -27,7 +27,10 @@ struct ReadingHistoryCellView: View {
 
 private extension ReadingHistoryCellView {
     var header: some View {
-        HeaderTitleView(title: self.viewModel.title, showChevron: false)
+        HeaderTitleView(
+            title: self.viewModel.title,
+            appFont: .readingHistorySectionTitle,
+            showChevron: false)
     }
     
     var lazyVGrid: some View {

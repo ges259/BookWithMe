@@ -17,6 +17,10 @@ enum ReadingStatus: String {
     case all = "all"
     case none = "none"
     
+    static var historyStatus: [ReadingStatus] {
+        return [.reading, .completed, .wishlist, .paused]
+    }
+    
     var title: String {
         switch self {
         case .recommended:  return "이 책은 어때요?"

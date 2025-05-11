@@ -35,6 +35,12 @@
 		5FAF4BBC2DC9E5F500F6BF62 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5FAF4BBB2DC9E5F500F6BF62 /* Kingfisher */; };
 		5FAF4BBF2DC9EC7F00F6BF62 /* BookCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAF4BBE2DC9EC7F00F6BF62 /* BookCardView.swift */; };
 		5FB85A762DCA5E12003DF6FC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB85A752DCA5E12003DF6FC /* SearchViewModel.swift */; };
+		5FD0BF4D2DCF8B5400E3CA35 /* HistoryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF4C2DCF8B5400E3CA35 /* HistoryStatusView.swift */; };
+		5FD0BF4F2DCF8B6C00E3CA35 /* HistoryTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF4E2DCF8B6C00E3CA35 /* HistoryTermView.swift */; };
+		5FD0BF512DCF8B7700E3CA35 /* HistoryRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF502DCF8B7700E3CA35 /* HistoryRatingView.swift */; };
+		5FD0BF532DCF8B7F00E3CA35 /* HistoryTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF522DCF8B7F00E3CA35 /* HistoryTagView.swift */; };
+		5FD0BF552DCF987300E3CA35 /* ScreenFontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF542DCF987300E3CA35 /* ScreenFontStyle.swift */; };
+		5FD0BF572DD06BBA00E3CA35 /* HeaderAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF562DD06BBA00E3CA35 /* HeaderAlignment.swift */; };
 		5FD9BDB82DC9F0F600568A58 /* HeaderTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD9BDB72DC9F0F600568A58 /* HeaderTitleView.swift */; };
 		5FD9BDBA2DC9F28000568A58 /* ReadingHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD9BDB92DC9F28000568A58 /* ReadingHistoryViewModel.swift */; };
 		5FD9BDBC2DC9F90000568A58 /* ReadingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD9BDBB2DC9F90000568A58 /* ReadingStatus.swift */; };
@@ -89,6 +95,12 @@
 		5FAF4BAC2DC90DB500F6BF62 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		5FAF4BBE2DC9EC7F00F6BF62 /* BookCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCardView.swift; sourceTree = "<group>"; };
 		5FB85A752DCA5E12003DF6FC /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		5FD0BF4C2DCF8B5400E3CA35 /* HistoryStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStatusView.swift; sourceTree = "<group>"; };
+		5FD0BF4E2DCF8B6C00E3CA35 /* HistoryTermView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTermView.swift; sourceTree = "<group>"; };
+		5FD0BF502DCF8B7700E3CA35 /* HistoryRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRatingView.swift; sourceTree = "<group>"; };
+		5FD0BF522DCF8B7F00E3CA35 /* HistoryTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTagView.swift; sourceTree = "<group>"; };
+		5FD0BF542DCF987300E3CA35 /* ScreenFontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenFontStyle.swift; sourceTree = "<group>"; };
+		5FD0BF562DD06BBA00E3CA35 /* HeaderAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderAlignment.swift; sourceTree = "<group>"; };
 		5FD9BDB72DC9F0F600568A58 /* HeaderTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleView.swift; sourceTree = "<group>"; };
 		5FD9BDB92DC9F28000568A58 /* ReadingHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingHistoryViewModel.swift; sourceTree = "<group>"; };
 		5FD9BDBB2DC9F90000568A58 /* ReadingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingStatus.swift; sourceTree = "<group>"; };
@@ -283,6 +295,8 @@
 				5FABF21E2DCB57D1000CAA61 /* BookCardSize.swift */,
 				5F6B91B82DCCE76900D6C54A /* TabItem.swift */,
 				5F25AE0D2DCD2D5100C89B89 /* BookInfoRow.swift */,
+				5FD0BF542DCF987300E3CA35 /* ScreenFontStyle.swift */,
+				5FD0BF562DD06BBA00E3CA35 /* HeaderAlignment.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -389,6 +403,10 @@
 			children = (
 				5F6B91BA2DCCEEA100D6C54A /* BookDataView.swift */,
 				5FABF2212DCB7E87000CAA61 /* BookDescriptionView.swift */,
+				5FD0BF4C2DCF8B5400E3CA35 /* HistoryStatusView.swift */,
+				5FD0BF4E2DCF8B6C00E3CA35 /* HistoryTermView.swift */,
+				5FD0BF502DCF8B7700E3CA35 /* HistoryRatingView.swift */,
+				5FD0BF522DCF8B7F00E3CA35 /* HistoryTagView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -482,10 +500,12 @@
 				5FABF21B2DCB41F1000CAA61 /* SettingViewModel.swift in Sources */,
 				5FE499D72DC8C53B009AC510 /* User.swift in Sources */,
 				5FE499C52DC8899A009AC510 /* SearchView.swift in Sources */,
+				5FD0BF4D2DCF8B5400E3CA35 /* HistoryStatusView.swift in Sources */,
 				5FD9BDBC2DC9F90000568A58 /* ReadingStatus.swift in Sources */,
 				5F6B91BB2DCCEEA100D6C54A /* BookDataView.swift in Sources */,
 				5F25AE0E2DCD2D5100C89B89 /* BookInfoRow.swift in Sources */,
 				5F6B91B72DCCCA1D00D6C54A /* BookDataViewModel.swift in Sources */,
+				5FD0BF572DD06BBA00E3CA35 /* HeaderAlignment.swift in Sources */,
 				5FABF2192DCB3D02000CAA61 /* SettingSection.swift in Sources */,
 				5F93FDBC2DC8E51700EC2E9E /* CoreData.xcdatamodeld in Sources */,
 				5F07D0652DCA1C2900401B04 /* ReadingHistoryCellView.swift in Sources */,
@@ -498,6 +518,7 @@
 				5F8650552DC798BC00784088 /* ContentView.swift in Sources */,
 				5FB85A762DCA5E12003DF6FC /* SearchViewModel.swift in Sources */,
 				5FABF2222DCB7E87000CAA61 /* BookDescriptionView.swift in Sources */,
+				5FD0BF532DCF8B7F00E3CA35 /* HistoryTagView.swift in Sources */,
 				5FAF4BAD2DC90DB500F6BF62 /* Date+Ext.swift in Sources */,
 				5FAF4BA92DC9064500F6BF62 /* UpdateCoreData.swift in Sources */,
 				5FE499C92DC889A9009AC510 /* SettingView.swift in Sources */,
@@ -508,8 +529,10 @@
 				5F6B91B92DCCE76900D6C54A /* TabItem.swift in Sources */,
 				5FE499D92DC8C549009AC510 /* Review.swift in Sources */,
 				5FD9BDB82DC9F0F600568A58 /* HeaderTitleView.swift in Sources */,
+				5FD0BF512DCF8B7700E3CA35 /* HistoryRatingView.swift in Sources */,
 				5FE499C32DC88993009AC510 /* ReadingHistoryView.swift in Sources */,
 				5F06A9872DC8F31700C0664E /* PersistenceManager.swift in Sources */,
+				5FD0BF552DCF987300E3CA35 /* ScreenFontStyle.swift in Sources */,
 				5FF8E13F2DCA412D00B7F87E /* PagingTabView.swift in Sources */,
 				5F8650532DC798BC00784088 /* BookWithMeApp.swift in Sources */,
 				5F437A382DCA52D600610056 /* View+Ext.swift in Sources */,
@@ -519,6 +542,7 @@
 				5FFB20ED2DCDD77500A4B689 /* BookHistoryEntity+CoreDataClass.swift in Sources */,
 				5FFB20EE2DCDD77500A4B689 /* BookHistoryEntity+CoreDataProperties.swift in Sources */,
 				5FFB20EF2DCDD77500A4B689 /* ReviewEntity+CoreDataClass.swift in Sources */,
+				5FD0BF4F2DCF8B6C00E3CA35 /* HistoryTermView.swift in Sources */,
 				5FFB20F02DCDD77500A4B689 /* ReviewEntity+CoreDataProperties.swift in Sources */,
 				5FABF21F2DCB57D1000CAA61 /* BookCardSize.swift in Sources */,
 				5FE499DB2DC8C7EF009AC510 /* BookHistory.swift in Sources */,

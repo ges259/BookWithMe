@@ -10,7 +10,7 @@ import SwiftUI
 struct BookDescriptionView: View {
     
     let book: Book
-    @State var descriptionMode: ViewModeType
+    @State var viewModel: BookDataViewModel
     
     
     var body: some View {
@@ -18,8 +18,7 @@ struct BookDescriptionView: View {
             ScrollView {
                 VStack(spacing: 12){
                     self.bookDataHeaderView
-                    
-                    if self.isShowinigBottomVStack {
+                    if !self.viewModel.isEditMode {
                         self.bottomVStack
                     }
                 }
@@ -30,7 +29,7 @@ struct BookDescriptionView: View {
             .defaultCornerRadius()
             .defaultShadow()
         }
-        .background(self.isbaseButtonColor)
+        .background(Color.clear)
         .padding(.horizontal)
     }
 }
@@ -58,25 +57,14 @@ private extension BookDescriptionView {
     }
 }
 
-
-// MARK: - UI 계산
-private extension BookDescriptionView {
-    var isShowinigBottomVStack: Bool {
-        return descriptionMode == .detail || descriptionMode == .preview
-    }
-    
-    var isbaseButtonColor: Color {
-        return self.descriptionMode == .detail
-        ? Color.baseButton
-        : Color.baseBackground
-    }
-    
-}
-
 #Preview {
-    BookDescriptionView(
+    let viewModel: BookDataViewModel = BookDataViewModel(
         book: Book.DUMMY_BOOK,
-        descriptionMode: .preview
+        history: BookHistory.DUMMY_BOOKHISTORY)
+    
+    return BookDescriptionView(
+        book: Book.DUMMY_BOOK,
+        viewModel: viewModel
     )
 }
 
@@ -99,3 +87,4 @@ private extension BookDescriptionView {
     ]
  
  */
+

@@ -9,31 +9,47 @@ import SwiftUI
 
 struct HeaderTitleView: View {
     let title: String
-    let showChevron: Bool  // chevron 이미지 표시 여부
+    let appFont: AppFontStyle
+    let showChevron: Bool
+    let alignment: HeaderAlignment
     
     init(
         title: String,
-        showChevron: Bool = true
+        appFont: AppFontStyle,
+        showChevron: Bool = true,
+        alignment: HeaderAlignment = .leading
     ) {
         self.title = title
+        self.appFont = appFont
         self.showChevron = showChevron
+        self.alignment = alignment
     }
-    
+
     var body: some View {
         HStack {
-            Text(self.title)
-                .font(.headline)
+            Text(title)
+                .appFont(appFont)
                 .foregroundStyle(.primary)
-            Spacer()
-            // chevron 이미지의 true여부에 따라 설정
-            if self.showChevron {
+            
+            if alignment == .leading { Spacer() }
+
+            if showChevron {
                 Image.chevronRight
                     .foregroundStyle(.black)
             }
-        }.padding(.top, BookShelfConstants.headerTopPadding)
+        }
+        .padding(.vertical, 15)
     }
 }
 
+
+
+
+
+
 #Preview {
-    HeaderTitleView(title: "HeaderTitleView")
+    HeaderTitleView(
+        title: "HeaderTitleView",
+        appFont: .bookShelfCell
+    )
 }
