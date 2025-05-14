@@ -16,8 +16,9 @@ struct BookDescriptionView: View {
     var body: some View {
         VStack {
             ScrollView {
-                VStack(spacing: 12){
+                VStack(alignment: .leading, spacing: 12){
                     self.bookDataHeaderView
+                    
                     if !self.viewModel.isEditMode {
                         self.bottomVStack
                     }
@@ -36,7 +37,7 @@ struct BookDescriptionView: View {
     
 // MARK: - UI
 private extension BookDescriptionView {
-    private var bookDataHeaderView: some View {
+    var bookDataHeaderView: some View {
         BookDataHeaderView(
             book: book,
             size: .medium,
@@ -45,7 +46,7 @@ private extension BookDescriptionView {
         .padding(.horizontal, -16)
     }
 
-    private var bottomVStack: some View {
+    var bottomVStack: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("책 소개")
                 .font(.title2)

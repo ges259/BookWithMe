@@ -25,7 +25,7 @@ enum AppFontStyle {
         case .bookShelfCell: 
             return .system(size: 16)
         case .bookDataTitle: 
-            return .system(size: 20, weight: .semibold)
+            return .system(size: 22, weight: .semibold)
         case .bookDataContent:
             return .system(size: 14)
         case .readingHistorySectionTitle: 

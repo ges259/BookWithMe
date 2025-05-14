@@ -43,13 +43,13 @@ struct BookDataView: View {
             bottomSheetPosition: self.$viewModel.sheetState,
             switchablePositions: [.hidden, .dynamic]
         ) {
-            
             self.moveToBottomSheet
                 .safeAreaPadding(.bottom)
                 .bottomSheetGesture {
                     self.viewModel.sheetState = .hidden
                 }
         }
+        .customAnimation(self.viewModel.selectedRow == .summary ? nil : .default)
         .dragIndicatorColor(Color.white)
         .customBackground(Color.baseButton.cornerRadius(30))
         .enableSwipeToDismiss()
@@ -78,7 +78,7 @@ private extension BookDataView {
     var bodyVStack: some View {
         return VStack(spacing: 0) {
             // 헤더
-            self.header
+            self.headerView
             //
             ForEach(self.viewModel.allCases) { row in
                 HStack(alignment: .top, spacing: 20) {
@@ -96,13 +96,13 @@ private extension BookDataView {
         .defaultShadow()
         .padding(.horizontal)
     }
-    var header: some View {
+    var headerView: some View {
         return HeaderTitleView(
             title: "나의 기록",
             appFont: .bookDataTitle,
             showChevron: false
         )
-        .padding(.horizontal)
+        .padding()
     }
     
     func rowTitle(_ row: BookInfoRow) -> some View {
@@ -114,7 +114,7 @@ private extension BookDataView {
             .background(Color.contentsBackground2)
             .font(.subheadline)
             .foregroundColor(.black)
-            .if(row == .status) { $0.roundedTopTrailingCorners() }
+            .if(row == .status) { $0.defaultCornerRadius(corners: .topTrailing) }
         
     }
     func detailText(_ row: BookInfoRow) -> some View {
@@ -140,8 +140,9 @@ private extension BookDataView {
         }
         .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 120)
         .background(Color.baseButton)
-        .roundedTopCorners()
+        .defaultCornerRadius(corners: .top, 35)
         .defaultShadow()
+        
         .transition(.move(edge: .bottom))
     }
 }
@@ -172,7 +173,7 @@ private extension BookDataView {
         case .rating:
             HistoryRatingView()
         case .summary:
-            TestView2()
+            HistoryTextFieldView()
         case .tags:
             TestView2()
         case .description:

@@ -29,7 +29,7 @@ struct HistoryTermView: View {
 private extension HistoryTermView {
 
     var headerView: some View {
-        HeaderTitleView(
+        return HeaderTitleView(
             title: "\(self.selectionMode.dateSelectionLabel)을 선택해 주세요",
             appFont: .historyTermHeader,
             alignment: .center

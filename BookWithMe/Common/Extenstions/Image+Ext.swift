@@ -28,7 +28,5 @@ extension Image {
     static let starHalf = Image(systemName: "star.leadinghalf.filled")
     static let starEmpty = Image(systemName: "star")
     
-//    static let tap_plus_Img = Image(systemName: "plus.square")
-//    static let tap_reals_Img = Image(systemName: "movieclapper")
-//    static let tap_profile_Img = Image(systemName: "person.circle")
+    static let send = Image(systemName: "arrow.right.circle.fill")
 }

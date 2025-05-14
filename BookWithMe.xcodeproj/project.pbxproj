@@ -45,6 +45,7 @@
 		5FAF4BBC2DC9E5F500F6BF62 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5FAF4BBB2DC9E5F500F6BF62 /* Kingfisher */; };
 		5FAF4BBF2DC9EC7F00F6BF62 /* BookCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAF4BBE2DC9EC7F00F6BF62 /* BookCardView.swift */; };
 		5FB85A762DCA5E12003DF6FC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB85A752DCA5E12003DF6FC /* SearchViewModel.swift */; };
+		5FBF46122DD49398008E29D4 /* HistoryTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF46112DD49398008E29D4 /* HistoryTextFieldView.swift */; };
 		5FCE61812DD0BE6800B3280B /* HorizonCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 5FCE61802DD0BE6800B3280B /* HorizonCalendar */; };
 		5FD0BF4D2DCF8B5400E3CA35 /* HistoryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF4C2DCF8B5400E3CA35 /* HistoryStatusView.swift */; };
 		5FD0BF4F2DCF8B6C00E3CA35 /* HistoryTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF4E2DCF8B6C00E3CA35 /* HistoryTermView.swift */; };
@@ -111,6 +112,7 @@
 		5FAF4BAC2DC90DB500F6BF62 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		5FAF4BBE2DC9EC7F00F6BF62 /* BookCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCardView.swift; sourceTree = "<group>"; };
 		5FB85A752DCA5E12003DF6FC /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		5FBF46112DD49398008E29D4 /* HistoryTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTextFieldView.swift; sourceTree = "<group>"; };
 		5FD0BF4C2DCF8B5400E3CA35 /* HistoryStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStatusView.swift; sourceTree = "<group>"; };
 		5FD0BF4E2DCF8B6C00E3CA35 /* HistoryTermView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTermView.swift; sourceTree = "<group>"; };
 		5FD0BF502DCF8B7700E3CA35 /* HistoryRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRatingView.swift; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 				5FD0BF4C2DCF8B5400E3CA35 /* HistoryStatusView.swift */,
 				5FD0BF4E2DCF8B6C00E3CA35 /* HistoryTermView.swift */,
 				5FD0BF502DCF8B7700E3CA35 /* HistoryRatingView.swift */,
+				5FBF46112DD49398008E29D4 /* HistoryTextFieldView.swift */,
 				5FD0BF522DCF8B7F00E3CA35 /* HistoryTagView.swift */,
 			);
 			path = View;
@@ -517,6 +520,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FD8E3032DD482AE0058ED94 /* BottomButtonView.swift in Sources */,
+				5FBF46122DD49398008E29D4 /* HistoryTextFieldView.swift in Sources */,
 				5FABF21B2DCB41F1000CAA61 /* SettingViewModel.swift in Sources */,
 				5FE499D72DC8C53B009AC510 /* User.swift in Sources */,
 				5FE499C52DC8899A009AC510 /* SearchView.swift in Sources */,
