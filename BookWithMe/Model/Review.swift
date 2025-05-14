@@ -9,12 +9,12 @@ import SwiftUI
 
 struct Review {
     let id: String
-    let updatedat: Date
-    let rating: Int
-    let summary: String?
-    let detail: String?
-    let tags: [String]?
-    let memorableQuotes: String?
+    var updatedat: Date
+    var rating: Double?
+    var summary: String?
+    var detail: String?
+    var tags: [String]?
+    var memorableQuotes: String?
     
     let user: User                // To-One 관계 (Required)
     // bookHistory는 필요하다면 이 구조에 추가 가능

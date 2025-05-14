@@ -16,7 +16,7 @@ struct HistoryRatingView: View {
     }
     
     // 현재 선택된 별점 값을 저장할 State 변수 (0부터 5까지, 0.5 단위 값으로)
-    @State private var rating: Double = 0
+    @Binding var rating: Double
 
     var body: some View {
         VStack(spacing: 10) {

@@ -2,7 +2,7 @@
 //  UserEntity+CoreDataProperties.swift
 //  BookWithMe
 //
-//  Created by 계은성 on 5/14/25.
+//  Created by 계은성 on 5/15/25.
 //
 //
 
@@ -16,9 +16,9 @@ extension UserEntity {
         return NSFetchRequest<UserEntity>(entityName: "UserEntity")
     }
 
-    @NSManaged public var userId: String?
-    @NSManaged public var name: String?
     @NSManaged public var imageURL: String?
+    @NSManaged public var name: String?
+    @NSManaged public var userId: String?
     @NSManaged public var reviews: NSOrderedSet?
 
 }

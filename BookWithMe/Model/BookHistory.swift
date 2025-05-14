@@ -8,16 +8,16 @@
 import Foundation
 
 struct BookHistory {
-    let status: ReadingStatus
-    let startDate: Date?
-    let endDate: Date?
-    let review: Review?
+    var status: ReadingStatus
+    var startDate: Date?
+    var endDate: Date?
+    var review: Review?
 
 
-    init(review: Review? = nil,
-         status: ReadingStatus = .none,
-         startDate: Date?,
-         endDate: Date?
+    init(status: ReadingStatus = .none,
+         startDate: Date? = nil,
+         endDate: Date? = nil,
+         review: Review? = nil
     ) {
         self.review = review
         self.status = status
@@ -27,27 +27,10 @@ struct BookHistory {
 }
 extension BookHistory {
     static var DUMMY_BOOKHISTORY: BookHistory = BookHistory(
-        review: Review.DUMMY_REVIEW,
         status: .reading,
         startDate: Date(),
-        endDate: Date()
+        endDate: Date(),
+        review: Review.DUMMY_REVIEW
     )
-}
-struct History {
-    let book: Book
     
-    let userId: String
-    let bookId: String
-    
-    // 상태
-    let status: ReadingStatus
-    let startDate: Date
-    let endDate: Date
-    
-    // 리뷰
-    let rating: Int
-    let review_summary: String
-    let review_detail: String
-    let tags: [String]
-    let memorable_quotes: String
 }

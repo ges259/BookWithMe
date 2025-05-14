@@ -8,8 +8,9 @@
 import SwiftUI
 // 한줄평 입력하는 메인 뷰
 struct HistoryTextFieldView: View {
-    // 입력 중인 텍스트
-    @State private var text: String = ""
+    // 입력 중인 텍스트(나중에 바인딩 해야함)
+    @Binding var text: String
+    
     // 텍스트필드 포커스 상태
     @FocusState private var isTextFieldFocused: Bool
     
@@ -29,8 +30,8 @@ struct HistoryTextFieldView: View {
                     // 다음 버튼
                     self.nextButton
                 }
-                .background(Color.contentsBackground1) // 아래쪽 배경
-                .defaultCornerRadius(corners: .bottom) // 아래쪽만 둥글게
+                .background(Color.contentsBackground1)
+                .defaultCornerRadius(corners: .bottom)
             }
         }
         // 뷰 들어올 때 키보드 올림

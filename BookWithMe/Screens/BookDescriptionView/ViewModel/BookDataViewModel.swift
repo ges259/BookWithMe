@@ -17,10 +17,10 @@ enum ViewModeType {
 @Observable
 final class BookDataViewModel {
     var book: Book?
-    var history: BookHistory? {
+    var history: BookHistory {
         didSet {
             // history가 변경될 때마다 필요한 동작을 추가할 수 있음
-            print("History updated: \(String(describing: history))")
+            dump("History updated: \(String(describing: history))")
         }
     }
     
@@ -44,6 +44,7 @@ final class BookDataViewModel {
     
     init(book: Book) {
         self.book = book
+        self.history = .DUMMY_BOOKHISTORY
         // MARK: - Fix
         // Book과 BookHistory가 같이 있는데, 나중에 리팩토링 필요
     }
@@ -66,7 +67,7 @@ final class BookDataViewModel {
     
     /// BookHistory모델에 따른 값을 리턴
     func value(for row: BookInfoRow) -> String {
-        guard let history else { return "" }
+//        guard let history else { return "" }
         
         switch row {
         case .status:

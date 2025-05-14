@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HistoryStatusView: View {
-    @State private var selectedIndex: ReadingStatus? = nil
+    @Binding var selectedStatus: ReadingStatus
     let items: [ReadingStatus] = ReadingStatus.historyStatus
     
     
@@ -41,7 +41,7 @@ private extension HistoryStatusView {
         ) {
             ForEach(items.indices, id: \.self) { index in
                 let status = items[index]
-                let isSelected = selectedIndex == status
+                let isSelected = selectedStatus == status
                 
                 Text(status.title)
                     .frame(maxWidth: .infinity, minHeight: 100)
@@ -50,11 +50,11 @@ private extension HistoryStatusView {
                                 : Color.contentsBackground1)
                     .foregroundColor(.black)
                     .onTapGesture {
-                        selectedIndex = status
+                        selectedStatus = status
                     }
             }
         }
-        .defaultCornerRadius(16)
+        .defaultCornerRadius()
     }
     
     
@@ -66,6 +66,6 @@ private extension HistoryStatusView {
 }
 
 
-#Preview {
-    HistoryStatusView()
-}
+//#Preview {
+//    HistoryStatusView()
+//}

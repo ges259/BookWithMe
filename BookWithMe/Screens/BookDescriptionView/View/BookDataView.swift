@@ -155,25 +155,38 @@ private extension BookDataView {
 
 // MARK: - 화면 이동
 private extension BookDataView {
+    
     @ViewBuilder
     var moveToBottomSheet: some View {
         switch self.viewModel.selectedRow {
         case .status:
-            HistoryStatusView()
+            HistoryStatusView(selectedStatus: $viewModel.history.status)
         case .startDate:
             HistoryTermView(
-                startDate: $startDate,
-                endDate: $endDate,
-                selectionMode: .end)
+                startDate: $viewModel.history.startDate,
+                endDate: $viewModel.history.endDate,
+                selectionMode: .start)
         case .endDate:
             HistoryTermView(
-                startDate: $startDate,
-                endDate: $endDate,
+                startDate: $viewModel.history.startDate,
+                endDate: $viewModel.history.endDate,
                 selectionMode: .end)
+            
         case .rating:
-            HistoryRatingView()
+                HistoryRatingView(
+                    rating: Binding(
+                        get: { viewModel.history.review?.rating ?? 0 },
+                        set: { viewModel.history.review?.rating = $0}
+                    )
+                )
+            
         case .summary:
-            HistoryTextFieldView()
+            HistoryTextFieldView(
+                text: Binding(
+                    get: { viewModel.history.review?.summary ?? "" },
+                    set: { viewModel.history.review?.summary = $0 }
+                )
+            )
         case .tags:
             TestView2()
         case .description:
@@ -188,8 +201,6 @@ private extension BookDataView {
         }
     }
 }
-
-
 
 
 
