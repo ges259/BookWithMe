@@ -24,8 +24,13 @@ extension CoreDataManager {
     ) -> BookEntity? {
         let book = BookEntity(context: context)
         book.bookId = bookId
+        
         book.title = bookName
-        book.imageURL = imagePath
+        book.publisher = imagePath
+        book.imageURL = "imageURL"
+        book.bookDescription = "bookDescription"
+        book.author = "author"
+        
         
         do {
             try context.save()  // 데이터를 저장

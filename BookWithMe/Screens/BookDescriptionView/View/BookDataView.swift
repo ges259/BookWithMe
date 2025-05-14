@@ -170,7 +170,7 @@ private extension BookDataView {
                 endDate: $endDate,
                 selectionMode: .end)
         case .rating:
-            TestView2()
+            HistoryRatingView()
         case .summary:
             TestView2()
         case .tags:

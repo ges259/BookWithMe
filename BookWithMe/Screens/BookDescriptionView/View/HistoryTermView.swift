@@ -48,15 +48,9 @@ private extension HistoryTermView {
     }
     
     var bottomButtonView: some View {
-        return Button {
-            print("bottomButton")
-        } label: {
-            Text("저장하기")
-                .frame(maxWidth: .infinity, maxHeight: 50)
-                .foregroundStyle(Color.black)
-                .contentShape(Rectangle()) // 터치 영역 확장
+        return BottomButtonView(title: "저장하기") {
+            print("HistoryTermView_bottomButton")
         }
-        .background(Color.contentsBackground1)
     }
     
     var selectedDateText: some View {
