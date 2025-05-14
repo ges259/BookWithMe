@@ -1,5 +1,5 @@
 //
-//  BookEntity+CoreDataClass.swift
+//  UserEntity+CoreDataClass.swift
 //  BookWithMe
 //
 //  Created by 계은성 on 5/14/25.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-
-public class BookEntity: NSManagedObject {
+@objc(UserEntity)
+public class UserEntity: NSManagedObject {
 
 }

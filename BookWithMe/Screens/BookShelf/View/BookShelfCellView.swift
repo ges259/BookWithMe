@@ -51,11 +51,11 @@ private extension BookShelfCellView {
             NavigationLink {
                 // MARK: - Fix
 //                BookDescriptionView(viewModel: BookDescriptionViewModel(book: Book.DUMMY_BOOK))
-                BookDataView()
+                BookDataView(viewModel: BookDataViewModel(book: Book.DUMMY_BOOK))
             } label: {
                 LazyHStack(spacing: BookShelfConstants.horizontalSpacing) {
                     ForEach(viewModel.bookArray, id: \.id) { book in
-                        BookCardView(imageURL: book.imageURL,
+                        BookCardView(imageURL: book.imageURL ?? "",
                                      size: .small)
                     }
                 }

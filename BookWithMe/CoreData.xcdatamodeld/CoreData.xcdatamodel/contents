@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="BookEntity" representedClassName=".BookEntity" syncable="YES">
-        <attribute name="author" optional="YES" attributeType="String"/>
-        <attribute name="bookDescription" optional="YES" attributeType="String"/>
+        <attribute name="author" attributeType="String"/>
+        <attribute name="bookDescription" attributeType="String"/>
         <attribute name="bookId" attributeType="String"/>
         <attribute name="imageURL" optional="YES" attributeType="String"/>
-        <attribute name="publisher" optional="YES" attributeType="String"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="publisher" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="bookHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BookHistoryEntity" inverseName="book" inverseEntity="BookHistoryEntity"/>
     </entity>
     <entity name="BookHistoryEntity" representedClassName=".BookHistoryEntity" syncable="YES">
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="status" optional="YES" attributeType="String"/>
-        <relationship name="book" maxCount="1" deletionRule="Nullify" destinationEntity="BookEntity"/>
-        <relationship name="review" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ReviewEntity"/>
+        <attribute name="startDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="status" attributeType="String"/>
+        <relationship name="book" maxCount="1" deletionRule="Nullify" destinationEntity="BookEntity" inverseName="bookHistory" inverseEntity="BookEntity"/>
+        <relationship name="review" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ReviewEntity" inverseName="bookHistory" inverseEntity="ReviewEntity"/>
     </entity>
     <entity name="ReviewEntity" representedClassName=".ReviewEntity" syncable="YES">
-        <attribute name="bookId" optional="YES" attributeType="String"/>
+        <attribute name="bookId" attributeType="String"/>
         <attribute name="memorableQuotes" optional="YES" attributeType="String"/>
-        <attribute name="rating" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rating" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="reviewDetail" optional="YES" attributeType="String"/>
         <attribute name="reviewSummary" optional="YES" attributeType="String"/>
         <attribute name="tags" optional="YES" attributeType="String"/>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="book" maxCount="1" deletionRule="Nullify" destinationEntity="BookEntity"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="bookHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BookHistoryEntity" inverseName="review" inverseEntity="BookHistoryEntity"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="reviews" inverseEntity="UserEntity"/>
+    </entity>
+    <entity name="UserEntity" representedClassName="UserEntity" syncable="YES">
+        <attribute name="imageURL" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="userId" attributeType="String"/>
+        <relationship name="reviews" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ReviewEntity" inverseName="user" inverseEntity="ReviewEntity"/>
     </entity>
 </model>

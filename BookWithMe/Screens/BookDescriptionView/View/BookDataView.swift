@@ -14,7 +14,8 @@ struct BookDataView: View {
     @State var endDate: Date? = nil
     
     
-    @State var viewModel: BookDataViewModel = BookDataViewModel(book: Book.DUMMY_BOOK)
+    @State var viewModel: BookDataViewModel
+    
 
     private let labelWidth: CGFloat = 60
     
@@ -158,7 +159,12 @@ private extension BookDataView {
         switch self.viewModel.selectedRow {
         case .status:
             HistoryStatusView()
-        case .period:
+        case .startDate:
+            HistoryTermView(
+                startDate: $startDate,
+                endDate: $endDate,
+                selectionMode: .end)
+        case .endDate:
             HistoryTermView(
                 startDate: $startDate,
                 endDate: $endDate,
@@ -171,8 +177,7 @@ private extension BookDataView {
             TestView2()
         case .description:
             let viewModel: BookDataViewModel = BookDataViewModel(
-                book: Book.DUMMY_BOOK,
-                history: BookHistory.DUMMY_BOOKHISTORY)
+                book: Book.DUMMY_BOOK)
             BookDescriptionView(
                 book: Book.DUMMY_BOOK,
                 viewModel: viewModel
@@ -181,7 +186,6 @@ private extension BookDataView {
             TestView2()
         }
     }
-    
 }
 
 
@@ -198,5 +202,7 @@ struct TestView2: View {
 }
 
 #Preview {
-    BookDataView()
+    BookDataView(viewModel: BookDataViewModel(
+        book: Book.DUMMY_BOOK)
+    )
 }

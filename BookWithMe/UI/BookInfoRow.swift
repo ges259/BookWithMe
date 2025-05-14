@@ -9,7 +9,8 @@ import Foundation
 
 enum BookInfoRow: Identifiable {
     case status
-    case period
+    case startDate
+    case endDate
     case rating
     case summary
     case tags
@@ -20,7 +21,7 @@ enum BookInfoRow: Identifiable {
     
     
     static var allCases: [BookInfoRow] {
-        return [.status, .period, .rating, .summary, .tags
+        return [.status, .startDate, .endDate, .rating, .summary, .tags
         ]
     }
     
@@ -29,7 +30,8 @@ enum BookInfoRow: Identifiable {
     var title: String {
         switch self {
         case .status: return "독서 상태"
-        case .period: return "독서 기간"
+        case .startDate: return "시작일"
+        case .endDate: return "종료일"
         case .rating: return "평점"
         case .summary: return "한줄평"
         case .tags: return "태그"
@@ -40,7 +42,8 @@ enum BookInfoRow: Identifiable {
     var iconName: String {
         switch self {
         case .status: return "book"
-        case .period: return "calendar"
+        case .startDate: return "calendar"
+        case .endDate: return "calendar"
         case .rating: return "star.fill"
         case .summary: return "quote.bubble"
         case .tags: return "tag"

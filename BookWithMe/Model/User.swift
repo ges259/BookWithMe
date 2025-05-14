@@ -9,15 +9,15 @@ import SwiftUI
 
 struct User {
     let userId: String
+    let name: String
     let userImage: String
-    let nickname: String
 }
 
 extension User {
     static var DUMMY_USER: User = User(
         userId: "dummy_userId",
-        userImage: "person.crop.circle",
-        nickname: "dummy_Nickname"
+        name: "dummy_Nickname",
+        userImage: "person.crop.circle"
     )
 }
 

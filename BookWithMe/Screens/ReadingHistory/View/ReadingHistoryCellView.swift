@@ -40,7 +40,7 @@ private extension ReadingHistoryCellView {
             spacing: 20
         ) {
             ForEach(viewModel.bookArray, id: \.id) { book in
-                BookCardView(imageURL: book.imageURL, size: .small)
+                BookCardView(imageURL: book.imageURL ?? "", size: .small)
             }
         }
     }

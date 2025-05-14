@@ -60,7 +60,6 @@ extension CoreDataManager {
     }
     
     func createReview(
-        book: BookEntity,
         bookHistory: BookHistoryEntity,
         bookId: String,
         reviewSummary: String,
@@ -71,7 +70,8 @@ extension CoreDataManager {
         review.reviewSummary = reviewSummary
         review.reviewDetail = reviewDetail
         review.updatedAt = Date()
-        review.book = book  // Book 관계 연결
+        
+        review.bookHistory = bookHistory  // Book 관계 연결
 
         // ✅ BookHistory에도 연결
         bookHistory.review = review

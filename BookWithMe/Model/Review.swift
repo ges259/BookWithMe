@@ -8,24 +8,27 @@
 import SwiftUI
 
 struct Review {
-    let bookid: String
-    // 리뷰
-    let updated_at: Date
+    let id: String
+    let updatedat: Date
     let rating: Int
-    let review_summary: String
-    let review_detail: String
-    let tags: [String]
-    let memorable_quotes: String
+    let summary: String?
+    let detail: String?
+    let tags: [String]?
+    let memorableQuotes: String?
+    
+    let user: User                // To-One 관계 (Required)
+    // bookHistory는 필요하다면 이 구조에 추가 가능
 }
 extension Review {
     static var DUMMY_REVIEW: Review = Review(
-        bookid: "bookId",
-        updated_at: Date(),
+        id: "bookId",
+        updatedat: Date(),
         rating: 0,
-        review_summary: "review_summary",
-        review_detail: "review_detail",
+        summary: "review_summary",
+        detail: "review_detail",
         tags: ["tag1", "tag2", "tag3"],
-        memorable_quotes: "memorable_quotes"
+        memorableQuotes: "memorable_quotes", 
+        user: User.DUMMY_USER
     )
 }
 

@@ -11,14 +11,18 @@ import BottomSheet
 enum ViewModeType {
     case preview
     case edit
-//    case detail
 }
 
 
 @Observable
 final class BookDataViewModel {
     var book: Book?
-    var history: BookHistory?
+    var history: BookHistory? {
+        didSet {
+            // history가 변경될 때마다 필요한 동작을 추가할 수 있음
+            print("History updated: \(String(describing: history))")
+        }
+    }
     
     /// BookDescriptionView + 하단 버튼
     var descriptionMode: ViewModeType = .preview
@@ -38,12 +42,8 @@ final class BookDataViewModel {
     
     
     
-    init(book: Book? = nil,
-         history: BookHistory? = nil
-    ) {
+    init(book: Book) {
         self.book = book
-        self.history = history
-        
         // MARK: - Fix
         // Book과 BookHistory가 같이 있는데, 나중에 리팩토링 필요
     }
@@ -71,21 +71,24 @@ final class BookDataViewModel {
         switch row {
         case .status:
             return history.status.rawValue
-        case .period:
+        case .startDate:
+            return "\(formatted(history.startDate)) ~ \(formatted(history.endDate))"
+        case .endDate:
             return "\(formatted(history.startDate)) ~ \(formatted(history.endDate))"
         case .rating:
             return history.review.map { "\($0.rating)점" } ?? "-"
         case .summary:
-            return history.review?.review_summary ?? "-"
+            return history.review?.summary ?? "-"
         case .tags:
-            return history.review?.tags.joined(separator: ", ") ?? "-"
+            return history.review?.tags?.joined(separator: ", ") ?? "-"
         default:
             return ""
         }
     }
 
     /// 날짜 포멧
-    private func formatted(_ date: Date) -> String {
+    private func formatted(_ date: Date?) -> String {
+        guard let date else { return "" }
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         return formatter.string(from: date)

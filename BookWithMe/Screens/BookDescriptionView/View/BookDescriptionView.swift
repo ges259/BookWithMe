@@ -59,8 +59,7 @@ private extension BookDescriptionView {
 
 #Preview {
     let viewModel: BookDataViewModel = BookDataViewModel(
-        book: Book.DUMMY_BOOK,
-        history: BookHistory.DUMMY_BOOKHISTORY)
+        book: Book.DUMMY_BOOK)
     
     return BookDescriptionView(
         book: Book.DUMMY_BOOK,

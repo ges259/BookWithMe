@@ -20,7 +20,7 @@ struct BookDataHeaderView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
-            BookCardView(imageURL: book.imageURL, size: self.size)
+            BookCardView(imageURL: book.imageURL ?? "", size: self.size)
             self.rightVStack
             Spacer()
         }
