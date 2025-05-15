@@ -28,7 +28,6 @@ private extension HistoryStatusView {
         return HeaderTitleView(
             title: "독서 상태를 설정해 주세요",
             appFont: .historyHeaderViewFont,
-            showChevron: false,
             alignment: .center
         )
     }

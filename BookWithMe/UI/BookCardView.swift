@@ -14,10 +14,15 @@ struct BookCardView: View {
     let size: BookCardSize
 
     var body: some View {
-        KFImage(URL(string: imageURL))
-            .placeholder { Color.contentsBackground2 } // 로딩 중 placeholder
-            .resizable()
-            .scaledToFill()
+//        KFImage(URL(string: imageURL))
+//            .placeholder { Color.contentsBackground2 } // 로딩 중 placeholder
+//            .resizable()
+//            .scaledToFill()
+//            .bookSize(self.size)
+//            .defaultCornerRadius()
+//            .defaultShadow()
+        Rectangle()
+            .background(Color.baseButton)
             .bookSize(self.size)
             .defaultCornerRadius()
             .defaultShadow()

@@ -29,8 +29,7 @@ private extension ReadingHistoryCellView {
     var headerView: some View {
         HeaderTitleView(
             title: self.viewModel.title,
-            appFont: .readingHistorySectionTitle,
-            showChevron: false)
+            appFont: .readingHistorySectionTitle)
     }
     
     var lazyVGridView: some View {
@@ -39,9 +38,22 @@ private extension ReadingHistoryCellView {
             alignment: .leading,
             spacing: 20
         ) {
-            ForEach(viewModel.bookArray, id: \.id) { book in
-                BookCardView(imageURL: book.imageURL ?? "", size: .small)
+            
+            // HStack
+            LazyHStack(spacing: 12) {
+                // 테이블뷰 만들기
+                ForEach(viewModel.bookArray, id: \.id) { book in
+                    // 화면이동을 위한 NavigationLink
+                    NavigationLink {
+                        BookDataView(viewModel: BookDataViewModel(book: book))
+                    } label: {
+                        // 보여질 이미지
+                        BookCardView(imageURL: book.imageURL ?? "",
+                                     size: .small)
+                    }
+                }
             }
+            .padding(.vertical, 4)
         }
     }
 }

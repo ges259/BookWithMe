@@ -29,4 +29,11 @@ extension Image {
     static let starEmpty = Image(systemName: "star")
     
     static let send = Image(systemName: "arrow.right.circle.fill")
+    
+    
+    
+    
+    
+//    static let trash = Image(systemName: "trash.circle.fill")
+    static let trash = Image(systemName: "trash")
 }

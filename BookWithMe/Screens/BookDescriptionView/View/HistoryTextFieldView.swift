@@ -55,7 +55,6 @@ private extension HistoryTextFieldView {
         return HeaderTitleView(
             title: "한줄평을 적어주세요",
             appFont: .historyTermHeader,
-            showChevron: false,
             alignment: .center
         )
     }

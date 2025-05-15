@@ -10,61 +10,104 @@ import CoreData
 
 extension CoreDataManager {
     
-    // MARK: - Id 조회
-    // Book 조회 (bookId로 조회)
-    func fetchBook(
-        by bookId: String
-    ) -> BookEntity? {
+
+    
+    // MARK: - Book
+    /// bookId로 BookEntity 조회
+    func fetchBook(by bookId: String) -> BookEntity? {
+        let predicate = NSPredicate(format: "bookId == %@", bookId)
+        return fetchBookEntities(predicate: predicate).first
+    }
+
+    /// 캐시를 활용한 Book 조회 (없으면 fetch를 통해 가져옴)
+    func loadBook(by id: String) -> Book? {
+        // 1. 캐시 확인
+        if let cached = BookCache.shared.get(by: id) {
+            return Book(entity: cached)
+        }
+        
+        // 2. Core Data fetch
+        if let entity = fetchBook(by: id) {
+            BookCache.shared.store(entity)
+            return Book(entity: entity)
+        }
+        
+        return nil
+    }
+    
+    /// 최근 30일 이내의 Book 목록
+    func fetchBooksWithin30Days(from date: Date) -> [Book] {
+        guard let startDate = Calendar.current.date(byAdding: .day, value: -30, to: date) else { return [] }
+        
+        let predicate = NSPredicate(
+            format: "bookHistory.startDate >= %@ AND bookHistory.startDate <= %@",
+            startDate as NSDate, date as NSDate
+        )
+        
+        let sort = [NSSortDescriptor(key: "bookHistory.startDate", ascending: true)]
+        let entities = fetchBookEntities(predicate: predicate, sortDescriptors: sort)
+        
+        // 캐시 저장 및 모델 변환
+        return cacheAndConvert(entities)
+    }
+
+    /// 같은 달의 Book 목록
+    func fetchBooksInSameMonth(as date: Date) -> [Book] {
+        let calendar = Calendar.current
+        guard
+            let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: date)),
+            let endOfMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfMonth)
+        else {
+            return []
+        }
+
+        let predicate = NSPredicate(
+            format: "bookHistory.startDate >= %@ AND bookHistory.startDate <= %@",
+            startOfMonth as NSDate,
+            endOfMonth as NSDate
+        )
+        
+        let sort = [NSSortDescriptor(key: "bookHistory.startDate", ascending: true)]
+        let entities = fetchBookEntities(predicate: predicate, sortDescriptors: sort)
+        
+        return cacheAndConvert(entities)
+    }
+
+    // MARK: - 공통 변환 및 캐시 저장
+    /// Private 공통 fetch 메서드
+    private func fetchBookEntities(
+        predicate: NSPredicate?,
+        sortDescriptors: [NSSortDescriptor]? = nil
+    ) -> [BookEntity] {
         let request: NSFetchRequest<BookEntity> = BookEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "bookId == %@", bookId)
+        request.predicate = predicate
+        request.sortDescriptors = sortDescriptors
         
         do {
-            let result = try context.fetch(request)
-            return result.first
+            return try context.fetch(request)
         } catch {
-            print("Error fetching Book: \(error)")
-            return nil
-        }
-    }
-    
-    // Review 조회 (bookId로 조회)
-    func fetchReview(
-        for bookId: String
-    ) -> [ReviewEntity] {
-        let request: NSFetchRequest<ReviewEntity> = ReviewEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "bookId == %@", bookId)
-        
-        do {
-            let result = try context.fetch(request)
-            return result
-        } catch {
-            print("Error fetching Review: \(error)")
+            print("⚠️ Fetch error: \(error)")
             return []
         }
     }
+    private func cacheAndConvert(_ entities: [BookEntity]) -> [Book] {
+        entities.forEach { BookCache.shared.store($0) }
+        return entities.compactMap { Book(entity: $0) }
+    }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // MARK: - BookHistory
     // BookHistory 조회 (userId로 조회)
-    func fetchBookHistory(
-        for userId: String
-    ) -> [BookHistoryEntity] {
-        let request: NSFetchRequest<BookHistoryEntity> = BookHistoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "userId == %@", userId)
-        
-        do {
-            let result = try context.fetch(request)
-            return result
-        } catch {
-            print("Error fetching BookHistory: \(error)")
-            return []
-        }
-    }
-    
-    
-    
-    
-    
-    // MARK: - 날짜순 조회
-    ///
     func fetchBookHistory(
         from startDate: Date,
         to endDate: Date
@@ -109,7 +152,7 @@ extension CoreDataManager {
         
         // 최대 20개 제한
         request.fetchLimit = 20
-
+        
         do {
             let result = try context.fetch(request)
             return result
@@ -130,7 +173,22 @@ extension CoreDataManager {
     
     
     
-    
+    // MARK: - Review
+    // Review 조회 (bookId로 조회)
+    func fetchReview(
+        for bookId: String
+    ) -> [ReviewEntity] {
+        let request: NSFetchRequest<ReviewEntity> = ReviewEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "bookId == %@", bookId)
+        
+        do {
+            let result = try context.fetch(request)
+            return result
+        } catch {
+            print("Error fetching Review: \(error)")
+            return []
+        }
+    }
     func fetchReviews(
         after date: Date
     ) -> [ReviewEntity] {

@@ -63,23 +63,22 @@ struct BookDataView: View {
 
 private extension BookDataView {
     
-    // MARK: - 책 설명
+    /// UI - 책 설명 뷰
     var bookDescriptionView: some View {
         return BookDescriptionView(
-            book: Book.DUMMY_BOOK,
-            viewModel: self.viewModel
+            book: self.viewModel.book,
+            descriptionMode: self.$viewModel.descriptionMode
         )
         .onTapGesture {
             self.viewModel.updateSheetState(row: .description)
         }
     }
     
-    // MARK: - 나의 기록
+    /// UI - '나의 기록'을 보여주는 테이블
     var bodyVStack: some View {
         return VStack(spacing: 0) {
-            // 헤더
             self.headerView
-            //
+            // 테이블
             ForEach(self.viewModel.allCases) { row in
                 HStack(alignment: .top, spacing: 20) {
                     self.rowTitle(row)
@@ -96,15 +95,17 @@ private extension BookDataView {
         .defaultShadow()
         .padding(.horizontal)
     }
+    
+    /// UI - 테이블의 헤더 역할
     var headerView: some View {
         return HeaderTitleView(
             title: "나의 기록",
-            appFont: .bookDataTitle,
-            showChevron: false
+            appFont: .bookDataTitle
         )
         .padding()
     }
     
+    /// UI - 테이블의 행의 데이터(UI 및 타이틀)를 설정하는 함수
     func rowTitle(_ row: BookInfoRow) -> some View {
         return Text(row.title)
             .frame(width: labelWidth,
@@ -115,8 +116,9 @@ private extension BookDataView {
             .font(.subheadline)
             .foregroundColor(.black)
             .if(row == .status) { $0.defaultCornerRadius(corners: .topTrailing) }
-        
     }
+    
+    /// UI - 테이블의 Book 및 BookHistory의 정보를 설정하는 함수
     func detailText(_ row: BookInfoRow) -> some View {
         return Text(self.viewModel.value(for: row))
             .font(.body)
@@ -125,9 +127,7 @@ private extension BookDataView {
             .frame(height: 50)
     }
     
-    
-    
-    // MARK: - 하단 버튼
+    /// UI - 하단 버튼을 설정하는 함수
     var bottomButton: some View {
         return Button {
             print("bottomButton_Tapped")
@@ -142,7 +142,6 @@ private extension BookDataView {
         .background(Color.baseButton)
         .defaultCornerRadius(corners: .top, 35)
         .defaultShadow()
-        
         .transition(.move(edge: .bottom))
     }
 }
@@ -155,7 +154,6 @@ private extension BookDataView {
 
 // MARK: - 화면 이동
 private extension BookDataView {
-    
     @ViewBuilder
     var moveToBottomSheet: some View {
         switch self.viewModel.selectedRow {
@@ -190,11 +188,9 @@ private extension BookDataView {
         case .tags:
             TestView2()
         case .description:
-            let viewModel: BookDataViewModel = BookDataViewModel(
-                book: Book.DUMMY_BOOK)
             BookDescriptionView(
-                book: Book.DUMMY_BOOK,
-                viewModel: viewModel
+                book: self.viewModel.book,
+                descriptionMode: .constant(.preview)
             )
         default:
             TestView2()

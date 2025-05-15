@@ -7,16 +7,18 @@
 
 import SwiftUI
 
-// MARK: - UI Constants
-enum BookShelfConstants {
-    static let cardSize = CGSize(width: 80, height: 120)
-    
-    static let horizontalSpacing: CGFloat = 12
-    static let headerTopPadding: CGFloat = 25
-}
+
 
 // MARK: - Main Cell View
 struct BookShelfCellView: View {
+    
+    enum Constants {
+        static let cardSize = CGSize(width: 80, height: 120)
+        
+        static let horizontalSpacing: CGFloat = 12
+        static let headerTopPadding: CGFloat = 25
+    }
+    
     var viewModel: BookShelfCellViewModel
 
     init(viewModel: BookShelfCellViewModel) {
@@ -48,19 +50,21 @@ private extension BookShelfCellView {
     }
     var horizontalBookScroll: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            NavigationLink {
-                // MARK: - Fix
-//                BookDescriptionView(viewModel: BookDescriptionViewModel(book: Book.DUMMY_BOOK))
-                BookDataView(viewModel: BookDataViewModel(book: Book.DUMMY_BOOK))
-            } label: {
-                LazyHStack(spacing: BookShelfConstants.horizontalSpacing) {
-                    ForEach(viewModel.bookArray, id: \.id) { book in
+            // HStack
+            LazyHStack(spacing: Constants.horizontalSpacing) {
+                // 테이블뷰 만들기
+                ForEach(viewModel.bookArray, id: \.id) { book in
+                    // 화면이동을 위한 NavigationLink
+                    NavigationLink {
+                        BookDataView(viewModel: BookDataViewModel(book: book))
+                    } label: {
+                        // 보여질 이미지
                         BookCardView(imageURL: book.imageURL ?? "",
                                      size: .small)
                     }
                 }
-                .padding(.vertical, 4)
             }
+            .padding(.vertical, 4)
         }
     }
 }

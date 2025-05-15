@@ -16,7 +16,7 @@ enum ViewModeType {
 
 @Observable
 final class BookDataViewModel {
-    var book: Book?
+    var book: Book
     var history: BookHistory {
         didSet {
             // history가 변경될 때마다 필요한 동작을 추가할 수 있음
@@ -67,8 +67,6 @@ final class BookDataViewModel {
     
     /// BookHistory모델에 따른 값을 리턴
     func value(for row: BookInfoRow) -> String {
-//        guard let history else { return "" }
-        
         switch row {
         case .status:
             return history.status.rawValue
@@ -77,7 +75,7 @@ final class BookDataViewModel {
         case .endDate:
             return "\(formatted(history.startDate)) ~ \(formatted(history.endDate))"
         case .rating:
-            return history.review.map { "\($0.rating)점" } ?? "-"
+            return history.review.map { "\(String(describing: $0.rating))점" } ?? ""
         case .summary:
             return history.review?.summary ?? "-"
         case .tags:

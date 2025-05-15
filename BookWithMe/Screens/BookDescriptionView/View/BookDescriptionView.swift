@@ -10,8 +10,7 @@ import SwiftUI
 struct BookDescriptionView: View {
     
     let book: Book
-    @State var viewModel: BookDataViewModel
-    
+    @Binding var descriptionMode: ViewModeType
     
     var body: some View {
         VStack {
@@ -19,7 +18,7 @@ struct BookDescriptionView: View {
                 VStack(alignment: .leading, spacing: 12){
                     self.bookDataHeaderView
                     
-                    if !self.viewModel.isEditMode {
+                    if self.descriptionMode == .preview {
                         self.bottomVStack
                     }
                 }
@@ -58,15 +57,15 @@ private extension BookDescriptionView {
     }
 }
 
-#Preview {
-    let viewModel: BookDataViewModel = BookDataViewModel(
-        book: Book.DUMMY_BOOK)
-    
-    return BookDescriptionView(
-        book: Book.DUMMY_BOOK,
-        viewModel: viewModel
-    )
-}
+//#Preview {
+//    let viewModel: BookDataViewModel = BookDataViewModel(
+//        book: Book.DUMMY_BOOK)
+//    
+//    return BookDescriptionView(
+//        book: Book.DUMMY_BOOK,
+//        viewModel: viewModel
+//    )
+//}
 
 
 
