@@ -66,7 +66,7 @@ private extension BookDataView {
     /// UI - 책 설명 뷰
     var bookDescriptionView: some View {
         return BookDescriptionView(
-            book: self.viewModel.fullBook,
+            fullBook: self.viewModel.fullBook,
             descriptionMode: self.$viewModel.descriptionMode
         )
         .onTapGesture {
@@ -120,7 +120,7 @@ private extension BookDataView {
     
     /// UI - 테이블의 Book 및 BookHistory의 정보를 설정하는 함수
     func detailText(_ row: BookInfoRow) -> some View {
-        return Text(self.viewModel.value(for: row))
+        return Text(self.viewModel.value(for: row) ?? "")
             .font(.body)
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -153,50 +153,87 @@ private extension BookDataView {
 
 
 // MARK: - 화면 이동
-private extension BookDataView {
+
+extension BookDataView {
     @ViewBuilder
     var moveToBottomSheet: some View {
-        switch self.viewModel.selectedRow {
+        switch viewModel.selectedRow {
         case .status:
-            HistoryStatusView(selectedStatus: $viewModel.history.status)
+            HistoryStatusView(
+                selectedStatus: Binding(
+                    get: { viewModel.fullBook.history?.status ?? .none },
+                    set: { viewModel.fullBook.history?.status = $0 }
+                )
+            )
+
         case .startDate:
             HistoryTermView(
-                startDate: $viewModel.history.startDate,
-                endDate: $viewModel.history.endDate,
-                selectionMode: .start)
+                startDate: Binding(
+                    get: { viewModel.fullBook.history?.startDate },
+                    set: { viewModel.fullBook.history?.startDate = $0 }
+                ),
+                endDate: Binding(
+                    get: { viewModel.fullBook.history?.endDate },
+                    set: { viewModel.fullBook.history?.endDate = $0 }
+                ),
+                selectionMode: .start
+            )
+
         case .endDate:
             HistoryTermView(
-                startDate: $viewModel.history.startDate,
-                endDate: $viewModel.history.endDate,
-                selectionMode: .end)
-            
+                startDate: Binding(
+                    get: { viewModel.fullBook.history?.startDate },
+                    set: { viewModel.fullBook.history?.startDate = $0 }
+                ),
+                endDate: Binding(
+                    get: { viewModel.fullBook.history?.endDate },
+                    set: { viewModel.fullBook.history?.endDate = $0 }
+                ),
+                selectionMode: .end
+            )
+
         case .rating:
-                HistoryRatingView(
-                    rating: Binding(
-                        get: { viewModel.history.review?.rating ?? 0 },
-                        set: { viewModel.history.review?.rating = $0}
-                    )
+            HistoryRatingView(
+                rating: Binding(
+                    get: { viewModel.fullBook.history?.review?.rating ?? 0 },
+                    set: {
+                        // If review is nil, create an empty one before mutating
+                        if viewModel.fullBook.history?.review == nil {
+                            viewModel.fullBook.history?.review = Review.DUMMY_REVIEW
+                        }
+                        viewModel.fullBook.history?.review?.rating = $0
+                    }
                 )
-            
+            )
+
         case .summary:
             HistoryTextFieldView(
                 text: Binding(
-                    get: { viewModel.history.review?.summary ?? "" },
-                    set: { viewModel.history.review?.summary = $0 }
+                    get: { viewModel.fullBook.history?.review?.summary ?? "" },
+                    set: {
+                        if viewModel.fullBook.history?.review == nil {
+                            viewModel.fullBook.history?.review = Review.DUMMY_REVIEW
+                        }
+                        viewModel.fullBook.history?.review?.summary = $0
+                    }
                 )
             )
+
         case .tags:
             TestView2()
+
         case .description:
             BookDescriptionView(
-                book: self.viewModel.fullBook,
+                fullBook: viewModel.fullBook,
                 descriptionMode: .constant(.preview)
             )
+
         default:
             TestView2()
         }
     }
 }
+
 
 
 
@@ -209,8 +246,60 @@ struct TestView2: View {
     }
 }
 
-//#Preview {
-//    BookDataView(viewModel: BookDataViewModel(
-//        book: Book.DUMMY_BOOK)
-//    )
-//}
+#Preview {
+    BookDataView(
+        viewModel: BookDataViewModel(
+            bookCache: BookCache.shared,
+            lightBook: LightBook.DUMMY
+        )
+    )
+}
+
+
+
+/*
+ @ViewBuilder
+ var moveToBottomSheet: some View {
+     switch self.viewModel.selectedRow {
+     case .status:
+         HistoryStatusView(
+             selectedStatus: $viewModel.history.status
+         )
+     case .startDate:
+         HistoryTermView(
+             startDate: $viewModel.history.startDate,
+             endDate: $viewModel.history.endDate,
+             selectionMode: .start)
+     case .endDate:
+         HistoryTermView(
+             startDate: $viewModel.history.startDate,
+             endDate: $viewModel.history.endDate,
+             selectionMode: .end)
+         
+     case .rating:
+             HistoryRatingView(
+                 rating: Binding(
+                     get: { viewModel.history.review?.rating ?? 0 },
+                     set: { viewModel.history.review?.rating = $0}
+                 )
+             )
+         
+     case .summary:
+         HistoryTextFieldView(
+             text: Binding(
+                 get: { viewModel.history.review?.summary ?? "" },
+                 set: { viewModel.history.review?.summary = $0 }
+             )
+         )
+     case .tags:
+         TestView2()
+     case .description:
+         BookDescriptionView(
+             fullBook: self.viewModel.fullBook,
+             descriptionMode: .constant(.preview)
+         )
+     default:
+         TestView2()
+     }
+ }
+ */

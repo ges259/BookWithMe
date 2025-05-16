@@ -28,7 +28,10 @@ struct BookHistory {
         self.status = status
         self.startDate = entity.startDate
         self.endDate = entity.endDate
-        self.review = nil // Review 변환이 필요하면 여기 확장 가능
+        
+        if let review = entity.review {
+            self.review = Review(entity: review)
+        }
     }
 }
 

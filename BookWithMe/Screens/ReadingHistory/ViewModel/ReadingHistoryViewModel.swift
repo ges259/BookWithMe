@@ -39,7 +39,7 @@ extension ReadingHistoryViewModel {
 
     /// Core Data → LightBook 변환 (최근 30일)
     private func getLightBooksWithin30Days(date: Date = Date()) -> [LightBook] {
-        coreDataManager.fetchLightBooksWithin30Days(from: date)
+        coreDataManager.fetchLightBooksForMonth(containing: date)
         // CoreDataManager 내부에서 BookCache.store(_:) 호출이 이미 이루어짐
     }
 }

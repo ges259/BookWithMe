@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookDescriptionView: View {
     
-    let book: FullBook
+    let fullBook: FullBook
     @Binding var descriptionMode: ViewModeType
     
     var body: some View {
@@ -38,7 +38,7 @@ struct BookDescriptionView: View {
 private extension BookDescriptionView {
     var bookDataHeaderView: some View {
         BookDataHeaderView(
-            book: book,
+            book: fullBook,
             size: .medium,
             isShadow: false
         )
@@ -49,7 +49,7 @@ private extension BookDescriptionView {
         VStack(alignment: .leading, spacing: 12) {
             Text("책 소개")
                 .font(.title2)
-            Text(book.description)
+            Text(fullBook.description)
                 .font(.caption)
         }
         .padding(.horizontal, 22)

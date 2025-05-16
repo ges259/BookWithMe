@@ -16,21 +16,21 @@ enum ViewModeType {
 
 @Observable
 final class BookDataViewModel {
-    var book: LightBook
+//    var lightBook: LightBook
+    // MARK: - 모델
+    var bookCache: BookCache
     var fullBook: FullBook
     
-    /// 네비게이션용 FullBook (캐시에서 변환)
-    func fullBook(for lightBook: LightBook) -> FullBook? {
-        return BookCache.shared.fullBook(by: lightBook.id)
-    }
     
-    var history: BookHistory {
-        didSet {
-            // history가 변경될 때마다 필요한 동작을 추가할 수 있음
-            dump("History updated: \(String(describing: history))")
-        }
-    }
+//    var history: BookHistory {
+//        didSet {
+//            // history가 변경될 때마다 필요한 동작을 추가할 수 있음
+//            dump("History updated: \(String(describing: history))")
+//        }
+//    }
     
+    
+    // MARK: - descriptionMode
     /// BookDescriptionView + 하단 버튼
     var descriptionMode: ViewModeType = .preview
     
@@ -38,7 +38,13 @@ final class BookDataViewModel {
         return self.descriptionMode == .edit
     }
     
+    func turnToEditMode() {
+        self.descriptionMode = .edit
+    }
     
+    
+    
+    // MARK: - bottomSheet
     /// 나의 기록 + BottomSheet
     var sheetState: BottomSheetPosition = .hidden
     var selectedRow: BookInfoRow = .none
@@ -51,22 +57,24 @@ final class BookDataViewModel {
     
     
     
-    
-    
-    
-    
-    init(book: LightBook) {
-        self.book = book
-        self.fullBook = BookCache.shared.fullBook(by: book.id) ?? FullBook.DUMMY
-        self.history = .DUMMY_BOOKHISTORY
-        // MARK: - Fix
-        // Book과 BookHistory가 같이 있는데, 나중에 리팩토링 필요
+    // MARK: - init
+    init(
+        bookCache: BookCache,
+        lightBook: LightBook
+    ) {
+        self.bookCache = bookCache
+
+        let fullBook = bookCache.fullBook(by: lightBook.id) ?? FullBook.DUMMY
+        self.fullBook = fullBook
+//        self.lightBook = lightBook
+//        self.history = .DUMMY_BOOKHISTORY
+    }
+    /// 네비게이션용 FullBook (캐시에서 변환)
+    func fullBook(for lightBook: LightBook) -> FullBook? {
+        return bookCache.fullBook(by: lightBook.id)
     }
     
     
-    func turnToEditMode() {
-        self.descriptionMode = .edit
-    }
     
     
     
@@ -78,26 +86,47 @@ final class BookDataViewModel {
     }
     
     
-    
     /// BookHistory모델에 따른 값을 리턴
-    func value(for row: BookInfoRow) -> String {
+    func value(for row: BookInfoRow) -> String? {
         switch row {
         case .status:
-            return history.status.rawValue
+            return fullBook.history?.status.rawValue
         case .startDate:
-            return "\(formatted(history.startDate)) ~ \(formatted(history.endDate))"
+            return formatted(fullBook.history?.startDate)
         case .endDate:
-            return "\(formatted(history.startDate)) ~ \(formatted(history.endDate))"
+            return formatted(fullBook.history?.endDate)
         case .rating:
-            return history.review.map { "\(String(describing: $0.rating))점" } ?? ""
+            return fullBook.history?.review.map { "\(String(describing: $0.rating))점" } ?? ""
         case .summary:
-            return history.review?.summary ?? "-"
+            return fullBook.history?.review?.summary ?? "-"
         case .tags:
-            return history.review?.tags?.joined(separator: ", ") ?? "-"
+            return fullBook.history?.review?.tags?.joined(separator: ", ") ?? "-"
         default:
             return ""
         }
     }
+    
+    
+    
+//    /// BookHistory모델에 따른 값을 리턴
+//    func value(for row: BookInfoRow) -> String {
+//        switch row {
+//        case .status:
+//            return history.status.rawValue
+//        case .startDate:
+//            return "\(formatted(history.startDate)) ~ \(formatted(history.endDate))"
+//        case .endDate:
+//            return "\(formatted(history.startDate)) ~ \(formatted(history.endDate))"
+//        case .rating:
+//            return history.review.map { "\(String(describing: $0.rating))점" } ?? ""
+//        case .summary:
+//            return history.review?.summary ?? "-"
+//        case .tags:
+//            return history.review?.tags?.joined(separator: ", ") ?? "-"
+//        default:
+//            return ""
+//        }
+//    }
 
     /// 날짜 포멧
     private func formatted(_ date: Date?) -> String {

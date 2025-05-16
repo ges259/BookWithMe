@@ -57,7 +57,10 @@ private extension BookShelfCellView {
                     // 화면이동을 위한 NavigationLink
                     NavigationLink {
                         BookDataView(
-                            viewModel: BookDataViewModel(book: lightBook)
+                            viewModel: BookDataViewModel(
+                                bookCache: BookCache.shared,
+                                lightBook: lightBook
+                            )
                         )
                     } label: {
                         // 보여질 이미지

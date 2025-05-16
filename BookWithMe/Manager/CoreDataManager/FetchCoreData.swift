@@ -12,42 +12,51 @@ extension CoreDataManager {
     private struct Constants {
         // Predicates
         static let bookIdPredicateFormat = "bookId == %@"
-        static let bookHistoryStartDatePredicate = "bookHistory.startDate >= %@ AND bookHistory.startDate <= %@"
-        
+        // 날짜를 설정하는 코드: [← <= → <]
+        static let bookHistoryStartDatePredicate = "bookHistory.startDate >= %@ AND bookHistory.startDate < %@"
         // Sort Descriptors
         static let bookHistoryStartDateSort = NSSortDescriptor(key: "bookHistory.startDate", ascending: true)
-        
-        // Date Related
-        static let daysInPast: Int = 30
     }
-    
-    
+        
+        
     // MARK: - Book
     // 리스트: LightBook 배열
-    func fetchLightBooksWithin30Days(from date: Date) -> [LightBook] {
+    func fetchLightBooksForMonth(containing date: Date) -> [LightBook] {
         let entities = fetchBookEntities(
-            predicate: datePredicateForLast30Days(from: date),
+            predicate: datePredicateForMonth(containing: date),
             sortDescriptors: [Constants.bookHistoryStartDateSort]
         )
         entities.forEach { BookCache.shared.store($0) }          // 캐싱
         return BookCache.shared.lightBooks(from: entities)       // 변환
     }
 
+
     // --- 내부 헬퍼 ---
-    private func datePredicateForLast30Days(from date: Date) -> NSPredicate? {
-        guard let start = Calendar.current.date(byAdding: .day,
-                                                value: -Constants.daysInPast,
-                                                to: date)
+    private func datePredicateForMonth(containing date: Date) -> NSPredicate? {
+        let calendar = Calendar.current
+
+        guard 
+            // 해당 달의 '1일'을 가져오기
+            let startOfMonth = calendar.date(
+                from: calendar.dateComponents([.year, .month], from: date)
+            ),
+            // 해당 달의 다음달의 '1일'을 가져오기
+            let startOfNextMonth = calendar.date(
+                byAdding: .month,
+                value: 1,
+                to: startOfMonth
+            )
         else { return nil }
 
-        return NSPredicate(format: Constants.bookHistoryStartDatePredicate,
-                           start as NSDate, date as NSDate)
+        return NSPredicate(
+            format: Constants.bookHistoryStartDatePredicate,
+            startOfMonth as NSDate,
+            startOfNextMonth as NSDate
+        )
     }
+        
 
-    
-    
-    
-    
+        
     // 상세: FullBook
     func loadFullBook(by id: String) -> FullBook? {
         // 1) 캐시 hit
@@ -58,14 +67,15 @@ extension CoreDataManager {
         BookCache.shared.store(entity)
         return FullBook(entity: entity)
     }
+
     /// bookId로 BookEntity 조회
     func fetchBook(by bookId: String) -> BookEntity? {
         let predicate = NSPredicate(format: Constants.bookIdPredicateFormat, bookId)
         return fetchBookEntities(predicate: predicate).first
     }
-    
-    
-    
+        
+        
+        
     // MARK: - Book 공통 함수
     /// Private 공통 fetch 메서드
     private func fetchBookEntities(
@@ -75,7 +85,7 @@ extension CoreDataManager {
         let request: NSFetchRequest<BookEntity> = BookEntity.fetchRequest()
         request.predicate = predicate
         request.sortDescriptors = sortDescriptors
-        
+
         do {
             return try context.fetch(request)
         } catch {
@@ -84,11 +94,7 @@ extension CoreDataManager {
         }
     }
 
-//    private func cacheAndConvert(_ entities: [BookEntity]) -> [Book] {
-//        entities.forEach { BookCache.shared.store($0) }
-//        return entities.compactMap { Book(entity: $0) }
-//    }
-
+    
     
     
     

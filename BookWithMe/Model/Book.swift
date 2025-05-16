@@ -57,7 +57,7 @@ struct FullBook: Identifiable {
     let publisher: String
     let description: String
     let imageURL: String?
-    let history: BookHistory?
+    var history: BookHistory?
 
     init?(entity: BookEntity) {
         guard
@@ -78,7 +78,7 @@ struct FullBook: Identifiable {
         self.history = BookHistory.DUMMY_BOOKHISTORY
         
         if let historyEntities = entity.bookHistory {
-//            self.history = historyEntities.map { BookHistory(entity: $0) }
+            self.history = BookHistory(entity: historyEntities)
         }
     }
 }

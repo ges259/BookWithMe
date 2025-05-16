@@ -17,16 +17,12 @@ struct Review {
     var tags: [String]?
     var memorableQuotes: String?
     
-    init?(
-        entity: ReviewEntity
-    ) {
+    init?(entity: ReviewEntity) {
         guard
             let bookId = entity.bookId,
             let reviewId = entity.reviewId,
             let updatedat = entity.updatedAt
-        else {
-            return nil
-        }
+        else { return nil }
         
         self.bookId = bookId
         self.reviewId = reviewId
@@ -37,7 +33,7 @@ struct Review {
         self.memorableQuotes = entity.memorableQuotes
         
         // MARK: - Fix
-//        self.tags = entity.tags
+        self.tags = []
     }
 }
 

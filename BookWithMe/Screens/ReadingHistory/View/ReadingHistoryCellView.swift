@@ -45,7 +45,11 @@ private extension ReadingHistoryCellView {
                 ForEach(viewModel.bookArray, id: \.id) { lightBook in
                     // 화면이동을 위한 NavigationLink
                     NavigationLink {
-                        BookDataView(viewModel: BookDataViewModel(book: lightBook))
+                        BookDataView(
+                            viewModel: BookDataViewModel(
+                                bookCache: BookCache.shared,
+                                lightBook: lightBook)
+                        )
                     } label: {
                         // 보여질 이미지
                         BookCardView(
