@@ -10,7 +10,7 @@ import SwiftUI
 class SearchViewModel: ObservableObject {
     
     @Published var searchText: String = ""
-    var searchResult: [Book] = []
+    var searchResult: [LightBook] = []
     
     // 예시용 함수 - 나중에 검색 로직 연결 가능
     func searchBooks() {

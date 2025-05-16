@@ -20,5 +20,3 @@ extension User {
         userImage: "person.crop.circle"
     )
 }
-
-

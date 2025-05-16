@@ -66,7 +66,7 @@ private extension BookDataView {
     /// UI - 책 설명 뷰
     var bookDescriptionView: some View {
         return BookDescriptionView(
-            book: self.viewModel.book,
+            book: self.viewModel.fullBook,
             descriptionMode: self.$viewModel.descriptionMode
         )
         .onTapGesture {
@@ -189,7 +189,7 @@ private extension BookDataView {
             TestView2()
         case .description:
             BookDescriptionView(
-                book: self.viewModel.book,
+                book: self.viewModel.fullBook,
                 descriptionMode: .constant(.preview)
             )
         default:
@@ -209,8 +209,8 @@ struct TestView2: View {
     }
 }
 
-#Preview {
-    BookDataView(viewModel: BookDataViewModel(
-        book: Book.DUMMY_BOOK)
-    )
-}
+//#Preview {
+//    BookDataView(viewModel: BookDataViewModel(
+//        book: Book.DUMMY_BOOK)
+//    )
+//}

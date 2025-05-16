@@ -71,23 +71,20 @@ private extension SearchView {
     var scrollView: some View {
         return ScrollView(showsIndicators: false){
             LazyVStack {
-                self.bookDummy()
-                self.bookDummy()
-                self.bookDummy()
-                self.bookDummy()
-                self.bookDummy()
-                self.bookDummy()
-                self.bookDummy()
-                self.bookDummy()
-                self.bookDummy()
+//                self.bookDummy()
+//                self.bookDummy()
+//                self.bookDummy()
+//                self.bookDummy()
+//                self.bookDummy()
+//                self.bookDummy()
+//                self.bookDummy()
+//                self.bookDummy()
+//                self.bookDummy()
             }
         }
         .defaultCornerRadius()
     }
     
-    func bookDummy() -> BookDataHeaderView {
-        return BookDataHeaderView(book: Book.DUMMY_BOOK, size: .small, isShadow: false)
-    }
 }
 
 

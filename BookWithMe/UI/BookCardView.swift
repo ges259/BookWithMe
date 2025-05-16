@@ -10,7 +10,7 @@ import Kingfisher
 
 // MARK: - Book Card View
 struct BookCardView: View {
-    let imageURL: String
+    let imageURL: String?
     let size: BookCardSize
 
     var body: some View {

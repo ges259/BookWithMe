@@ -10,7 +10,7 @@ import SwiftUI
 @Observable
 final class BookShelfCellViewModel {
     var readingStatus: ReadingStatus
-    var bookArray: [Book] = []
+    var bookArray: [LightBook] = []
     
     init(
         readingStatus: ReadingStatus
@@ -23,7 +23,7 @@ final class BookShelfCellViewModel {
     }
     
     
-    func updateBookArray(_ book: [Book]) {
+    func updateBookArray(_ book: [LightBook]) {
         self.bookArray.append(contentsOf: book)
     }
 }

@@ -16,7 +16,14 @@ enum ViewModeType {
 
 @Observable
 final class BookDataViewModel {
-    var book: Book
+    var book: LightBook
+    var fullBook: FullBook
+    
+    /// 네비게이션용 FullBook (캐시에서 변환)
+    func fullBook(for lightBook: LightBook) -> FullBook? {
+        return BookCache.shared.fullBook(by: lightBook.id)
+    }
+    
     var history: BookHistory {
         didSet {
             // history가 변경될 때마다 필요한 동작을 추가할 수 있음
@@ -42,8 +49,15 @@ final class BookDataViewModel {
     
     
     
-    init(book: Book) {
+    
+    
+    
+    
+    
+    
+    init(book: LightBook) {
         self.book = book
+        self.fullBook = BookCache.shared.fullBook(by: book.id) ?? FullBook.DUMMY
         self.history = .DUMMY_BOOKHISTORY
         // MARK: - Fix
         // Book과 BookHistory가 같이 있는데, 나중에 리팩토링 필요

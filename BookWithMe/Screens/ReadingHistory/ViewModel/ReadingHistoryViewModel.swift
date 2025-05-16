@@ -8,37 +8,38 @@
 import Foundation
 
 
+// MARK: - ReadingHistoryViewModel
 final class ReadingHistoryViewModel: FetchBookHistoryProtocol {
-    
+
+    // 섹션 배열
     var sections: [BookShelfCellViewModel] = []
-    let coreDataManager: CoreDataManager
-    
+    private let coreDataManager: CoreDataManager
+
     init(coreDataManager: CoreDataManager) {
         self.coreDataManager = coreDataManager
-        
-        // 데이터 가져오기
         self.fetchData()
     }
-    var sectionData: [BookShelfCellViewModel] {
-        return self.sections
-    }
+
+    /// 뷰에서 바인딩할 때 쓰는 읽기 전용 프로퍼티
+    var sectionData: [BookShelfCellViewModel] { sections }
 }
 
 // MARK: - Fetch Data
 extension ReadingHistoryViewModel {
+
     func fetchData() {
-        let bookHistoryEntities = self.getBookHistoryEntities()
-        
-        let firstData = self.initFirstFetch(
+        // 최근 30일 LightBook 목록
+        let lightBooks = getLightBooksWithin30Days()
+        // ✅ LightBook 기반 섹션 생성
+        self.sections = initFirstFetch(
             viewTypes: .readingHistory,
-            bookHistory: bookHistoryEntities
+            lightBooks: lightBooks
         )
-        self.sections = firstData
     }
-    
-    /// 코어데이터에서 30일간의 데이터를 가져온다.
-    func getBookHistoryEntities(date: Date = Date()) -> [BookHistoryEntity] {
-        // 코어데이터에서 날짜순으로 데이터를 가져온다.
-        return self.coreDataManager.fetchRecentBookHistories(until: date)
+
+    /// Core Data → LightBook 변환 (최근 30일)
+    private func getLightBooksWithin30Days(date: Date = Date()) -> [LightBook] {
+        coreDataManager.fetchLightBooksWithin30Days(from: date)
+        // CoreDataManager 내부에서 BookCache.store(_:) 호출이 이미 이루어짐
     }
 }

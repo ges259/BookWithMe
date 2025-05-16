@@ -7,52 +7,49 @@
 
 import Foundation
 
+// MARK: - BookShelfViewModel
 @Observable
 final class BookShelfViewModel: FetchBookHistoryProtocol {
+
     var sections: [BookShelfCellViewModel] = []
     private let coreDataManager: CoreDataManager
-    
+
     init(coreDataManager: CoreDataManager) {
         self.coreDataManager = coreDataManager
-        
         self.fetchData()
     }
-    
-    var sectionData: [BookShelfCellViewModel] {
-        return self.sections
-    }
+
+    var sectionData: [BookShelfCellViewModel] { sections }
 }
-
-
-
-
-
-
-
-
-
 
 // MARK: - Fetch Data
 extension BookShelfViewModel {
-    /// 앱에 들어오면 가장 처음 실행되는 Fetch
+
+    /// 앱 첫 진입 시 호출
     func fetchData() {
-        // 코어데이터에서 이번 달의 데이터를 가져온다.
-        let bookHistoryEntities = self.getBookHistoryEntities()
-        //
-        let firstData = self.initFirstFetch(
+        // 이번 달 LightBook 목록
+        let lightBooks = getLightBooksThisMonth()
+        self.sections = initFirstFetch(
             viewTypes: .bookShelf,
-            bookHistory: bookHistoryEntities
+            lightBooks: lightBooks
         )
-        self.sections = firstData
     }
-    
-    /// 코어데이터에서 이번 달의 데이터를 가져온다.
-    func getBookHistoryEntities() -> [BookHistoryEntity] {
-        guard let thisMonth = Date.startAndEndOfMonth() else { return [] }
-        // 코어데이터에서 날짜순으로 데이터를 가져온다.
-        return self.coreDataManager.fetchBookHistory(
-            from: thisMonth.startOfMonth,
-            to: thisMonth.endOfMonth
+
+    /// Core Data에서 이번 달 범위의 BookHistory → LightBook 변환
+    private func getLightBooksThisMonth() -> [LightBook] {
+        guard let range = Date.startAndEndOfMonth() else { return [] }
+
+        // ① BookHistoryEntity fetch
+        let histories = coreDataManager.fetchBookHistory(
+            from: range.startOfMonth,
+            to: range.endOfMonth
         )
+
+        // ② BookEntity → BookCache 저장 & LightBook 변환
+        return histories.compactMap { history in
+            guard let bookEntity = history.book else { return nil }
+            BookCache.shared.store(bookEntity)               // 캐싱
+            return LightBook(entity: bookEntity)              // 변환
+        }
     }
 }

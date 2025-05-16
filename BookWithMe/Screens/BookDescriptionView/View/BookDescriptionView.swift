@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookDescriptionView: View {
     
-    let book: Book
+    let book: FullBook
     @Binding var descriptionMode: ViewModeType
     
     var body: some View {

@@ -7,92 +7,73 @@
 
 import Foundation
 
+
+
+// MARK: - FetchBookHistoryProtocol
 protocol FetchBookHistoryProtocol {
     var sections: [BookShelfCellViewModel] { get }
     func fetchData()
 }
 
+// MARK: - 첫 페치 + 추가 페치
 extension FetchBookHistoryProtocol {
-    
+
+    /// LightBook만 받아 첫 섹션 데이터를 생성
     func initFirstFetch(
         viewTypes: ReadingViewTypes,
-        bookHistory bookHistoryEntities: [BookHistoryEntity]
+        lightBooks: [LightBook]
     ) -> [BookShelfCellViewModel] {
-        var sectionData = [BookShelfCellViewModel]()
-        
-        
-        // 섹션별로 필터링된 데이터 업데이트
+
+        var sectionData: [BookShelfCellViewModel] = []
+
         ReadingStatus.viewTypes(viewTypes).forEach { status in
-            // forEach를 통해 readingStatus와 bookHistoryEntities(가져온 데이터)의 Status 필터링
-            let filteredBookHistory = self.filterBookHistory(
-                bookHistoryEntities,
-                by: status
-            )
-            
-            // 현재 status에 맞는 Book을 배열로 가져옴
-            let bookData = self.makeBookArray(for: status, with: filteredBookHistory)
-            // status에 맞는 뷰모델에 Book 배열을 업데이트
-            
-            if let index = self.getSectionsIndex(
+            let filteredBooks = filterLightBooks(lightBooks, by: status)
+
+            if let index = getSectionsIndex(
                 sections: sectionData,
                 status: status
             ) {
-                sectionData[index].updateBookArray(bookData)
+                sectionData[index].updateBookArray(filteredBooks)
             } else {
                 let newSection = BookShelfCellViewModel(readingStatus: status)
-                newSection.updateBookArray(bookData)
+                newSection.updateBookArray(filteredBooks)
                 sectionData.append(newSection)
             }
         }
         return sectionData
     }
-    
-    func moreFetch(
-        status: ReadingStatus
-    ) {
-        
+
+    /// 추가 로드 / 페이지네이션용 훅
+    func moreFetch(status: ReadingStatus) {
+        // 이후 필요 시 구현
     }
 }
 
-
-
+// MARK: - 내부 헬퍼
 extension FetchBookHistoryProtocol {
-    
-    /// 상태에 맞는 BookHistoryEntity 필터링 메서드
-    func filterBookHistory(
-        _ bookHistoryEntities: [BookHistoryEntity],
+
+    /// 상태에 맞는 LightBook 필터링
+    func filterLightBooks(
+        _ lightBooks: [LightBook],
         by status: ReadingStatus
-    ) -> [BookHistoryEntity] {
-        // readingStaus가 맞는지 filter함수로 체크
-        return bookHistoryEntities.filter {
-            guard let statusString = $0.status else { return false }
-            return ReadingStatus(rawValue: statusString) == status
+    ) -> [LightBook] {
+        lightBooks.filter { book in
+            // BookCache에 저장된 BookEntity에서 status 확인
+            guard
+                let entity       = BookCache.shared.entity(by: book.id),
+                let statusString = entity.bookHistory?.status,
+                let entityStatus = ReadingStatus(rawValue: statusString)
+            else { return false }
+
+            return entityStatus == status
         }
     }
-    /// BookEntity를 Book으로 변환하는 메서드
-    private func convertToBook(from bookEntity: BookEntity?) -> Book? {
-        guard let bookEntity = bookEntity else { return nil }
-        return Book.fromEntity(bookEntity)
-    }
-    
+
+    /// 섹션 배열에서 지정한 상태의 인덱스 반환
     func getSectionsIndex(
         sections: [BookShelfCellViewModel],
         status: ReadingStatus
     ) -> Int? {
-        return sections.firstIndex(
-            where: { $0.readingStatus == status }
-        )
-    }
-    
-    /// 섹션 업데이트 메서드: filteredBookHistory를 섹션에 맞게 추가
-    func makeBookArray(
-        for status: ReadingStatus,
-        with filteredBookHistory: [BookHistoryEntity]
-    ) -> [Book] {
-        let bookArray = filteredBookHistory.compactMap { bookHistory in
-            // BookEntity를 Book으로 변환하여 반환
-            return convertToBook(from: bookHistory.book)
-        }
-        return bookArray
+        sections.firstIndex { $0.readingStatus == status }
     }
 }

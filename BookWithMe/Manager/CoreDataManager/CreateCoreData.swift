@@ -25,7 +25,7 @@ extension CoreDataManager {
         let book = BookEntity(context: context)
         book.bookId = bookId
         
-        book.title = bookName
+        book.title = "bookName"
         book.publisher = imagePath
         book.imageURL = "imageURL"
         book.bookDescription = "bookDescription"
@@ -53,7 +53,7 @@ extension CoreDataManager {
         bookHistory.status = status
         bookHistory.startDate = startDate
         bookHistory.endDate = endDate
-        
+        bookHistory.bookHistoryId = UUID().uuidString
         // Book과 BookHistory
         bookHistory.book = book
         
