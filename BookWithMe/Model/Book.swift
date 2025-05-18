@@ -7,50 +7,8 @@
 
 import SwiftUI
 
-// MARK: - LightBook
-struct LightBook: Identifiable {
-    let id: String
-    let title: String
-    let author: String
-    let imageURL: String?
-
-    init?(entity: BookEntity) {
-        guard
-            let id = entity.bookId,
-            let title = entity.title,
-            let author = entity.author
-        else { return nil }
-
-        self.id = id
-        self.title = title
-        self.author = author
-        self.imageURL = entity.imageURL
-    }
-}
-
-extension LightBook {
-    // 편의 initializer (entity 없이 생성용)
-    init(id: String, title: String, author: String, imageURL: String?) {
-        self.id = id
-        self.title = title
-        self.author = author
-        self.imageURL = imageURL
-    }
-    
-    static var DUMMY: LightBook {
-        LightBook(
-            id: "dummy-id",
-            title: "더미 책 제목",
-            author: "홍길동",
-            imageURL: "https://example.com/dummy.jpg"
-        )
-    }
-}
-
-
-
-// MARK: - FullBook
-struct FullBook: Identifiable {
+// MARK: - Book
+struct Book: Identifiable {
     let id: String
     let title: String
     let author: String
@@ -59,31 +17,18 @@ struct FullBook: Identifiable {
     let imageURL: String?
     var history: BookHistory
 
-    init?(entity: BookEntity) {
-        guard
-            let id = entity.bookId,
-            let title = entity.title,
-            let author = entity.author,
-            let publisher = entity.publisher,
-            let description = entity.bookDescription,
-            let historyEntity = entity.bookHistory,
-            let history = BookHistory(entity: historyEntity)
-        
-        else { return nil }
-
-        self.id = id
-        self.title = title
-        self.author = author
-        self.publisher = publisher
-        self.description = description
+    init(entity: BookEntity) {
+        self.id = entity.bookId ?? UUID().uuidString
+        self.title = entity.title ?? "제목 없음"
+        self.author = entity.author ?? "작가 미상"
+        self.publisher = entity.publisher ?? "출판사 미상"
+        self.description = entity.bookDescription ?? ""
         self.imageURL = entity.imageURL
-
-        self.history = BookHistory.DUMMY_BOOKHISTORY
-        self.history = history
+        self.history = entity.bookHistory.flatMap { BookHistory(entity: $0) } ?? BookHistory.DUMMY_BOOKHISTORY
     }
 }
 
-extension FullBook {
+extension Book {
     // 편의 initializer (entity 없이 생성용)
     init(
         id: String,
@@ -102,8 +47,8 @@ extension FullBook {
         self.imageURL = imageURL
         self.history = history
     }
-    static var DUMMY: FullBook {
-        FullBook(
+    static var DUMMY: Book {
+        return Book(
             id: "dummy-id",
             title: "더미 책 제목",
             author: "홍길동",

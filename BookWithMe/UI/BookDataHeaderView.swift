@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct BookDataHeaderView: View {
-    private let book: FullBook
+    private let book: Book
     private let size: BookCardSize
     private let isShadow: Bool
     
-    init(book: FullBook, size: BookCardSize, isShadow: Bool) {
+    init(book: Book, size: BookCardSize, isShadow: Bool) {
         self.book = book
         self.size = size
         self.isShadow = isShadow

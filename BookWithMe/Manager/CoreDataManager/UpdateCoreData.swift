@@ -15,18 +15,18 @@ extension CoreDataManager {
         newBookName: String,
         newImagePath: String
     ) {
-        if let book = fetchBook(by: bookId) {
-            book.title = newBookName
-            book.imageURL = newImagePath
-            
-            do {
-                try context.save()
-            } catch {
-                print("Error updating Book: \(error)")
-            }
-        } else {
-            print("Book not found")
-        }
+//        if let book = fetchBook(by: bookId) {
+//            book.title = newBookName
+//            book.imageURL = newImagePath
+//            
+//            do {
+//                try context.save()
+//            } catch {
+//                print("Error updating Book: \(error)")
+//            }
+//        } else {
+//            print("Book not found")
+//        }
     }
     
     // Review 업데이트

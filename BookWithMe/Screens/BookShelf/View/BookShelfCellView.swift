@@ -53,19 +53,19 @@ private extension BookShelfCellView {
             // HStack
             LazyHStack(spacing: Constants.horizontalSpacing) {
                 // 테이블뷰 만들기
-                ForEach(viewModel.bookArray, id: \.id) { lightBook in
+                ForEach(viewModel.bookArray, id: \.id) { book in
                     // 화면이동을 위한 NavigationLink
                     NavigationLink {
                         BookDataView(
                             viewModel: BookDataViewModel(
                                 bookCache: BookCache.shared,
-                                lightBook: lightBook
+                                book: book
                             )
                         )
                     } label: {
                         // 보여질 이미지
                         BookCardView(
-                            imageURL: lightBook.imageURL,
+                            imageURL: book.imageURL,
                             size: .small
                         )
                     }

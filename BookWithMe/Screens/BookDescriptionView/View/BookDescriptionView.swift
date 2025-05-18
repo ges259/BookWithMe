@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookDescriptionView: View {
     
-    let fullBook: FullBook
+    let book: Book
     @Binding var descriptionMode: ViewModeType
     
     var body: some View {
@@ -38,7 +38,7 @@ struct BookDescriptionView: View {
 private extension BookDescriptionView {
     var bookDataHeaderView: some View {
         BookDataHeaderView(
-            book: fullBook,
+            book: self.book,
             size: .medium,
             isShadow: false
         )
@@ -49,7 +49,7 @@ private extension BookDescriptionView {
         VStack(alignment: .leading, spacing: 12) {
             Text("책 소개")
                 .font(.title2)
-            Text(fullBook.description)
+            Text(self.book.description)
                 .font(.caption)
         }
         .padding(.horizontal, 22)
@@ -66,24 +66,3 @@ private extension BookDescriptionView {
 //        viewModel: viewModel
 //    )
 //}
-
-
-
-/*
- 
- - BookDescriptionView
- - EditBookView
- 
- -- 화면 = [
-    BookDataView
-    BookHistoryView
-    bottomButton
-    ]
- 
- -- 모드 = [
-    PreviewMode (기본 모드, BookHistoryView 및 bottomButton 숨김)
-    EditMode    (수정 모드, BookHistoryView 및 bottomButton 보임)
-    ]
- 
- */
-

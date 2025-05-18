@@ -13,17 +13,17 @@ extension CoreDataManager {
     func deleteBook(
         by bookId: String
     ) {
-        if let book = fetchBook(by: bookId) {
-            context.delete(book)
-            
-            do {
-                try context.save()
-            } catch {
-                print("Error deleting Book: \(error)")
-            }
-        } else {
-            print("Book not found")
-        }
+//        if let book = fetchBook(by: bookId) {
+//            context.delete(book)
+//            
+//            do {
+//                try context.save()
+//            } catch {
+//                print("Error deleting Book: \(error)")
+//            }
+//        } else {
+//            print("Book not found")
+//        }
     }
     
     // Review 삭제

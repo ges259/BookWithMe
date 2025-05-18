@@ -27,29 +27,31 @@ extension BookShelfViewModel {
 
     /// 앱 첫 진입 시 호출
     func fetchData() {
-        // 이번 달 LightBook 목록
-        let lightBooks = getLightBooksThisMonth()
+        // 이번 달 book 목록
+        let books = getBooksThisMonth()
         self.sections = initFirstFetch(
             viewTypes: .bookShelf,
-            lightBooks: lightBooks
+            books: books
         )
     }
 
-    /// Core Data에서 이번 달 범위의 BookHistory → LightBook 변환
-    private func getLightBooksThisMonth() -> [LightBook] {
+    /// Core Data에서 이번 달 범위의 BookHistory → Book 배열 변환
+    private func getBooksThisMonth() -> [Book] {
+        // 책을 가져올 범위를 계산
         guard let range = Date.startAndEndOfMonth() else { return [] }
-
-        // ① BookHistoryEntity fetch
-        let histories = coreDataManager.fetchBookHistory(
+        // 코어데이터에서 책을 가져옴
+        let bookHistoryEntities = coreDataManager.fetchBookHistory(
             from: range.startOfMonth,
             to: range.endOfMonth
         )
 
-        // ② BookEntity → BookCache 저장 & LightBook 변환
-        return histories.compactMap { history in
+        // Bookcache에 데이터 저장 및 Book 배열 ㄴ반환
+        return bookHistoryEntities.compactMap { history in
             guard let bookEntity = history.book else { return nil }
-            BookCache.shared.store(bookEntity)               // 캐싱
-            return LightBook(entity: bookEntity)              // 변환
+            let book = Book(entity: bookEntity)
+            // 캐싱
+            BookCache.shared.store(book)
+            return book
         }
     }
 }

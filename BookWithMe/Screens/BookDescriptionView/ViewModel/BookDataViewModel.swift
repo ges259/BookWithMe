@@ -18,10 +18,8 @@ enum ViewModeType {
 @Observable
 final class BookDataViewModel {
     // MARK: - 모델
-//    var lightBook: LightBook
     private let bookCache: BookCache
-    let originalFullBook: FullBook
-    var fullBook: FullBook
+    var book: Book
     
     
     // MARK: - descriptionMode
@@ -54,19 +52,10 @@ final class BookDataViewModel {
     // MARK: - init
     init(
         bookCache: BookCache,
-        lightBook: LightBook
+        book: Book
     ) {
         self.bookCache = bookCache
-
-        let fullBook = bookCache.fullBook(by: lightBook.id) ?? FullBook.DUMMY
-        self.originalFullBook = fullBook
-        self.fullBook = fullBook
-//        self.lightBook = lightBook
-//        self.history = .DUMMY_BOOKHISTORY
-    }
-    /// 네비게이션용 FullBook (캐시에서 변환)
-    func fullBook(for lightBook: LightBook) -> FullBook? {
-        return bookCache.fullBook(by: lightBook.id)
+        self.book = book
     }
     
     
@@ -87,19 +76,19 @@ final class BookDataViewModel {
     func value(for row: BookInfoRow) -> String? {
         switch row {
         case .status:
-            return fullBook.history.status.rawValue
+            return book.history.status.rawValue
         case .startDate:
-            return formatted(fullBook.history.startDate)
+            return formatted(book.history.startDate)
         case .endDate:
-            return formatted(fullBook.history.endDate)
+            return formatted(book.history.endDate)
         case .rating:
-            let rating = fullBook.history.review?.rating ?? 0
+            let rating = book.history.review?.rating ?? 0
             return "\(rating)"
             
         case .summary:
-            return fullBook.history.review?.summary ?? ""
+            return book.history.review?.summary ?? ""
         case .tags:
-            return fullBook.history.review?.tags?.joined(separator: ", ") ?? ""
+            return book.history.review?.tags?.joined(separator: ", ") ?? ""
         default:
             return ""
         }

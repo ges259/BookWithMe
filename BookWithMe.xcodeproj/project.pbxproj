@@ -48,6 +48,7 @@
 		5FB85A762DCA5E12003DF6FC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB85A752DCA5E12003DF6FC /* SearchViewModel.swift */; };
 		5FBF46122DD49398008E29D4 /* HistoryTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF46112DD49398008E29D4 /* HistoryTextFieldView.swift */; };
 		5FCA5D932DD5ECEB00D3C172 /* HeaderRightImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCA5D922DD5ECEB00D3C172 /* HeaderRightImageType.swift */; };
+		5FCB310B2DD8B394001C9327 /* BookAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCB310A2DD8B394001C9327 /* BookAPIManager.swift */; };
 		5FCE61812DD0BE6800B3280B /* HorizonCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 5FCE61802DD0BE6800B3280B /* HorizonCalendar */; };
 		5FD0BF4D2DCF8B5400E3CA35 /* HistoryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF4C2DCF8B5400E3CA35 /* HistoryStatusView.swift */; };
 		5FD0BF4F2DCF8B6C00E3CA35 /* HistoryTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF4E2DCF8B6C00E3CA35 /* HistoryTermView.swift */; };
@@ -117,6 +118,7 @@
 		5FB85A752DCA5E12003DF6FC /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		5FBF46112DD49398008E29D4 /* HistoryTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTextFieldView.swift; sourceTree = "<group>"; };
 		5FCA5D922DD5ECEB00D3C172 /* HeaderRightImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderRightImageType.swift; sourceTree = "<group>"; };
+		5FCB310A2DD8B394001C9327 /* BookAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAPIManager.swift; sourceTree = "<group>"; };
 		5FD0BF4C2DCF8B5400E3CA35 /* HistoryStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStatusView.swift; sourceTree = "<group>"; };
 		5FD0BF4E2DCF8B6C00E3CA35 /* HistoryTermView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTermView.swift; sourceTree = "<group>"; };
 		5FD0BF502DCF8B7700E3CA35 /* HistoryRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRatingView.swift; sourceTree = "<group>"; };
@@ -161,14 +163,6 @@
 		5F8650462DC798BC00784088 = {
 			isa = PBXGroup;
 			children = (
-				5F7EF3A22DD77FFB004669C0 /* UserEntity+CoreDataClass.swift */,
-				5F7EF3A32DD77FFB004669C0 /* UserEntity+CoreDataProperties.swift */,
-				5F7EF3A42DD77FFB004669C0 /* BookEntity+CoreDataClass.swift */,
-				5F7EF3A52DD77FFB004669C0 /* BookEntity+CoreDataProperties.swift */,
-				5F7EF3A62DD77FFB004669C0 /* BookHistoryEntity+CoreDataClass.swift */,
-				5F7EF3A72DD77FFB004669C0 /* BookHistoryEntity+CoreDataProperties.swift */,
-				5F7EF3A82DD77FFB004669C0 /* ReviewEntity+CoreDataClass.swift */,
-				5F7EF3A92DD77FFB004669C0 /* ReviewEntity+CoreDataProperties.swift */,
 				5F8650512DC798BC00784088 /* BookWithMe */,
 				5F8650502DC798BC00784088 /* Products */,
 			);
@@ -210,6 +204,14 @@
 		5F93FDC92DC8E97300EC2E9E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				5F7EF3A22DD77FFB004669C0 /* UserEntity+CoreDataClass.swift */,
+				5F7EF3A32DD77FFB004669C0 /* UserEntity+CoreDataProperties.swift */,
+				5F7EF3A42DD77FFB004669C0 /* BookEntity+CoreDataClass.swift */,
+				5F7EF3A52DD77FFB004669C0 /* BookEntity+CoreDataProperties.swift */,
+				5F7EF3A62DD77FFB004669C0 /* BookHistoryEntity+CoreDataClass.swift */,
+				5F7EF3A72DD77FFB004669C0 /* BookHistoryEntity+CoreDataProperties.swift */,
+				5F7EF3A82DD77FFB004669C0 /* ReviewEntity+CoreDataClass.swift */,
+				5F7EF3A92DD77FFB004669C0 /* ReviewEntity+CoreDataProperties.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -298,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				5F02CC042DD72BC200F074EA /* BookCache.swift */,
+				5FCB310A2DD8B394001C9327 /* BookAPIManager.swift */,
 				5FAF4BA32DC9061400F6BF62 /* CoreDataManager */,
 			);
 			path = Manager;
@@ -585,6 +588,7 @@
 				5FE499D12DC8AD6C009AC510 /* Color+Ext.swift in Sources */,
 				5FE499D32DC8B23D009AC510 /* BookShelfCellView.swift in Sources */,
 				5F07D0632DCA003400401B04 /* FetchBookHistoryProtocol.swift in Sources */,
+				5FCB310B2DD8B394001C9327 /* BookAPIManager.swift in Sources */,
 				5F93FDB92DC8D0DA00EC2E9E /* BookShelfCellViewModel.swift in Sources */,
 				5FAF4BBF2DC9EC7F00F6BF62 /* BookCardView.swift in Sources */,
 			);

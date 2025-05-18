@@ -66,7 +66,7 @@ private extension BookDataView {
     /// UI - 책 설명 뷰
     var bookDescriptionView: some View {
         return BookDescriptionView(
-            fullBook: self.viewModel.fullBook,
+            book: self.viewModel.book,
             descriptionMode: self.$viewModel.descriptionMode
         )
         .onTapGesture {
@@ -159,38 +159,38 @@ extension BookDataView {
         switch self.viewModel.selectedRow {
         case .status:
             HistoryStatusView(
-                selectedStatus: $viewModel.fullBook.history.status
+                selectedStatus: $viewModel.book.history.status
             )
         case .startDate:
             HistoryTermView(
-                startDate: $viewModel.fullBook.history.startDate,
-                endDate: $viewModel.fullBook.history.endDate,
+                startDate: $viewModel.book.history.startDate,
+                endDate: $viewModel.book.history.endDate,
                 selectionMode: .start)
         case .endDate:
             HistoryTermView(
-                startDate: $viewModel.fullBook.history.startDate,
-                endDate: $viewModel.fullBook.history.endDate,
+                startDate: $viewModel.book.history.startDate,
+                endDate: $viewModel.book.history.endDate,
                 selectionMode: .end)
             
         case .rating:
                 HistoryRatingView(
                     rating: Binding(
-                        get: { viewModel.fullBook.history.review?.rating ?? 0 },
-                        set: { viewModel.fullBook.history.review?.rating = $0}
+                        get: { viewModel.book.history.review?.rating ?? 0 },
+                        set: { viewModel.book.history.review?.rating = $0}
                     )
                 )
         case .summary:
             HistoryTextFieldView(
                 text: Binding(
-                    get: { viewModel.fullBook.history.review?.summary ?? "" },
-                    set: { viewModel.fullBook.history.review?.summary = $0 }
+                    get: { viewModel.book.history.review?.summary ?? "" },
+                    set: { viewModel.book.history.review?.summary = $0 }
                 )
             )
         case .tags:
             TestView2()
         case .description:
             BookDescriptionView(
-                fullBook: self.viewModel.fullBook,
+                book: self.viewModel.book,
                 descriptionMode: .constant(.preview)
             )
         default:
@@ -215,7 +215,7 @@ struct TestView2: View {
     BookDataView(
         viewModel: BookDataViewModel(
             bookCache: BookCache.shared,
-            lightBook: LightBook.DUMMY
+            book: Book.DUMMY
         )
     )
 }

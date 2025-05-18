@@ -28,18 +28,18 @@ final class ReadingHistoryViewModel: FetchBookHistoryProtocol {
 extension ReadingHistoryViewModel {
 
     func fetchData() {
-        // 최근 30일 LightBook 목록
-        let lightBooks = getLightBooksWithin30Days()
-        // ✅ LightBook 기반 섹션 생성
+        // 최근 30일 Book 목록
+        let books = getBooksWithin30Days()
+        // ✅ Book 기반 섹션 생성
         self.sections = initFirstFetch(
             viewTypes: .readingHistory,
-            lightBooks: lightBooks
+            books: books
         )
     }
 
-    /// Core Data → LightBook 변환 (최근 30일)
-    private func getLightBooksWithin30Days(date: Date = Date()) -> [LightBook] {
-        coreDataManager.fetchLightBooksForMonth(containing: date)
+    /// Core Data → Book 변환 (최근 30일)
+    private func getBooksWithin30Days(date: Date = Date()) -> [Book] {
+        coreDataManager.fetchBooksForMonth(containing: date)
         // CoreDataManager 내부에서 BookCache.store(_:) 호출이 이미 이루어짐
     }
 }
