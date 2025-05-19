@@ -16,16 +16,16 @@ final class BookAPIManager {
         static let resultStyle    = "json"
         static let pageSize       = "20"
     }
-
+    
     static let shared = BookAPIManager()
     private init() {}
-
-    /// 검색어로 BookEntity 배열을 반환 (Core Data에 저장하지 않음)
+    
+    /// '검색어'로 BookEntity 배열을 반환 (Core Data에 저장하지 않음)
     func searchBookEntities(keyword: String, page: Int) async throws -> [BookEntity] {
         let searchURL = try makeSearchURL(keyword: keyword, page: page)
         let (data, _) = try await URLSession.shared.data(from: searchURL)
         let search = try JSONDecoder().decode(SearchResponse.self, from: data)
-
+        
         var results: [BookEntity] = []
         for doc in search.docs {
             if let entity = try? await fetchDetailAsEntity(controlNo: doc.controlNo) {
@@ -34,9 +34,13 @@ final class BookAPIManager {
         }
         return results
     }
+}
+
+
+private extension BookAPIManager {
 
     /// 상세 정보를 BookEntity로 반환 (Core Data에 저장하지 않음)
-    private func fetchDetailAsEntity(controlNo: String) async throws -> BookEntity {
+    func fetchDetailAsEntity(controlNo: String) async throws -> BookEntity {
         let detailURL = try makeDetailURL(controlNo: controlNo)
         let (data, _) = try await URLSession.shared.data(from: detailURL)
         let decoded = try JSONDecoder().decode(DetailResponse.self, from: data)
@@ -59,7 +63,7 @@ final class BookAPIManager {
     }
 
     // MARK: URL 생성
-    private func makeSearchURL(keyword: String, page: Int) throws -> URL {
+    func makeSearchURL(keyword: String, page: Int) throws -> URL {
         var comps = URLComponents(string: Constants.searchBaseURL)
         comps?.queryItems = [
             .init(name: "cert_key",      value: Constants.apiKey),
@@ -72,7 +76,7 @@ final class BookAPIManager {
         return url
     }
 
-    private func makeDetailURL(controlNo: String) throws -> URL {
+    func makeDetailURL(controlNo: String) throws -> URL {
         var comps = URLComponents(string: Constants.detailBaseURL)
         comps?.queryItems = [
             .init(name: "cert_key",      value: Constants.apiKey),
@@ -84,14 +88,14 @@ final class BookAPIManager {
     }
 
     // MARK: Response DTOs
-    private struct SearchResponse: Decodable {
+    struct SearchResponse: Decodable {
         let docs: [SearchItem]
         struct SearchItem: Decodable {
             let controlNo: String
         }
     }
 
-    private struct DetailResponse: Decodable {
+    struct DetailResponse: Decodable {
         let docs: [DetailItem]
         struct DetailItem: Decodable {
             let controlNo: String
