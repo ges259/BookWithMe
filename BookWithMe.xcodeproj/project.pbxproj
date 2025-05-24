@@ -19,6 +19,7 @@
 		5F6B91B72DCCCA1D00D6C54A /* BookDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6B91B62DCCCA1D00D6C54A /* BookDataViewModel.swift */; };
 		5F6B91B92DCCE76900D6C54A /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6B91B82DCCE76900D6C54A /* TabItem.swift */; };
 		5F6B91BB2DCCEEA100D6C54A /* BookDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6B91BA2DCCEEA100D6C54A /* BookDataView.swift */; };
+		5F7A91BA2DE214510029D43B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F7A91B92DE214510029D43B /* Info.plist */; };
 		5F7EF3AA2DD77FFB004669C0 /* UserEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7EF3A22DD77FFB004669C0 /* UserEntity+CoreDataClass.swift */; };
 		5F7EF3AB2DD77FFB004669C0 /* UserEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7EF3A32DD77FFB004669C0 /* UserEntity+CoreDataProperties.swift */; };
 		5F7EF3AC2DD77FFB004669C0 /* BookEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7EF3A42DD77FFB004669C0 /* BookEntity+CoreDataClass.swift */; };
@@ -89,6 +90,7 @@
 		5F6B91B62DCCCA1D00D6C54A /* BookDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDataViewModel.swift; sourceTree = "<group>"; };
 		5F6B91B82DCCE76900D6C54A /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		5F6B91BA2DCCEEA100D6C54A /* BookDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDataView.swift; sourceTree = "<group>"; };
+		5F7A91B92DE214510029D43B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F7EF3A22DD77FFB004669C0 /* UserEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5F7EF3A32DD77FFB004669C0 /* UserEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5F7EF3A42DD77FFB004669C0 /* BookEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 		5F8650462DC798BC00784088 = {
 			isa = PBXGroup;
 			children = (
+				5F7A91B92DE214510029D43B /* Info.plist */,
 				5F8650512DC798BC00784088 /* BookWithMe */,
 				5F8650502DC798BC00784088 /* Products */,
 			);
@@ -518,6 +521,7 @@
 			files = (
 				5F86505A2DC798BF00784088 /* Preview Assets.xcassets in Resources */,
 				5F8650572DC798BF00784088 /* Assets.xcassets in Resources */,
+				5F7A91BA2DE214510029D43B /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -726,8 +730,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"BookWithMe/Preview Content\"";
 				DEVELOPMENT_TEAM = 63D86GVH6K;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BookWithMe/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -756,8 +760,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"BookWithMe/Preview Content\"";
 				DEVELOPMENT_TEAM = 63D86GVH6K;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BookWithMe/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
