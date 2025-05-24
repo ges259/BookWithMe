@@ -59,3 +59,14 @@ extension Book {
         )
     }
 }
+extension Book {
+    init(dto: AladinBookDTO) {
+        self.id = UUID().uuidString
+        self.title = dto.title
+        self.author = dto.author
+        self.publisher = dto.publisher
+        self.description = dto.description ?? "설명 없음"
+        self.imageURL = dto.cover
+        self.history = BookHistory.DUMMY_BOOKHISTORY
+    }
+}

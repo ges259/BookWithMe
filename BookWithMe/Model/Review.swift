@@ -41,27 +41,6 @@ struct Review {
         // MARK: - Fix
         self.tags = []
     }
-    
-//    // Equatable 프로토콜을 준수하여 두 Review 객체를 비교
-//    static func ==(lhs: Review, rhs: Review) -> Bool {
-//        return lhs.bookId == rhs.bookId &&
-//            lhs.reviewId == rhs.reviewId &&
-//            lhs.updatedat == rhs.updatedat &&
-//            lhs.rating == rhs.rating &&
-//            lhs.summary == rhs.summary &&
-//            lhs.detail == rhs.detail &&
-//            lhs.tags == rhs.tags &&
-//            lhs.memorableQuotes == rhs.memorableQuotes
-//    }
-//
-//    // != 연산자 구현
-//    static func !=(lhs: Review, rhs: Review) -> Bool {
-//        return !(lhs == rhs) // == 연산자의 반대
-//    }
-//    // 리뷰를 비교할 때, 변경된 속성이 있는지 판단하는 함수
-//    func hasChanged(from previousReview: Review) -> Bool {
-//        return self != previousReview  // == 연산자의 반대
-//    }
 }
 
 extension Review {

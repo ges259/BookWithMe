@@ -20,17 +20,19 @@ struct SearchView: View {
     
     var body: some View {
         VStack {
-            searchBar
-            scrollView
-            Spacer()
+            self.searchBar
+            self.scrollView
+//            Spacer()
         }
         .gesture(
             SimultaneousGesture(
                 TapGesture().onEnded { isFocused = false },
-                DragGesture().onChanged { _ in if isFocused { isFocused = false } }
+                DragGesture()
+                    .onChanged { _ in
+                        if isFocused { isFocused = false }
+                    }
             )
         )
-        
     }
 }
 
@@ -45,8 +47,9 @@ private extension SearchView {
             .defaultCornerRadius()
             .overlay(clearButtonOverlay)
             .focused($isFocused)
-            .onChange(of: viewModel.searchText) { newValue in
-                viewModel.searchBooks()
+            .submitLabel(.search) // 키보드에 "검색" 표시
+            .onSubmit { // 검색 버튼을 누른 후, 액션
+                viewModel.searchBooks(isMore: false)
             }
         }
         .padding(.horizontal)
@@ -57,9 +60,10 @@ private extension SearchView {
             Spacer()
             if !viewModel.searchText.isEmpty {
                 Button {
+                    // 검색어를 초기화
                     viewModel.searchText = ""
                 } label: {
-                    Image(systemName: "xmark.circle.fill")
+                    Image.searchXmark
                         .frame(width: 30, height: 30)
                         .foregroundColor(.contentsBackground2)
                 }
@@ -69,25 +73,33 @@ private extension SearchView {
     }
     
     var scrollView: some View {
-        return ScrollView(showsIndicators: false){
+        return ScrollView(showsIndicators: false) {
             LazyVStack {
-//                self.bookDummy()
-//                self.bookDummy()
-//                self.bookDummy()
-//                self.bookDummy()
-//                self.bookDummy()
-//                self.bookDummy()
-//                self.bookDummy()
-//                self.bookDummy()
-//                self.bookDummy()
+                ForEach(
+                    self.viewModel.searchResult,
+                    id: \.id
+                ) { book in
+                    NavigationLink {
+                        BookDataView(
+                            viewModel: BookDataViewModel(
+                                bookCache: BookCache.shared,
+                                book: book
+                            )
+                        )
+                    } label: {
+                        BookDataHeaderView(
+                            book: book,
+                            size: .small,
+                            isShadow: false
+                        )
+                    }
+                    .buttonStyle(.plain) // 기본 효과 제거 (선택)
+                }
             }
         }
         .defaultCornerRadius()
     }
-    
 }
-
-
 
 //#Preview {
 //    SearchView(viewModel: SearchViewModel())

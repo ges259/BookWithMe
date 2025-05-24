@@ -6,104 +6,149 @@
 //
 
 import Foundation
+enum Secret {
+    static var apiKey: String {
+        Bundle.main.infoDictionary?["API_KEY"] as? String ?? ""
+    }
+}
+
+/*
+ 도서만 검색
+ 제목으로 검색
+ 페이지당 20개 가져오기
+ 
+ 
+ 책 이미지
+ 저자
+ 목차
+ 책 소개(description)
+ */
 
 final class BookAPIManager {
-    // MARK: Constants
-    private enum Constants {
-        static let searchBaseURL  = "https://www.nl.go.kr/seoji/SearchApi.do"
-        static let detailBaseURL  = "https://www.nl.go.kr/seoji/openApiDtl.do"
-        static let apiKey         = "<API_KEY_여기에_입력>"
-        static let resultStyle    = "json"
-        static let pageSize       = "20"
+    // MARK: - BookAPIManager 내부 Constants 정의
+    private struct Constants {
+        static let baseURL = "https://www.aladin.co.kr/ttb/api/ItemSearch.aspx"
+        static let apiKey = Secret.apiKey
+        static let maxResults = "3"
+        
+        struct QueryKey {
+            static let key = "ttbkey"
+            static let query = "Query"
+            static let queryType = "QueryType"
+            static let searchTarget = "SearchTarget"
+            static let output = "Output"
+            static let cover = "Cover"
+            static let start = "start"
+            static let maxResults = "MaxResults"
+            
+        }
+        
+        struct QueryValue {
+            static let queryType = "Title"
+            static let searchTarget = "Book"
+            static let outputFormat = "JS"
+            static let coverSize = "Big"
+        }
     }
     
     static let shared = BookAPIManager()
     private init() {}
     
-    /// '검색어'로 BookEntity 배열을 반환 (Core Data에 저장하지 않음)
-    func searchBookEntities(keyword: String, page: Int) async throws -> [BookEntity] {
-        let searchURL = try makeSearchURL(keyword: keyword, page: page)
-        let (data, _) = try await URLSession.shared.data(from: searchURL)
-        let search = try JSONDecoder().decode(SearchResponse.self, from: data)
+    // MARK: - Public
+    func fetchBooksByTitle(
+        _ title: String,
+        page: Int = 1
+    ) async throws -> [Book] {
+        let url = try makeSearchURL(title: title, page: page)
+        let (rawData, _) = try await URLSession.shared.data(from: url)
+        print("URL: \(url)")
         
-        var results: [BookEntity] = []
-        for doc in search.docs {
-            if let entity = try? await fetchDetailAsEntity(controlNo: doc.controlNo) {
-                results.append(entity)
-            }
+        let cleanedData: Data = {
+            if rawData.last == 0x3B { return Data(rawData.dropLast()) }
+            else { return rawData }
+        }()
+        
+        let decoded = try JSONDecoder().decode(AladinSearchResponse.self, from: cleanedData)
+        return decoded.items.map { Book(dto: $0) }
+    }
+    
+    // MARK: - URL 생성 함수
+    private func makeSearchURL(
+        title: String,
+        page: Int
+    ) throws -> URL {
+        var comps = URLComponents(string: Constants.baseURL)
+        
+        comps?.queryItems = [
+            URLQueryItem(name: Constants.QueryKey.key,
+                         value: Constants.apiKey),
+            URLQueryItem(name: Constants.QueryKey.query,
+                         value: title),
+            URLQueryItem(name: Constants.QueryKey.queryType,
+                         value: Constants.QueryValue.queryType),
+            URLQueryItem(name: Constants.QueryKey.searchTarget,
+                         value: Constants.QueryValue.searchTarget),
+            URLQueryItem(name: Constants.QueryKey.output,
+                         value: Constants.QueryValue.outputFormat),
+            URLQueryItem(name: Constants.QueryKey.cover,
+                         value: Constants.QueryValue.coverSize),
+            URLQueryItem(name: Constants.QueryKey.start,
+                         value: "\(page)"),
+            URLQueryItem(name: Constants.QueryKey.maxResults,
+                         value: Constants.maxResults)
+        ]
+        
+        guard let url = comps?.url else {
+            throw URLError(.badURL)
         }
-        return results
+        return url
     }
 }
 
 
-private extension BookAPIManager {
 
-    /// 상세 정보를 BookEntity로 반환 (Core Data에 저장하지 않음)
-    func fetchDetailAsEntity(controlNo: String) async throws -> BookEntity {
-        let detailURL = try makeDetailURL(controlNo: controlNo)
-        let (data, _) = try await URLSession.shared.data(from: detailURL)
-        let decoded = try JSONDecoder().decode(DetailResponse.self, from: data)
 
-        guard let item = decoded.docs.first else {
-            throw NSError(domain: "BookAPIManager", code: 404, userInfo: [NSLocalizedDescriptionKey: "상세 정보를 찾을 수 없습니다."])
-        }
 
-        // BookEntity 생성, Core Data에 저장하지 않음
-        let entity = BookEntity()
-        entity.bookId = item.controlNo
-        entity.title = item.titleInfo
-        entity.author = item.author
-        entity.publisher = item.publisher
-        entity.bookDescription = item.description
-        entity.imageURL = item.coverUrl
-        
-        // 객체는 저장되지 않고 메모리 내에서만 존재
-        return entity
-    }
 
-    // MARK: URL 생성
-    func makeSearchURL(keyword: String, page: Int) throws -> URL {
-        var comps = URLComponents(string: Constants.searchBaseURL)
-        comps?.queryItems = [
-            .init(name: "cert_key",      value: Constants.apiKey),
-            .init(name: "result_style",  value: Constants.resultStyle),
-            .init(name: "page_no",       value: String(page)),
-            .init(name: "page_size",     value: Constants.pageSize),
-            .init(name: "title",         value: keyword)
-        ]
-        guard let url = comps?.url else { throw URLError(.badURL) }
-        return url
-    }
 
-    func makeDetailURL(controlNo: String) throws -> URL {
-        var comps = URLComponents(string: Constants.detailBaseURL)
-        comps?.queryItems = [
-            .init(name: "cert_key",      value: Constants.apiKey),
-            .init(name: "result_style",  value: Constants.resultStyle),
-            .init(name: "control_no",    value: controlNo)
-        ]
-        guard let url = comps?.url else { throw URLError(.badURL) }
-        return url
-    }
 
-    // MARK: Response DTOs
-    struct SearchResponse: Decodable {
-        let docs: [SearchItem]
-        struct SearchItem: Decodable {
-            let controlNo: String
-        }
-    }
 
-    struct DetailResponse: Decodable {
-        let docs: [DetailItem]
-        struct DetailItem: Decodable {
-            let controlNo: String
-            let titleInfo: String
-            let author: String
-            let publisher: String
-            let description: String?
-            let coverUrl: String?
-        }
+
+// MARK: - 전체 검색 응답
+struct AladinSearchResponse: Decodable {
+    let items: [AladinBookDTO]
+
+    enum CodingKeys: String, CodingKey {
+        case items = "item"
     }
 }
+
+// MARK: - 단일 책 DTO
+// API의 응답 구조가 바뀌었을 때 앱 내부 로직의 영향을 적게 하기 위해 따로 모델을 둠
+struct AladinBookDTO: Decodable {
+    let title: String
+    let author: String
+    let publisher: String
+    let description: String?
+    let toc: String?
+    let cover: String?
+
+    enum CodingKeys: String, CodingKey {
+        case title, author, publisher, description, toc, cover
+    }
+}
+
+
+
+/*
+ cd /Users/gyeeunseong/Documents/BookWithMe
+ echo "BookWithMe/Info.plist" >> .gitignore
+ git status
+ git rm --cached BookWithMe/Info.plist
+ git add .
+ git commit -m "Ignore Info.plist and remove from Git tracking"
+
+ */
+
+
+

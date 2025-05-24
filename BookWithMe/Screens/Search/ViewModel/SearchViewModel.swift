@@ -10,15 +10,38 @@ import SwiftUI
 class SearchViewModel: ObservableObject {
     
     @Published var searchText: String = ""
-    var searchResult: [Book] = []
+    @Published var searchResult: [Book] = [] {
+        didSet {
+            dump(searchResult)
+        }
+    }
+    private var page: Int = 1
     
     let bookAPIManager: BookAPIManager  = BookAPIManager.shared
     
     
     
     
-    // 예시용 함수 - 나중에 검색 로직 연결 가능
-    func searchBooks() {
-        print("🔍 검색어: \(searchText)")
+    // MARK: - 뷰 모델(or 컨트롤러)에서 호출
+    func searchBooks(isMore: Bool) {
+        
+        let searchPage: Int = isMore ? self.page + 1 : self.page
+        
+        print("🔍 검색어: \(searchText) / searchPage: \(searchPage)")
+        
+        Task {
+            do {
+                let data = try await bookAPIManager.fetchBooksByTitle(
+                    searchText,
+                    page: searchPage
+                )
+                self.searchResult = data
+                
+                
+                
+            } catch let error {
+                print("DEBUG: \(error.localizedDescription)")
+            }
+        }
     }
 }

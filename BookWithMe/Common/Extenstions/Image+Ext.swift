@@ -31,7 +31,7 @@ extension Image {
     static let send = Image(systemName: "arrow.right.circle.fill")
     
     
-    
+    static let searchXmark = Image(systemName: "xmark.circle.fill")
     
     
 //    static let trash = Image(systemName: "trash.circle.fill")
