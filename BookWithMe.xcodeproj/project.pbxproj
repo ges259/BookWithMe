@@ -84,7 +84,6 @@
 		5F07D0642DCA1C2900401B04 /* ReadingHistoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingHistoryCellView.swift; sourceTree = "<group>"; };
 		5F25AE0D2DCD2D5100C89B89 /* BookInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoRow.swift; sourceTree = "<group>"; };
 		5F437A372DCA52D600610056 /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
-		5F4E03862DE1F80B00F12698 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = info.plist; sourceTree = "<group>"; };
 		5F6B70EB2DD104DE005179CE /* HorizonCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonCalendarView.swift; sourceTree = "<group>"; };
 		5F6B70ED2DD104F4005179CE /* SelectionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMode.swift; sourceTree = "<group>"; };
 		5F6B91B62DCCCA1D00D6C54A /* BookDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDataViewModel.swift; sourceTree = "<group>"; };
@@ -164,7 +163,6 @@
 		5F8650462DC798BC00784088 = {
 			isa = PBXGroup;
 			children = (
-				5F4E03862DE1F80B00F12698 /* info.plist */,
 				5F8650512DC798BC00784088 /* BookWithMe */,
 				5F8650502DC798BC00784088 /* Products */,
 			);
@@ -728,8 +726,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"BookWithMe/Preview Content\"";
 				DEVELOPMENT_TEAM = 63D86GVH6K;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/BookWithMe/Info.plist";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -758,8 +756,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"BookWithMe/Preview Content\"";
 				DEVELOPMENT_TEAM = 63D86GVH6K;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/BookWithMe/Info.plist";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
