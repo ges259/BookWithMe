@@ -2,7 +2,7 @@
 //  ReviewEntity+CoreDataProperties.swift
 //  BookWithMe
 //
-//  Created by 계은성 on 5/16/25.
+//  Created by 계은성 on 5/25/25.
 //
 //
 
@@ -16,7 +16,6 @@ extension ReviewEntity {
         return NSFetchRequest<ReviewEntity>(entityName: "ReviewEntity")
     }
 
-    @NSManaged public var bookId: String?
     @NSManaged public var memorableQuotes: String?
     @NSManaged public var rating: Double
     @NSManaged public var reviewDetail: String?

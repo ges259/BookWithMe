@@ -7,9 +7,10 @@
 
 import Foundation
 enum Secret {
-    static var apiKey: String {
-        Bundle.main.infoDictionary?["API_KEY"] as? String ?? ""
-    }
+//    static var apiKey: String {
+//        Bundle.main.infoDictionary?["API_KEY"] as? String ?? ""
+//    }
+    static var apiKey: String = "Test_API_KEY_10"
 }
 
 /*
@@ -69,7 +70,7 @@ final class BookAPIManager {
         }()
         
         let decoded = try JSONDecoder().decode(AladinSearchResponse.self, from: cleanedData)
-        return decoded.items.map { Book(dto: $0) }
+        return decoded.items.compactMap { Book(dto: $0) }
     }
     
     // MARK: - URL 생성 함수
@@ -132,9 +133,11 @@ struct AladinBookDTO: Decodable {
     let description: String?
     let toc: String?
     let cover: String?
+    let itemId: Int
+    let isbn13: String?
 
     enum CodingKeys: String, CodingKey {
-        case title, author, publisher, description, toc, cover
+        case title, author, publisher, description, toc, cover, itemId, isbn13
     }
 }
 

@@ -54,10 +54,16 @@ extension CoreDataManager {
         request.predicate = predicate
         request.sortDescriptors = sortDescriptors
 
+        // 🚀 관계 미리 불러오기: N+1 문제 방지
+        request.relationshipKeyPathsForPrefetching = [
+            #keyPath(BookEntity.bookHistory),
+            #keyPath(BookEntity.bookHistory.review)
+        ]
+
         do {
             return try context.fetch(request)
         } catch {
-            print("⚠️ Fetch error: \(error)")
+            print("⚠️ BookEntity fetch 실패: \(error.localizedDescription)")
             return []
         }
     }

@@ -29,15 +29,15 @@ struct AnalyticsView: View {
     
     var body: some View {
         Button {
-            for integer in 0...5 {
-                CoreDataManager.shared.create_DUMMYCoreData(
-                    bookId: self.bookArray[integer],
-                    bookName: self.bookArray[integer],
-                    status: self.statusArray[integer]
-                )
-            }
-            
-            
+//            for integer in 0...5 {
+//                CoreDataManager.shared.create_DUMMYCoreData(
+//                    bookId: self.bookArray[integer],
+//                    bookName: self.bookArray[integer],
+//                    status: self.statusArray[integer]
+//                )
+//            }
+//
+            print("AnalyticsView Button")
         } label: {
             Text("저장")
         }

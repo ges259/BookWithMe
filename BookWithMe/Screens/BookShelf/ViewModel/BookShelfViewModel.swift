@@ -45,7 +45,7 @@ extension BookShelfViewModel {
             to: range.endOfMonth
         )
 
-        // Bookcache에 데이터 저장 및 Book 배열 ㄴ반환
+        // Bookcache에 데이터 저장 및 Book 배열 반환
         return bookHistoryEntities.compactMap { history in
             guard let bookEntity = history.book else { return nil }
             let book = Book(entity: bookEntity)

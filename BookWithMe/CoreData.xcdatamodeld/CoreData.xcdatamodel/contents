@@ -18,7 +18,6 @@
         <relationship name="review" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ReviewEntity" inverseName="bookHistory" inverseEntity="ReviewEntity"/>
     </entity>
     <entity name="ReviewEntity" representedClassName=".ReviewEntity" syncable="YES">
-        <attribute name="bookId" attributeType="String"/>
         <attribute name="memorableQuotes" optional="YES" attributeType="String"/>
         <attribute name="rating" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="reviewDetail" optional="YES" attributeType="String"/>

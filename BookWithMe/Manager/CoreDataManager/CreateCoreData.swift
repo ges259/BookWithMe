@@ -13,142 +13,125 @@ final class CoreDataManager {
     // 여기에서 context를 가져와서 재사용
     let context: NSManagedObjectContext = PersistenceManager.shared.context
     private init() { }
+    
+    
+    
+    // MARK: - Book 저장
+    // 🚩 단일 진입점: Book + BookHistory + Review 저장
+    func save(book model: Book) async throws {
+        try await PersistenceManager.shared.container.performBackgroundTask { context in
+            // 1) Book upsert
+            let book = try self.upsertBook(model, in: context)
+            
+            // 2) Review 생성
+            let review = self.createReview(from: model.history.review, in: context)
+            
+            // 3) BookHistory upsert
+            try self.upsertBookHistory(
+                for: book,
+                review: review, 
+                from: model.history,
+                in: context)
+            
+            print("_________book_________")
+            dump(book)
+            print("_________ history _________")
+            dump(model.history)
+            print("_________ review _________")
+            dump(review)
+            print("___________________________")
+            
+            
+            // 4) Save all changes
+            try self.saveContext(context)
+        }
+    }
 }
 
-extension CoreDataManager {
-    // Book 생성
-    func createBook(
-        bookId: String,
-        bookName: String,
-        imagePath: String
-    ) -> BookEntity? {
-        let book = BookEntity(context: context)
-        book.bookId = bookId
-        
-        book.title = "bookName"
-        book.publisher = imagePath
-        book.imageURL = "imageURL"
-        book.bookDescription = "bookDescription"
-        book.author = "author"
-        
-        
-        do {
-            try context.save()  // 데이터를 저장
-            return book
-        } catch {
-            print("Error saving Book: \(error)")
-            return nil
-        }
-    }
 
 
-    // BookHistory 생성
-    func createBookHistory(
-        book: BookEntity,
-        review: ReviewEntity,
-        status: String,
-        startDate: Date,
-        endDate: Date
-    ) {
-        let bookHistory = BookHistoryEntity(context: context)
-        bookHistory.status = status
-        bookHistory.startDate = startDate
-        bookHistory.endDate = endDate
-        bookHistory.bookHistoryId = UUID().uuidString
-        // Book과 BookHistory
-        bookHistory.book = book
-        bookHistory.review = review
-        
-        do {
-            try context.save()
-        } catch {
-            print("Error saving BookHistory: \(error)")
+private extension CoreDataManager {
+    // MARK: - Book upsert
+    func upsertBook(_ model: Book, in context: NSManagedObjectContext) throws -> BookEntity {
+        return try Self.upsert(
+            entity: BookEntity.self,
+            idKey: "bookId",
+            idValue: model.id,
+            in: context
+        ) { (book: BookEntity) in
+            book.bookId          = model.id
+            book.title           = model.title
+            book.author          = model.author
+            book.publisher       = model.publisher
+            book.bookDescription = model.description
+            book.imageURL        = model.imageURL
         }
     }
     
-    func createReview(
-        bookHistory: BookHistoryEntity,
-        bookId: String,
-        reviewSummary: String,
-        reviewDetail: String
-    ) {
+    // MARK: - Review 생성
+    func createReview(from reviewModel: Review, in context: NSManagedObjectContext) -> ReviewEntity {
         let review = ReviewEntity(context: context)
-        review.bookId = bookId
-        review.reviewSummary = reviewSummary
-        review.reviewDetail = reviewDetail
-        review.updatedAt = Date()
-        
-        review.bookHistory = bookHistory  // Book 관계 연결
-
-        // ✅ BookHistory에도 연결
-        bookHistory.review = review
-
-        do {
-            try context.save()
-        } catch {
-            print("Error saving Review: \(error)")
+        review.reviewId        = UUID().uuidString
+        review.updatedAt       = Date()
+        review.rating          = reviewModel.rating
+        review.reviewSummary   = reviewModel.summary
+        review.reviewDetail    = reviewModel.detail
+        review.tags            = ""
+        review.memorableQuotes = reviewModel.memorableQuotes
+        return review
+    }
+    
+    // MARK: - BookHistory upsert
+    func upsertBookHistory(
+        for book: BookEntity,
+        review: ReviewEntity,
+        from historyModel: BookHistory,
+        in context: NSManagedObjectContext
+    ) throws {
+        _ = try Self.upsert(
+            entity: BookHistoryEntity.self,
+            idKey: "bookHistoryId",
+            idValue: historyModel.bookHistoryId,
+            in: context
+        ) { (history: BookHistoryEntity) in
+            history.bookHistoryId = historyModel.bookHistoryId
+            history.status        = historyModel.status.rawValue
+            history.startDate     = historyModel.startDate
+            history.endDate       = historyModel.endDate
+            history.book          = book             // 양방향
+            book.bookHistory      = history
+            history.review        = review
+            review.bookHistory    = history          // 양방향
         }
     }
     
-
-    
-    
-    
-    
-    
-    // BookHistory 생성
-    func create_DUMMYCoreData(
-        bookId: String,
-        bookName: String,
-        status: String
-    ) {
-        // Book
-        let book = BookEntity(context: context)
-        book.bookId = bookId
-        book.title = "bookName"
-        book.publisher = "imagePath"
-        book.imageURL = "imageURL"
-        book.bookDescription = "bookDescription"
-        book.author = "author"
-        
-        
-        // BookHistory
-        let bookHistory = BookHistoryEntity(context: context)
-        bookHistory.bookHistoryId = UUID().uuidString
-        bookHistory.status       = status
-        bookHistory.startDate    = Date()
-        bookHistory.endDate      = Date()
-        
-//        
-//        // Review
-//        let review = ReviewEntity(context: context)
-//        review.reviewId      = UUID().uuidString
-//        review.rating        = Double(0)
-//        review.reviewSummary = "summary"
-//        review.reviewDetail  = "detail"
-//        review.updatedAt     = Date()
-//        
-        
-        book.bookHistory = bookHistory
-        bookHistory.book    = book
-//        bookHistory.review  = review
-//        review.bookHistory  = bookHistory
-        
-        do {
+    // MARK: - 저장
+    func saveContext(_ context: NSManagedObjectContext) throws {
+        if context.hasChanges {
             try context.save()
-        } catch {
-            print("Error saving BookHistory: \(error)")
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+}
+
+
+
+// MARK: - Upsert Helper (Generic)
+private extension CoreDataManager {
+    @discardableResult
+    static func upsert<T: NSManagedObject>(
+        entity: T.Type,
+        idKey: String,
+        idValue: String,
+        in context: NSManagedObjectContext,
+        configure: (T) -> Void
+    ) throws -> T {
+        let request = NSFetchRequest<T>(entityName: String(describing: entity))
+        request.predicate = NSPredicate(format: "%K == %@", idKey, idValue)
+        request.fetchLimit = 1
+
+        let object = try context.fetch(request).first ?? T(context: context)
+        configure(object)
+        return object
+    }
 }
 

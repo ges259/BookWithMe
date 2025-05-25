@@ -159,6 +159,7 @@ extension BookDataView {
         switch self.viewModel.selectedRow {
         case .status:
             HistoryStatusView(
+                bottomSheetPosition: $viewModel.sheetState,
                 selectedStatus: $viewModel.book.history.status
             )
         case .startDate:
@@ -173,28 +174,25 @@ extension BookDataView {
                 selectionMode: .end)
             
         case .rating:
-                HistoryRatingView(
-                    rating: Binding(
-                        get: { viewModel.book.history.review?.rating ?? 0 },
-                        set: { viewModel.book.history.review?.rating = $0}
-                    )
-                )
+            HistoryRatingView(rating: $viewModel.book.history.review.rating)
+            
         case .summary:
             HistoryTextFieldView(
+                bottomSheetPosition: $viewModel.sheetState,
                 text: Binding(
-                    get: { viewModel.book.history.review?.summary ?? "" },
-                    set: { viewModel.book.history.review?.summary = $0 }
+                    get: { viewModel.book.history.review.summary ?? "" },
+                    set: { viewModel.book.history.review.summary = $0 }
                 )
             )
         case .tags:
-            TestView2()
+            TestView2(viewModel: self.$viewModel)
         case .description:
             BookDescriptionView(
                 book: self.viewModel.book,
                 descriptionMode: .constant(.preview)
             )
         default:
-            TestView2()
+            TestView2(viewModel: self.$viewModel)
         }
     }
 }
@@ -206,16 +204,23 @@ extension BookDataView {
 
 
 struct TestView2: View {
+    @Binding var viewModel: BookDataViewModel
     var body: some View {
-        Text("Test View")
+        Button {
+            viewModel.saveBook()
+        } label: {
+            Text("저장")
+        }
+        .frame(width: 100, height: 100)
+
     }
 }
-
-#Preview {
-    BookDataView(
-        viewModel: BookDataViewModel(
-            bookCache: BookCache.shared,
-            book: Book.DUMMY
-        )
-    )
-}
+//
+//#Preview {
+//    BookDataView(
+//        viewModel: BookDataViewModel(
+//            bookCache: BookCache.shared,
+//            book: Book.DUMMY
+//        )
+//    )
+//}

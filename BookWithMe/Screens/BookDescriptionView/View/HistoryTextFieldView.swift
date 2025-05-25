@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import BottomSheet
+
 // 한줄평 입력하는 메인 뷰
 struct HistoryTextFieldView: View {
+    @Binding var bottomSheetPosition: BottomSheetPosition
     // 입력 중인 텍스트(나중에 바인딩 해야함)
     @Binding var text: String
     
@@ -80,7 +83,7 @@ private extension HistoryTextFieldView {
     // 다음 버튼
     var nextButton: some View {
         return Button {
-            print("HistoryChatView_nextButton")
+            bottomSheetPosition = .hidden
         } label: {
             Image(systemName: "arrow.right.circle.fill")
                 .resizable()

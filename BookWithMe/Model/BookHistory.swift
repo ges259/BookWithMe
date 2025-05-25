@@ -7,16 +7,21 @@
 
 import Foundation
 
+// MARK: - Model
 struct BookHistory {
     var bookId: String
     var bookHistoryId: String
     var status: ReadingStatus
     var startDate: Date?
     var endDate: Date?
-    var review: Review?
-    
+    var review: Review
+}
+
+// MARK: - init
+extension BookHistory {
+    /// CoreData에서 받아온 BookHistoryEntity를  BookHistory모델로 변환하는 init?()
     init?(entity: BookHistoryEntity) {
-        guard 
+        guard
             let bookId = entity.book?.bookId,
             let bookHistoryId = entity.bookHistoryId,
             let statusRaw = entity.status,
@@ -35,33 +40,21 @@ struct BookHistory {
         {
             self.review = review
         } else {
-            self.review = Review.emptyReview(bookId: bookId)
+            self.review = Review()
         }
     }
-}
-
-extension BookHistory {
-    init(
-        bookId: String,
-        bookHistoryId: String,
-        status: ReadingStatus = .none,
-        startDate: Date? = nil,
-        endDate: Date? = nil,
-        review: Review = Review.DUMMY_REVIEW
-    ) {
+    /// API를 통해 받아온 데이터를 BookHistory모델로 변환하는 init()
+    init(bookId: String) {
         self.bookId = bookId
-        self.bookHistoryId = bookHistoryId
-        self.review = review
-        self.status = status
-        self.startDate = startDate
-        self.endDate = endDate
+        self.bookHistoryId = UUID().uuidString
+        self.status = .none
+        self.startDate = nil
+        self.endDate = nil
+        self.review = Review()
     }
-    static var DUMMY_BOOKHISTORY: BookHistory = BookHistory(
-        bookId: "bookId_Dummy",
-        bookHistoryId: "bookHistoryId",
-        status: .reading,
-        startDate: Date(),
-        endDate: Date(),
-        review: Review.DUMMY_REVIEW
-    )
+    
+    /// 테스트용 Dummy
+    static var DUMMY_BOOKHISTORY: BookHistory {
+        return BookHistory(bookId: "BookHistory_Dummy")
+    }
 }
