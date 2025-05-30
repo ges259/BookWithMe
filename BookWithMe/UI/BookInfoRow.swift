@@ -13,7 +13,7 @@ enum BookInfoRow: Identifiable {
     case endDate
     case rating
     case summary
-    case tags
+//    case tags
     
     
     case description
@@ -21,7 +21,7 @@ enum BookInfoRow: Identifiable {
     
     
     static var allCases: [BookInfoRow] {
-        return [.status, .startDate, .endDate, .rating, .summary, .tags
+        return [.status, .startDate, .endDate, .rating, .summary
         ]
     }
     
@@ -34,7 +34,6 @@ enum BookInfoRow: Identifiable {
         case .endDate: return "종료일"
         case .rating: return "평점"
         case .summary: return "한줄평"
-        case .tags: return "태그"
         default: return ""
         }
     }
@@ -46,7 +45,6 @@ enum BookInfoRow: Identifiable {
         case .endDate: return "calendar"
         case .rating: return "star.fill"
         case .summary: return "quote.bubble"
-        case .tags: return "tag"
         default: return ""
         }
     }

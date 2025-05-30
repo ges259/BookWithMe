@@ -20,6 +20,10 @@ final class BookCache {
         storage[id]
     }
 
+    func contains(_ book: Book) -> Bool {
+        return storage[book.id] != nil
+    }
+
     func clear() {
         storage.removeAll()
     }

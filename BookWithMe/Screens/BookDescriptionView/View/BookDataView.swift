@@ -54,6 +54,14 @@ struct BookDataView: View {
         .customBackground(Color.baseButton.cornerRadius(30))
         .enableSwipeToDismiss()
         .enableTapToDismiss()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack {
+                    self.saveToolbarItem
+                    self.deleteToolbarItem
+                }
+            }
+        }
     }
 }
 
@@ -144,6 +152,19 @@ private extension BookDataView {
         .defaultShadow()
         .transition(.move(edge: .bottom))
     }
+    
+    var saveToolbarItem: some View {
+        return Button("저장") {
+            self.viewModel.saveBook()
+        }
+        .foregroundColor(.black)
+    }
+    var deleteToolbarItem: some View {
+        return Button("삭제") {
+            self.viewModel.deleteBook()
+        }
+        .foregroundColor(.red)
+    }
 }
 
 
@@ -184,35 +205,20 @@ extension BookDataView {
                     set: { viewModel.book.history.review.summary = $0 }
                 )
             )
-        case .tags:
-            TestView2(viewModel: self.$viewModel)
         case .description:
             BookDescriptionView(
                 book: self.viewModel.book,
                 descriptionMode: .constant(.preview)
             )
         default:
-            TestView2(viewModel: self.$viewModel)
+            TestView2()
         }
     }
 }
 
-
-
-
-
-
-
 struct TestView2: View {
-    @Binding var viewModel: BookDataViewModel
     var body: some View {
-        Button {
-            viewModel.saveBook()
-        } label: {
-            Text("저장")
-        }
-        .frame(width: 100, height: 100)
-
+        Text("")
     }
 }
 //

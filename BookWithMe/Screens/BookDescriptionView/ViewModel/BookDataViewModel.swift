@@ -19,11 +19,14 @@ enum ViewModeType {
 final class BookDataViewModel {
     // MARK: - 모델
     private let bookCache: BookCache
+    
+    private let originalBook: Book    // DB에서 읽어온 직후 스냅샷
     var book: Book {
         didSet {
             dump(book)
         }
     }
+    var isSavedBook: Bool
     
     // MARK: - init
     init(
@@ -31,7 +34,10 @@ final class BookDataViewModel {
         book: Book
     ) {
         self.bookCache = bookCache
+        
+        self.originalBook = book
         self.book = book
+        self.isSavedBook = bookCache.contains(book)
         
         self.descriptionMode = book.history.status == .none
         ? .preview
@@ -79,20 +85,6 @@ final class BookDataViewModel {
     
     
     
-    func saveBook() {
-        Task {
-            do {
-                try await CoreDataManager.shared.save(book: self.book)
-            } catch let error {
-                print("saveBook -- DEBUG : \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    
-    
-    
-    
     
     
     
@@ -125,8 +117,6 @@ final class BookDataViewModel {
             
         case .summary:
             return book.history.review.summary ?? ""
-        case .tags:
-            return book.history.review.tags?.joined(separator: ", ") ?? ""
         default:
             return ""
         }
@@ -138,5 +128,60 @@ final class BookDataViewModel {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         return formatter.string(from: date)
+    }
+}
+
+
+
+
+
+
+
+// MARK: - CoreData 저장
+extension BookDataViewModel {
+    
+    /// 사용자가 저장 버튼을 눌렀을 때 호출되는 함수
+    func saveBook() {
+        Task { @MainActor in
+            do {
+                self.isSavedBook
+                ? try await updateBookIfNeeded()
+                : try await createBook()
+                
+            } catch {
+                log(error, context: "saveBook")
+            }
+        }
+    }
+    
+    /// 새로운 책을 Core Data에 저장
+    private func createBook() async throws {
+        try await CoreDataManager.shared.save(book: book)
+    }
+
+    /// 기존 책을 변경사항이 있을 경우에만 업데이트
+    private func updateBookIfNeeded() async throws {
+        let (bookPatch, historyPatch, reviewPatch, hasChanged) = book.diff(from: originalBook)
+        guard hasChanged else { return }
+
+        try await CoreDataManager.shared.update(
+            bookId: book.id,
+            bookPatch: bookPatch,
+            historyPatch: historyPatch,
+            reviewPatch: reviewPatch
+        )
+    }
+
+    /// 에러 로깅 유틸리티
+    private func log(_ error: Error, context: String) {
+        print("\(context) -- DEBUG: \(error.localizedDescription)")
+    }
+}
+
+
+// MARK: - CoreData 삭제
+extension BookDataViewModel {
+    func deleteBook() {
+        print(#function)
     }
 }

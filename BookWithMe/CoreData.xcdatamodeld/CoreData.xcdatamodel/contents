@@ -5,6 +5,7 @@
         <attribute name="bookDescription" attributeType="String"/>
         <attribute name="bookId" attributeType="String"/>
         <attribute name="imageURL" optional="YES" attributeType="String"/>
+        <attribute name="keywords" optional="YES" attributeType="String"/>
         <attribute name="publisher" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="bookHistory" maxCount="1" deletionRule="Nullify" destinationEntity="BookHistoryEntity" inverseName="book" inverseEntity="BookHistoryEntity"/>

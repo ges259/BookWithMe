@@ -15,7 +15,7 @@ final class PersistenceManager {
     /// 싱글톤 인스턴스입니다. 앱 전체에서 하나의 PersistenceManager만 사용
     static let shared = PersistenceManager()
 
-    /// Core Data 컨테이너입니다. .xcdatamodeld 파일에 정의된 모델을 기반으로 생성
+    /// Core Data 컨테이너 - xcdatamodeld 파일에 정의된 모델을 기반으로 생성
     let container: NSPersistentContainer
 
     /// 외부에서 접근 가능한 메인 컨텍스트입니다. 대부분의 읽기/쓰기 작업은 이 context를 사용

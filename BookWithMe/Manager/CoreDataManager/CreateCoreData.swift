@@ -15,32 +15,41 @@ final class CoreDataManager {
     private init() { }
     
     
+    // MARK: - 저장
+    func saveContext(_ context: NSManagedObjectContext) throws {
+        guard context.hasChanges else { return }
+        do {
+            try context.save()
+        } catch {
+            /// 원본 오류를 감싼 뒤 상위 호출부로 throw
+            throw CoreDataError.saveFailed(underlying: error)
+        }
+    }
+    
     
     // MARK: - Book 저장
     // 🚩 단일 진입점: Book + BookHistory + Review 저장
     func save(book model: Book) async throws {
         try await PersistenceManager.shared.container.performBackgroundTask { context in
             // 1) Book upsert
-            let book = try self.upsertBook(model, in: context)
+            let book = try self.upsertBook(
+                model,
+                in: context
+            )
             
             // 2) Review 생성
-            let review = self.createReview(from: model.history.review, in: context)
+            let review = self.createReview(
+                from: model.history.review,
+                in: context
+            )
             
             // 3) BookHistory upsert
             try self.upsertBookHistory(
                 for: book,
                 review: review, 
                 from: model.history,
-                in: context)
-            
-            print("_________book_________")
-            dump(book)
-            print("_________ history _________")
-            dump(model.history)
-            print("_________ review _________")
-            dump(review)
-            print("___________________________")
-            
+                in: context
+            )
             
             // 4) Save all changes
             try self.saveContext(context)
@@ -104,13 +113,6 @@ private extension CoreDataManager {
             review.bookHistory    = history          // 양방향
         }
     }
-    
-    // MARK: - 저장
-    func saveContext(_ context: NSManagedObjectContext) throws {
-        if context.hasChanges {
-            try context.save()
-        }
-    }
 }
 
 
@@ -125,13 +127,17 @@ private extension CoreDataManager {
         in context: NSManagedObjectContext,
         configure: (T) -> Void
     ) throws -> T {
-        let request = NSFetchRequest<T>(entityName: String(describing: entity))
-        request.predicate = NSPredicate(format: "%K == %@", idKey, idValue)
-        request.fetchLimit = 1
-
-        let object = try context.fetch(request).first ?? T(context: context)
-        configure(object)
-        return object
+        do {
+            let request = NSFetchRequest<T>(entityName: String(describing: entity))
+            request.predicate  = NSPredicate(format: "%K == %@", idKey, idValue)
+            request.fetchLimit = 1
+            
+            let object = try context.fetch(request).first ?? T(context: context)
+            configure(object)
+            return object
+        } catch {
+            /// fetch 실패 → CoreDataError 로 포장
+            throw CoreDataError.fetchFailed(underlying: error)
+        }
     }
 }
-

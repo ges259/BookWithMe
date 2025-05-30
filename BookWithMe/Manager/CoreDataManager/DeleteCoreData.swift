@@ -9,58 +9,43 @@ import SwiftUI
 import CoreData
 
 extension CoreDataManager {
-    // Book 삭제
-    func deleteBook(
-        by bookId: String
-    ) {
-//        if let book = fetchBook(by: bookId) {
-//            context.delete(book)
-//            
-//            do {
-//                try context.save()
-//            } catch {
-//                print("Error deleting Book: \(error)")
-//            }
-//        } else {
-//            print("Book not found")
-//        }
-    }
-    
-    // Review 삭제
-    func deleteReview(
-        by reviewId: String
-    ) {
-        let request: NSFetchRequest<ReviewEntity> = ReviewEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "reviewId == %@", reviewId)
-        
-        do {
-            if let review = try context.fetch(request).first {
-                context.delete(review)
-                try context.save()
-            } else {
-                print("Review not found")
+    // MARK: - Book 삭제
+    func delete(bookId: String) async throws {
+        try await PersistenceManager
+            .shared
+            .container
+            .performBackgroundTask
+        { context in
+            // 1. BookEntity fetch
+            let request = NSFetchRequest<BookEntity>(entityName: "BookEntity")
+            request.predicate = NSPredicate(format: "bookId == %@", bookId)
+            request.fetchLimit = 1
+            
+            do {
+                guard let book = try context.fetch(request).first else {
+                    throw CoreDataError.bookNotFound
+                }
+                
+                // 2. 연결된 BookHistory 삭제
+                if let history = book.bookHistory {
+                    // 연결된 Review 삭제
+                    if let review = history.review {
+                        context.delete(review)
+                    }
+                    context.delete(history)
+                }
+                
+                // 3. Book 삭제
+                context.delete(book)
+                
+                // 4. 저장
+                try self.saveContext(context)
+                
+            } catch let error as CoreDataError {
+                throw error
+            } catch {
+                throw CoreDataError.fetchFailed(underlying: error)
             }
-        } catch {
-            print("Error deleting Review: \(error)")
-        }
-    }
-    
-    // BookHistory 삭제
-    func deleteBookHistory(
-        by bookHistoryId: String
-    ) {
-        let request: NSFetchRequest<BookHistoryEntity> = BookHistoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "bookHistoryId == %@", bookHistoryId)
-        
-        do {
-            if let bookHistory = try context.fetch(request).first {
-                context.delete(bookHistory)
-                try context.save()
-            } else {
-                print("BookHistory not found")
-            }
-        } catch {
-            print("Error deleting BookHistory: \(error)")
         }
     }
 }

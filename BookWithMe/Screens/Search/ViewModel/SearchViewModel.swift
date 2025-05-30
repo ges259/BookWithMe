@@ -31,8 +31,8 @@ class SearchViewModel: ObservableObject {
         
         Task {
             do {
-                let data = try await bookAPIManager.fetchBooksByTitle(
-                    searchText,
+                let data = try await bookAPIManager.fetchBooks(
+                    byTitle: searchText,
                     page: searchPage
                 )
                 self.searchResult = data
