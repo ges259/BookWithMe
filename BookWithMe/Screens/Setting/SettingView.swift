@@ -47,30 +47,33 @@ private extension SettingView {
     }
 
     func rowView(_ item: SettingItem) -> some View {
-        HStack {
-            Text(item.title)
-                .font(.system(size: 13))
-            Spacer()
-            Button(action: {
-                handleAction(for: item)
-            }) {
+        NavigationLink {
+            handleAction(for: item)
+        } label: {
+            HStack {
+                Text(item.title)
+                    .font(.system(size: 13))
+                Spacer()
                 accessoryView(for: item)
             }
-            .frame(height: 35)
         }
+        .frame(height: 35)
     }
 
     // 액션 처리
-    func handleAction(for item: SettingItem) {
+    @ViewBuilder
+    func handleAction(for item: SettingItem) -> some View {
         switch item {
         case .changeImage:
-            print("이미지 변경")
+            EmptyView()
         case .changeNickname:
-            print("닉네임 변경")
+            EmptyView()
         case .logout:
-            print("로그아웃")
+            EmptyView()
         case .deleteAccount:
-            print("회원탈퇴")
+            EmptyView()
+        case .bookPrefs:
+            BookPrefsView(viewModel: BookPrefsViewModel(bookCache: BookCache.shared))
         }
     }
 

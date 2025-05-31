@@ -9,6 +9,7 @@ import SwiftUI
 
 enum TabItem: CaseIterable, Hashable {
     case bookShelf, readingHistory, search, setting
+    case bookPrefsView
     // , analytics
     var iconImage: Image {
         switch self {
@@ -16,6 +17,7 @@ enum TabItem: CaseIterable, Hashable {
         case .readingHistory: return Image.readingHistroy
         case .search: return Image.search
 //        case .analytics: return Image.analytics
+        case .bookPrefsView: return Image.analytics
         case .setting: return Image.setting
         }
     }
@@ -26,6 +28,7 @@ enum TabItem: CaseIterable, Hashable {
         case .readingHistory: return "나의 독서 기록"
         case .search: return "검색"
 //        case .analytics: return "통계"
+        case .bookPrefsView: return "추천"
         case .setting: return "설정"
         }
     }
@@ -41,6 +44,9 @@ enum TabItem: CaseIterable, Hashable {
             SearchView()
 //        case .analytics:
 //            AnalyticsView()
+        case .bookPrefsView:
+            BookPrefsView(viewModel: BookPrefsViewModel(bookCache: BookCache.shared))
+            
         case .setting:
             SettingView(viewModel: SettingViewModel())
         }

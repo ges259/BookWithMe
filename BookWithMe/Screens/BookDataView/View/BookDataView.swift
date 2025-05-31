@@ -114,25 +114,17 @@ private extension BookDataView {
     }
     
     /// UI - 테이블의 행의 데이터(UI 및 타이틀)를 설정하는 함수
-    func rowTitle(_ row: BookInfoRow) -> some View {
-        return Text(row.title)
-            .frame(width: labelWidth,
-                   height: 50,
-                   alignment: .leading)
-            .padding(.horizontal, 20)
-            .background(Color.contentsBackground2)
-            .font(.subheadline)
-            .foregroundColor(.black)
-            .if(row == .status) { $0.defaultCornerRadius(corners: .topTrailing) }
+    func rowTitle(_ row: BookInfoRow) -> some View{
+        return RowTitleView(
+            title: row.title,
+            isFirstCell: row.isFirstCell,
+            isLastCell: false
+        )
     }
     
     /// UI - 테이블의 Book 및 BookHistory의 정보를 설정하는 함수
     func detailText(_ row: BookInfoRow) -> some View {
-        return Text(self.viewModel.value(for: row) ?? "")
-            .font(.body)
-            .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: 50)
+        return RowDetailTextView(detatilText: self.viewModel.value(for: row))
     }
     
     /// UI - 하단 버튼을 설정하는 함수
@@ -187,15 +179,20 @@ extension BookDataView {
             HistoryTermView(
                 startDate: $viewModel.book.history.startDate,
                 endDate: $viewModel.book.history.endDate,
-                selectionMode: .start)
+                selectionMode: .start
+            )
         case .endDate:
             HistoryTermView(
                 startDate: $viewModel.book.history.startDate,
                 endDate: $viewModel.book.history.endDate,
-                selectionMode: .end)
+                selectionMode: .end
+            )
             
         case .rating:
-            HistoryRatingView(rating: $viewModel.book.history.review.rating)
+            HistoryRatingView(
+                bottomSheetPosition: $viewModel.sheetState,
+                rating: $viewModel.book.history.review.rating
+            )
             
         case .summary:
             HistoryTextFieldView(

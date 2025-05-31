@@ -13,7 +13,6 @@ enum BookInfoRow: Identifiable {
     case endDate
     case rating
     case summary
-//    case tags
     
     
     case description
@@ -26,6 +25,12 @@ enum BookInfoRow: Identifiable {
     }
     
     var id: Self { self }
+    
+    var isFirstCell: Bool {
+        return self == .status
+    }
+    
+    
     
     var title: String {
         switch self {

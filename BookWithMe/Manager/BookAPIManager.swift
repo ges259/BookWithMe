@@ -12,7 +12,7 @@ enum Secret {
 //    static var apiKey: String {
 //        Bundle.main.infoDictionary?["API_KEY"] as? String ?? ""
 //    }
-    static var apiKey: String = "Test3"
+    static var apiKey: String = "Test8"
 }
 
 /*
@@ -26,6 +26,81 @@ enum Secret {
  목차
  책 소개(description)
  */
+
+// MARK: - BOOK API MANAGER
+final class BookAPIManager {
+    private struct Constants {
+        static let baseURL = "https://www.aladin.co.kr/ttb/api/ItemSearch.aspx"
+        static let apiKey  = Secret.apiKey
+        static let maxResults = "20"
+        struct Key {
+            static let ttbKey = "ttbkey"
+            static let query  = "Query"
+            static let queryType = "QueryType"
+            static let searchTarget = "SearchTarget"
+            static let output = "Output"
+            static let cover  = "Cover"
+            static let start  = "start"
+            static let maxResults = "MaxResults"
+        }
+        struct Value {
+            static let queryType = "Title"
+            static let searchTarget = "Book"
+            static let outputFormat = "JS"        // JSON
+            static let coverSize = "Big"
+        }
+    }
+    
+    static let shared = BookAPIManager(); private init() { }
+    
+    /// 제목 검색 → `Book` 배열(태그 포함) 반환
+    func fetchBooks(
+        byTitle title: String,
+        page: Int = 1
+    ) async throws -> [Book] {
+        let url = try makeSearchURL(title: title, page: page)
+        let (raw, _) = try await URLSession.shared.data(from: url)
+        // 알라딘 JSON 맨 끝에 `;` 문자 제거
+        let data = (raw.last == 0x3B) ? Data(raw.dropLast()) : raw
+        let dtoModels = try JSONDecoder()
+            .decode(AladinSearchResponse.self, from: data)
+            .items
+        return dtoModels.compactMap { Book(dto: $0) }
+    }
+    
+    // MARK: URL 조립
+    private func makeSearchURL(title: String, page: Int) throws -> URL {
+        var comps = URLComponents(string: Constants.baseURL)
+        comps?.queryItems = [
+            .init(name: Constants.Key.ttbKey, 
+                  value: Constants.apiKey),
+            .init(name: Constants.Key.query , 
+                  value: title),
+            .init(name: Constants.Key.queryType , 
+                  value: Constants.Value.queryType),
+            .init(name: Constants.Key.searchTarget , 
+                  value: Constants.Value.searchTarget),
+            .init(name: Constants.Key.output , 
+                  value: Constants.Value.outputFormat),
+            .init(name: Constants.Key.cover , 
+                  value: Constants.Value.coverSize),
+            .init(name: Constants.Key.start , 
+                  value: "\(page)"),
+            .init(name: Constants.Key.maxResults , 
+                  value: Constants.maxResults)
+        ]
+        guard let url = comps?.url else { throw URLError(.badURL) }
+        return url
+    }
+}
+
+
+
+
+
+
+
+
 
 
 // MARK: - TAG GENERATOR
@@ -54,7 +129,9 @@ enum TagGenerator {
             }
         }
         // 5) NLP 키워드(설명+목차)
-        let text = [dto.description, dto.toc].compactMap { $0 }.joined(separator: " ")
+        let text = [dto.description, dto.toc]
+            .compactMap { $0 }
+            .joined(separator: " ")
         tags.append(contentsOf: topKeywords(in: text, max: 5))
         
         return Array(Set(tags))             // 중복 제거
@@ -101,69 +178,6 @@ struct AladinBookDTO: Decodable {
     enum CodingKeys: String, CodingKey {
         case title, author, publisher, description, toc, cover, itemId, isbn13
         case categoryName, pubDate, itemPage
-    }
-}
-
-
-// MARK: - BOOK API MANAGER
-final class BookAPIManager {
-    private struct Constants {
-        static let baseURL = "https://www.aladin.co.kr/ttb/api/ItemSearch.aspx"
-        static let apiKey  = Secret.apiKey
-        static let maxResults = "20"
-        struct Key {
-            static let ttbKey = "ttbkey"
-            static let query  = "Query"
-            static let queryType = "QueryType"
-            static let searchTarget = "SearchTarget"
-            static let output = "Output"
-            static let cover  = "Cover"
-            static let start  = "start"
-            static let maxResults = "MaxResults"
-        }
-        struct Value {
-            static let queryType = "Title"
-            static let searchTarget = "Book"
-            static let outputFormat = "JS"        // JSON
-            static let coverSize = "Big"
-        }
-    }
-    
-    static let shared = BookAPIManager(); private init() { }
-    
-    /// 제목 검색 → `Book` 배열(태그 포함) 반환
-    func fetchBooks(byTitle title: String, page: Int = 1) async throws -> [Book] {
-        let url = try makeSearchURL(title: title, page: page)
-        let (raw, _) = try await URLSession.shared.data(from: url)
-        // 알라딘 JSON 맨 끝에 `;` 문자 제거
-        let data = (raw.last == 0x3B) ? Data(raw.dropLast()) : raw
-        let dtoModels = try JSONDecoder().decode(AladinSearchResponse.self, from: data).items
-        return dtoModels.compactMap { Book(dto: $0) }
-    }
-    
-    // MARK: URL 조립
-    private func makeSearchURL(title: String, page: Int) throws -> URL {
-        var comps = URLComponents(string: Constants.baseURL)
-        comps?.queryItems = [
-            .init(name: Constants.Key.ttbKey, 
-                  value: Constants.apiKey),
-            .init(name: Constants.Key.query , 
-                  value: title),
-            .init(name: Constants.Key.queryType , 
-                  value: Constants.Value.queryType),
-            .init(name: Constants.Key.searchTarget , 
-                  value: Constants.Value.searchTarget),
-            .init(name: Constants.Key.output , 
-                  value: Constants.Value.outputFormat),
-            .init(name: Constants.Key.cover , 
-                  value: Constants.Value.coverSize),
-            .init(name: Constants.Key.start , 
-                  value: "\(page)"),
-            .init(name: Constants.Key.maxResults , 
-                  value: Constants.maxResults)
-        ]
-        guard let url = comps?.url else { throw URLError(.badURL) }
-        return url
     }
 }
 

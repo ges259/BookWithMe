@@ -27,23 +27,7 @@ final class BookDataViewModel {
         }
     }
     var isSavedBook: Bool
-    
-    // MARK: - init
-    init(
-        bookCache: BookCache,
-        book: Book
-    ) {
-        self.bookCache = bookCache
-        
-        self.originalBook = book
-        self.book = book
-        self.isSavedBook = bookCache.contains(book)
-        
-        self.descriptionMode = book.history.status == .none
-        ? .preview
-        : .edit
-    }
-    
+
     
     
     
@@ -72,6 +56,9 @@ final class BookDataViewModel {
     var allCases: [BookInfoRow] {
         return BookInfoRow.allCases
     }
+    func isLast(_ item: BookInfoRow) -> Bool {
+        return item == allCases.last
+    }
     
     /// 화면이동 / 셀 및 특정 화면이 선택되었을 때, 호출되는 메서드.
     func updateSheetState(row: BookInfoRow) {
@@ -82,6 +69,22 @@ final class BookDataViewModel {
     
     
     
+    
+    // MARK: - init
+    init(
+        bookCache: BookCache,
+        book: Book
+    ) {
+        self.bookCache = bookCache
+        
+        self.originalBook = book
+        self.book = book
+        self.isSavedBook = bookCache.contains(book)
+        
+        self.descriptionMode = book.history.status == .none
+        ? .preview
+        : .edit
+    }
     
     
     

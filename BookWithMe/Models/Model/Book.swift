@@ -17,6 +17,37 @@ struct Book: Identifiable {
     let imageURL: String?
     var keywords: [String]
     var history: BookHistory
+    
+    // MARK: - DUMMY init
+    init(
+        id: String,
+        title: String,
+        author: String,
+        publisher: String,
+        description: String,
+        imageURL: String?,
+        history: BookHistory
+    ) {
+        self.id = id
+        self.title = title
+        self.author = author
+        self.publisher = publisher
+        self.description = description
+        self.imageURL = imageURL
+        self.history = history
+        self.keywords = []
+    }
+    static var DUMMY: Book {
+        return Book(
+            id: "dummy-id",
+            title: "더미 책 제목",
+            author: "홍길동",
+            publisher: "더미 출판사",
+            description: "이 책은 테스트용 더미 설명입니다.",
+            imageURL: "https://example.com/dummy.jpg",
+            history: BookHistory.DUMMY_BOOKHISTORY
+        )
+    }
 }
 
 // MARK: - init
@@ -96,33 +127,5 @@ extension Book {
 
 
 /*
- // MARK: - DUMMY init
- init(
-     id: String,
-     title: String,
-     author: String,
-     publisher: String,
-     description: String,
-     imageURL: String?,
-     history: BookHistory
- ) {
-     self.id = id
-     self.title = title
-     self.author = author
-     self.publisher = publisher
-     self.description = description
-     self.imageURL = imageURL
-     self.history = history
- }
- static var DUMMY: Book {
-     return Book(
-         id: "dummy-id",
-         title: "더미 책 제목",
-         author: "홍길동",
-         publisher: "더미 출판사",
-         description: "이 책은 테스트용 더미 설명입니다.",
-         imageURL: "https://example.com/dummy.jpg",
-         history: BookHistory.DUMMY_BOOKHISTORY
-     )
- }
+
  */

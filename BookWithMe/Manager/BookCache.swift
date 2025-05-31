@@ -11,7 +11,11 @@ import Foundation
 final class BookCache {
     static let shared = BookCache()
     private var storage: [String: Book] = [:]
-
+    
+    var bookPrefs: BookPrefs = BookPrefs.EMPTYDUMMY
+    
+    
+    
     func store(_ book: Book) {
         storage[book.id] = book
     }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import BottomSheet
 
 struct HistoryRatingView: View {
     private enum Constants {
@@ -14,7 +15,7 @@ struct HistoryRatingView: View {
         static let ratingHStackHorizontalPadding: Double = 20 // 좌우 여백은 20pt로 설정
         static let ratingViewHeight: CGFloat = 100 // 전체 별점 뷰 높이는 100pt로 설정
     }
-    
+    @Binding var bottomSheetPosition: BottomSheetPosition
     @Binding var rating: Double
     
     @State private var starSize: CGFloat = 0
@@ -47,7 +48,7 @@ private extension HistoryRatingView {
     
     var bottomButtonView: some View {
         return BottomButtonView(title: "저장하기") {
-            print("HistoryRatingView_bottomButton")
+            self.bottomSheetPosition = .hidden
         }
     }
     

@@ -10,6 +10,7 @@ import Foundation
 enum SettingSection: String, CaseIterable {
     case profile = "프로필 설정"
     case account = "계정 설정"
+    case bookPrefs = "검색 설정"
     
     var items: [SettingItem] {
         switch self {
@@ -17,6 +18,8 @@ enum SettingSection: String, CaseIterable {
             return [.changeImage, .changeNickname]
         case .account:
             return [.logout, .deleteAccount]
+        case .bookPrefs:
+            return [.bookPrefs]
         }
     }
 }
@@ -24,8 +27,11 @@ enum SettingSection: String, CaseIterable {
 enum SettingItem {
     case changeImage
     case changeNickname
+    
     case logout
     case deleteAccount
+    
+    case bookPrefs
 
     var title: String {
         switch self {
@@ -33,6 +39,7 @@ enum SettingItem {
         case .changeNickname: return "닉네임 변경"
         case .logout: return "로그아웃"
         case .deleteAccount: return "회원탈퇴"
+        case .bookPrefs: return "검색 설정"
         }
     }
 }
