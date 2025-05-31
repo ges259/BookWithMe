@@ -14,7 +14,6 @@ struct BookPrefsView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-  
             self.bodyTable
             Spacer()
         }
@@ -30,6 +29,8 @@ struct BookPrefsView: View {
                     self.viewModel.sheetState = .hidden
                 }
         }
+        .dragIndicatorColor(Color.white)
+        .customBackground(Color.baseButton.cornerRadius(30))
         .enableSwipeToDismiss()
         .enableTapToDismiss()
 
@@ -128,7 +129,10 @@ private extension BookPrefsView {
     var moveToBottomSheet: some View {
         switch self.viewModel.selectedRow {
         case .language, .pageLength, .ageGroup, .readingPurpose:
-            CustomPrefsAlert(type: self.viewModel.selectedRow)
+            CustomPrefsAlert(
+                type: self.viewModel.selectedRow,
+                bottomSheetPosition: self.$viewModel.sheetState
+            )
         case .likedGenres, .dislikedGenres:
             Text("")
         }

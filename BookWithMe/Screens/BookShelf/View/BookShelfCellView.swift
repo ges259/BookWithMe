@@ -31,6 +31,8 @@ struct BookShelfCellView: View {
             headerView
             horizontalBookScroll
         }
+        .padding(.top, 12)
+        .padding(.bottom, 5)
         .padding(.horizontal)
         .background(Color.contentsBackground1)
         .defaultCornerRadius()
@@ -44,7 +46,8 @@ private extension BookShelfCellView {
     var headerView: some View {
         return HeaderTitleView(
             title: self.viewModel.title,
-            appFont: .bookShelfCell)
+            appFont: .bookShelfCell
+        )
     }
     var horizontalBookScroll: some View {
         ScrollView(.horizontal, showsIndicators: false) {

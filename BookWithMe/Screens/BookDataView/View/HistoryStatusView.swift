@@ -37,7 +37,8 @@ private extension HistoryStatusView {
     
     var lazyVGridView: some View {
         LazyVGrid(
-            columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: 2),
+            columns: Array(repeating: GridItem(.flexible(), spacing: 0), 
+                           count: 2),
             spacing: 0
         ) {
             ForEach(items.indices, id: \.self) { index in

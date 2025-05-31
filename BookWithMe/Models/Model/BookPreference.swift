@@ -34,7 +34,14 @@ struct BookPrefs {
     var likedGenres: [String]
     var dislikedGenres: [String]
     
-    init(language: LanguageOption, pageLength: PageLength, ageGroup: AgeGroup, readingPurpose: ReadingPurpose, likedGenres: [String], dislikedGenres: [String]) {
+    init(
+        language: LanguageOption,
+        pageLength: PageLength,
+        ageGroup: AgeGroup,
+        readingPurpose: ReadingPurpose,
+        likedGenres: [String],
+        dislikedGenres: [String]
+    ) {
         
         self.language = language
         self.pageLength = pageLength

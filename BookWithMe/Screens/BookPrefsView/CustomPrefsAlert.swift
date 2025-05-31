@@ -6,20 +6,25 @@
 //
 
 import SwiftUI
+import BottomSheet
 
 struct CustomPrefsAlert: View {
     let type: CustomPrefsType
-    @Environment(\.dismiss) private var dismiss
+    @Binding var bottomSheetPosition: BottomSheetPosition
 
     var body: some View {
-        
-        VStack(spacing: 5) {
-            headerView
-            optionButtons
-                .padding(.horizontal)
-            bottomButtonView
+        VStack {
+            ScrollView {
+                VStack(spacing: 10) {
+                    headerView
+                    optionButtons
+                    bottomButtonView
+                }
+            }
+            .fixedSize(horizontal: false, vertical: true)
         }
-        .background(Color.contentsBackground1)
+        .background(Color.baseButton)
+        .padding(.horizontal)
         .padding(.bottom, 10)
     }
 }
@@ -36,9 +41,8 @@ private extension CustomPrefsAlert {
 
     var bottomButtonView: some View {
         BottomButtonView(title: "저장하기") {
-            dismiss()
+            bottomSheetPosition = .hidden
         }
-        .padding(.horizontal)
     }
 
     @ViewBuilder
@@ -61,21 +65,25 @@ private extension CustomPrefsAlert {
         for all: [Option],
         selectionAction: @escaping (Option) -> Void
     ) -> some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 5) {
             ForEach(all) { option in
                 Button {
                     selectionAction(option)
-                    dismiss()
+                    bottomSheetPosition = .hidden
+                    
                 } label: {
                     Text(option.label)
                         .frame(maxWidth: .infinity)
+                        .frame(height: 40)
                 }
                 .buttonStyle(.borderedProminent)
+                .tint(Color.contentsBackground1)
+                .foregroundStyle(Color.black)
             }
         }
     }
 }
 
-#Preview {
-    CustomPrefsAlert(type: .ageGroup)
-}
+//#Preview {
+//    CustomPrefsAlert(type: .ageGroup, bottomSheetPosition: <#Binding<BottomSheetPosition>#>)
+//}
