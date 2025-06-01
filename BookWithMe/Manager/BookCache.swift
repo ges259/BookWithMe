@@ -19,7 +19,7 @@ final class BookCache {
     
     // 관측이 필요한 데이터들
     var bookPrefs = BookPrefs()
-    var bookData: [ReadingStatus: [Book]] = [:]
+    var bookData: [ReadingStatus: [String]] = [:]
     
     
     init() {
@@ -27,6 +27,11 @@ final class BookCache {
             let books = CoreDataManager.shared.fetchBooksForMonth()
             self.load(books)
         }
+    }
+    
+    func books(for status: ReadingStatus) -> [Book] {
+        guard let ids = bookData[status] else { return [] }
+        return ids.compactMap { storage[$0] }
     }
 }
 
@@ -43,35 +48,25 @@ extension BookCache {
     
     func store(_ book: Book) {
         storage[book.id] = book
-        bookData[book.history.status, default: []].append(book)
+        bookData[book.history.status, default: []].append(book.id)
     }
 
     func update(_ book: Book) {
         guard let old = storage[book.id] else { return }
         storage[book.id] = book
-
-        // status 이동 감지
+        
         if old.history.status != book.history.status {
             remove(book.id, from: old.history.status)
-            bookData[book.history.status, default: []].append(book)
-        } else {
-            replace(book)
+            bookData[book.history.status, default: []].append(book.id)
         }
     }
+    // remove 함수도 ID 기준으로 그대로 사용 가능
     private func remove(_ id: String, from status: ReadingStatus) {
         guard var arr = bookData[status] else { return }
-        arr.removeAll { $0.id == id }
+        arr.removeAll { $0 == id }
         bookData[status] = arr
     }
-
-    private func replace(_ book: Book) {
-        guard var arr = bookData[book.history.status] else { return }
-        if let idx = arr.firstIndex(where: { $0.id == book.id }) {
-            arr[idx] = book
-            bookData[book.history.status] = arr
-        }
-    }
- 
+    
     func clear() {
         storage.removeAll()
         bookData.removeAll()
@@ -96,7 +91,13 @@ private extension BookCache {
     /// (필요하면 언제든 호출 가능)
     func rebuildDictionary(from books: [Book]? = nil) {
         let source = books ?? Array(storage.values)
-        bookData = Dictionary(grouping: source, by: { $0.history.status })
+        
+        let grouped = Dictionary(grouping: source, by: { $0.history.status })
+        
+        // ID만 저장하도록 변경
+        bookData = grouped.mapValues { books in
+            books.map { $0.id }
+        }
     }
 }
 

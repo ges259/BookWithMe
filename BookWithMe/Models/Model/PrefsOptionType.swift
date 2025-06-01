@@ -16,10 +16,7 @@ protocol PrefsOption: CaseIterable, Identifiable, RawRepresentable, Codable, Has
 
 extension PrefsOption {
     var id: String { self.rawValue }
-    
-    var label: String {
-        return self.rawValue
-    }
+    var label: String { self.rawValue }
 }
 
 // MARK: - Enum
@@ -112,15 +109,6 @@ enum CustomPrefsType: String, CaseIterable, Identifiable, Codable {
         return self == .language
     }
     
-    var isHStackScroll: Bool {
-        switch self {
-        case .likedGenres, .dislikedGenres:
-            return true
-        default:
-            return false
-        }
-    }
-    
     var title: String {
         switch self {
         case .language:
@@ -135,16 +123,6 @@ enum CustomPrefsType: String, CaseIterable, Identifiable, Codable {
             return "선호 장르"
         case .dislikedGenres:
             return "비선호 장르"
-        }
-    }
-    
-    var options: [any PrefsOption.Type]? {
-        switch self {
-        case .language: return [LanguageOption.self]
-        case .pageLength: return [PageLength.self]
-        case .ageGroup: return [AgeGroup.self]
-        case .readingPurpose: return [ReadingPurpose.self]
-        case .likedGenres, .dislikedGenres: return nil
         }
     }
 }

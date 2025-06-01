@@ -13,20 +13,20 @@ struct SettingView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 10) {
-                sectionList()
-            }
-            .padding()
+            sectionList()
         }
-        .scrollDisabled(true)
+        .scrollDisabled(false)
     }
 }
 
 private extension SettingView {
     func sectionList() -> some View {
-        ForEach(viewModel.sections, id: \.self) { section in
-            sectionView(section)
+        LazyVStack(spacing: 10) {
+            ForEach(viewModel.sections, id: \.self) { section in
+                sectionView(section)
+            }
         }
+        .padding()
     }
     
     func sectionView(_ section: SettingSection) -> some View {

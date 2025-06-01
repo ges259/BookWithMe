@@ -53,6 +53,22 @@ struct BookPrefs: Codable {
     
     /// 같은 장르가 둘 다에 들어가지 않도록 헬퍼
     mutating func validate() {
-        dislikedGenres.removeAll { likedGenres.contains($0) }
+        let likedSet = Set(likedGenres).subtracting([.all])
+        let dislikedSet = Set(dislikedGenres).subtracting([.all])
+        
+        // 1️⃣ 공통 항목 구하기 (중복)
+        let common = likedSet.intersection(dislikedSet)
+
+        // 2️⃣ liked에서 제거
+        likedGenres.removeAll { common.contains($0) }
+        if likedGenres.isEmpty {
+            likedGenres = [.all]
+        }
+
+        // 3️⃣ disliked에서 제거
+        dislikedGenres.removeAll { common.contains($0) }
+        if dislikedGenres.isEmpty {
+            dislikedGenres = [.all]
+        }
     }
 }

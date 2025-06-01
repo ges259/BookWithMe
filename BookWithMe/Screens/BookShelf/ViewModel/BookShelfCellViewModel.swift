@@ -20,7 +20,7 @@ final class BookShelfCellViewModel {
         self.readingStatus = readingStatus
         
         
-        self.bookArray = bookCache.bookData[readingStatus] ?? []
+        self.bookArray = bookCache.books(for: readingStatus)
     }
     
     var title: String {

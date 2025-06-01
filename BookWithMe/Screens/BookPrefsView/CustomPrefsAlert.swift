@@ -22,9 +22,8 @@ struct CustomPrefsAlert: View {
             ScrollView {
                 self.optionButtons
             }
+            .frame(maxHeight: UIScreen.main.bounds.height * 0.6)
             .fixedSize(horizontal: false, vertical: true)
-            
-            self.bottomButtonView
         }
         .background(Color.baseButton)
         .padding(.horizontal)
@@ -53,14 +52,6 @@ private extension CustomPrefsAlert {
             alignment: .center
         )
     }
-    var bottomButtonView: some View {
-        BottomButtonView(title: "저장하기") {
-            // 3. 저장 시점에만 반영
-            self.saveData()
-            bottomSheetPosition = .hidden
-        }
-    }
-    
     @ViewBuilder
     var optionButtons: some View {
         switch type {
@@ -106,14 +97,14 @@ private extension CustomPrefsAlert {
         for all: [Option],
         selected selectedList: [Option]
     ) -> some View {
-        VStack(spacing: 5) {
+        LazyVStack(spacing: 5) {
             ForEach(all) { option in
                 Button {
                     toggle(option, in: all)
                 } label: {
                     Text(option.label)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 40)
+                        .frame(height: 45)
                         .background(
                             selectedList.contains(option)
                             ? Color.contentsBackground2
@@ -150,15 +141,41 @@ private extension CustomPrefsAlert {
             }
         case .likedGenres:
             if let opt = option as? BookGenre {
-                toggleOption(opt, &localPrefs.likedGenres)
+                toggleGenre(
+                    option: opt,
+                    from: \.likedGenres,
+                    removingFrom: \.dislikedGenres
+                )
             }
         case .dislikedGenres:
             if let opt = option as? BookGenre {
-                toggleOption(opt, &localPrefs.dislikedGenres)
-                localPrefs.validate()
+                toggleGenre(
+                    option: opt,
+                    from: \.dislikedGenres,
+                    removingFrom: \.likedGenres
+                )
             }
         }
     }
+    
+    func toggleGenre(
+        option: BookGenre,
+        from selectedKeyPath: WritableKeyPath<BookPrefs, [BookGenre]>,
+        removingFrom conflictKeyPath: WritableKeyPath<BookPrefs, [BookGenre]>
+    ) {
+        // 충돌 제거: 반대 목록에서 제거
+        localPrefs[keyPath: conflictKeyPath].removeAll { $0 == option }
+
+        // 선택 목록에 토글 적용
+        toggleOption(option, &localPrefs[keyPath: selectedKeyPath])
+
+        // 유효성 검사
+        localPrefs.validate()
+    }
+    
+    
+    
+    
     
     /// 모든 PrefsOption 공통 토글 로직
     func toggleOption<Option: PrefsOption & Hashable>(
