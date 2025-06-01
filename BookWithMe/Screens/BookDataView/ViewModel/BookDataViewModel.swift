@@ -79,6 +79,7 @@ final class BookDataViewModel {
         
         self.originalBook = book
         self.book = book
+        
         self.isSavedBook = bookCache.contains(book)
         
         self.descriptionMode = book.history.status == .none
@@ -150,6 +151,8 @@ extension BookDataViewModel {
                 self.isSavedBook
                 ? try await updateBookIfNeeded()
                 : try await createBook()
+                
+                self.bookCache.update(book)
                 
             } catch {
                 log(error, context: "saveBook")

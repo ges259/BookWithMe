@@ -33,5 +33,5 @@ private extension BookShelfView {
 }
 
 #Preview {
-    BookShelfView(viewModel: BookShelfViewModel(coreDataManager: CoreDataManager.shared))
+    BookShelfView(viewModel: BookShelfViewModel())
 }

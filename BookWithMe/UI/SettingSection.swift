@@ -10,7 +10,7 @@ import Foundation
 enum SettingSection: String, CaseIterable {
     case profile = "프로필 설정"
     case account = "계정 설정"
-    case bookPrefs = "검색 설정"
+    case bookPrefs = "AI 검색 설정"
     
     var items: [SettingItem] {
         switch self {

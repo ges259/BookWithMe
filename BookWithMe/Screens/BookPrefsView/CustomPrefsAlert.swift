@@ -12,9 +12,9 @@ struct CustomPrefsAlert: View {
     let type: CustomPrefsType
     @Binding var bottomSheetPosition: BottomSheetPosition
     
-    // 1. BookPrefs의 부분 상태만 뽑아서 로컬 State로 관리
-    // BookCache에서 바인딩을 하려다 버그가 걸려 이런식으로 코드를 짰음.
-    @State private var localPrefs = BookCache.shared.bookPrefs
+    // BookPrefsViewModel의 BookPrefs를 바인딩하여 관리
+    @Binding var localPrefs: BookPrefs
+    
     
     var body: some View {
         VStack(spacing: 10) {

@@ -13,12 +13,11 @@ import BottomSheet
 final class BookPrefsViewModel {
     
     var sheetState: BottomSheetPosition = .hidden
-    var bookArray: [Book] = []
     
+    
+    private(set) var selectedRow: CustomPrefsType = .ageGroup
     private let bookCache: BookCache
     var bookprefs: BookPrefs
-    private(set) var selectedRow: CustomPrefsType = .ageGroup
-    
     
     var allCases: [CustomPrefsType] = {
         return CustomPrefsType.allCases
@@ -30,9 +29,6 @@ final class BookPrefsViewModel {
     ) {
         self.bookCache = bookCache
         self.bookprefs = BookPrefs.EMPTYDUMMY
-        self.fetchBookPrefs()
-        
-        self.bookArray = [Book.DUMMY, Book.DUMMY, Book.DUMMY, Book.DUMMY]
     }
     
     /// 화면이동 / 셀 및 특정 화면이 선택되었을 때, 호출되는 메서드.
@@ -76,7 +72,5 @@ final class BookPrefsViewModel {
 
 
 private extension BookPrefsViewModel {
-    func fetchBookPrefs() {
-        
-    }
+
 }

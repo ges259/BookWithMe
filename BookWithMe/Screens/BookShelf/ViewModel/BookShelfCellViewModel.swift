@@ -12,10 +12,15 @@ final class BookShelfCellViewModel {
     var readingStatus: ReadingStatus
     var bookArray: [Book] = []
     
+    
     init(
+        bookCache: BookCache = BookCache.shared,
         readingStatus: ReadingStatus
     ) {
         self.readingStatus = readingStatus
+        
+        
+        self.bookArray = bookCache.bookData[readingStatus] ?? []
     }
     
     var title: String {

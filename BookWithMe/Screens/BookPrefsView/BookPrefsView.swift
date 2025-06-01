@@ -90,7 +90,13 @@ private extension BookPrefsView {
     var moveToBottomSheet: some View {
         CustomPrefsAlert(
             type: self.viewModel.selectedRow,
-            bottomSheetPosition: self.$viewModel.sheetState
+            bottomSheetPosition: self.$viewModel.sheetState, 
+            // ↓ 싱글톤 속성을 Binding 으로 래핑
+//            localPrefs: Binding(
+//                get: { BookCache.shared.bookPrefs },
+//                set: { BookCache.shared.bookPrefs = $0 }
+//            )
+            localPrefs: self.$viewModel.bookprefs
         )
     }
 }

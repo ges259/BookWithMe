@@ -82,6 +82,7 @@
 		5FE499D92DC8C549009AC510 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE499D82DC8C549009AC510 /* Review.swift */; };
 		5FE499DB2DC8C7EF009AC510 /* BookHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE499DA2DC8C7EF009AC510 /* BookHistory.swift */; };
 		5FE499DD2DC8C81E009AC510 /* BookShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE499DC2DC8C81E009AC510 /* BookShelfViewModel.swift */; };
+		5FE7E69F2DEC212900E23C44 /* PrefsOptionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE7E69E2DEC212900E23C44 /* PrefsOptionType.swift */; };
 		5FF57C762DEAE84400000290 /* RowTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF57C752DEAE84400000290 /* RowTitleView.swift */; };
 		5FF8E13F2DCA412D00B7F87E /* PagingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF8E13E2DCA412D00B7F87E /* PagingTabView.swift */; };
 /* End PBXBuildFile section */
@@ -160,6 +161,7 @@
 		5FE499D82DC8C549009AC510 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		5FE499DA2DC8C7EF009AC510 /* BookHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookHistory.swift; sourceTree = "<group>"; };
 		5FE499DC2DC8C81E009AC510 /* BookShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfViewModel.swift; sourceTree = "<group>"; };
+		5FE7E69E2DEC212900E23C44 /* PrefsOptionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefsOptionType.swift; sourceTree = "<group>"; };
 		5FF57C752DEAE84400000290 /* RowTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowTitleView.swift; sourceTree = "<group>"; };
 		5FF8E13E2DCA412D00B7F87E /* PagingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingTabView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,6 +244,7 @@
 				5FE499DA2DC8C7EF009AC510 /* BookHistory.swift */,
 				5FE499D82DC8C549009AC510 /* Review.swift */,
 				5FC5FBAB2DEA13D900E26D15 /* BookPreference.swift */,
+				5FE7E69E2DEC212900E23C44 /* PrefsOptionType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -325,9 +328,9 @@
 		5FE499B32DC886A0009AC510 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				5FE499BF2DC88943009AC510 /* BookShelf */,
 				5FC5FBA82DE98AE600E26D15 /* BookPrefsView */,
 				5FABF2202DCB7E78000CAA61 /* BookDataView */,
-				5FE499BF2DC88943009AC510 /* BookShelf */,
 				5FE499BE2DC88939009AC510 /* ReadingHistory */,
 				5FE499BD2DC88931009AC510 /* Search */,
 				5FE499BC2DC8892F009AC510 /* Analytics */,
@@ -623,6 +626,7 @@
 				5FAF4BA72DC9063F00F6BF62 /* FetchCoreData.swift in Sources */,
 				5FABF21D2DCB4849000CAA61 /* BookDataHeaderView.swift in Sources */,
 				5FAF4BAB2DC9064B00F6BF62 /* DeleteCoreData.swift in Sources */,
+				5FE7E69F2DEC212900E23C44 /* PrefsOptionType.swift in Sources */,
 				5F6B91B92DCCE76900D6C54A /* TabItem.swift in Sources */,
 				5FE499D92DC8C549009AC510 /* Review.swift in Sources */,
 				5FD9BDB82DC9F0F600568A58 /* HeaderTitleView.swift in Sources */,
