@@ -15,34 +15,32 @@ import Foundation
   연령대 (10 / 20 / 30 / 40~ )
   선호 장르, 비선호 장르 (좋아요 / 싫어요)
   읽기 목적 (힐링+위로 / 자기계발 / 공부 / 가볍게 / 몰입감)
-
+ 
   -------------------------
   - 컨텐츠 기반 추천
   사용자가 몇 권의 책을 고르고그 책들의 분류 / 키워드 / 작가 / 톤을 기반으로 유사한 책 추천
  api를 통해 가져온 데이터 활용( 카테고리 + 저자 + 출판사 + 연도 + 분량 + 핵심 키워드)
-
+ 
   -------------------------
  */
 
-
 // MARK: - Model
-struct BookPrefs {
-    var language: LanguageOption
-    var pageLength: PageLength
-    var ageGroup: AgeGroup
-    var readingPurpose: ReadingPurpose
-    var likedGenres: [String]
-    var dislikedGenres: [String]
+struct BookPrefs: Codable {
+    var language: [LanguageOption]
+    var pageLength: [PageLength]
+    var ageGroup: [AgeGroup]
+    var readingPurpose: [ReadingPurpose]
+    var likedGenres: [BookGenre]
+    var dislikedGenres: [BookGenre]
     
     init(
-        language: LanguageOption,
-        pageLength: PageLength,
-        ageGroup: AgeGroup,
-        readingPurpose: ReadingPurpose,
-        likedGenres: [String],
-        dislikedGenres: [String]
+        language: [LanguageOption] = [.all],
+        pageLength: [PageLength]   = [.all],
+        ageGroup: [AgeGroup]       = [.all],
+        readingPurpose: [ReadingPurpose] = [.all],
+        likedGenres: [BookGenre] = [.all],
+        dislikedGenres: [BookGenre] = [.all]
     ) {
-        
         self.language = language
         self.pageLength = pageLength
         self.ageGroup = ageGroup
@@ -52,24 +50,21 @@ struct BookPrefs {
     }
     
     /// 샘플용 더미 데이터
-     static var EMPTYDUMMY: BookPrefs {
-         .init(
-            language: .all,             // 외국 도서 포함
-            pageLength: .all,                   // 중편 (200~400쪽)
-            ageGroup: .all,                     // 20대
-            readingPurpose: .all,              // 힐링/위로
-            likedGenres: [],     // 선호 장르
-            dislikedGenres: []       // 비선호 장르
-         )
-     }
+    static let EMPTYDUMMY = BookPrefs()
+    
+    /// 같은 장르가 둘 다에 들어가지 않도록 헬퍼
+    mutating func validate() {
+        dislikedGenres.removeAll { likedGenres.contains($0) }
+    }
 }
 
 
 
 
 // MARK: - PrefsOption
-protocol PrefsOption: CaseIterable, Identifiable, RawRepresentable, Codable where RawValue == String {
+protocol PrefsOption: CaseIterable, Identifiable, RawRepresentable, Codable, Hashable where RawValue == String {
     static var title: String { get }
+    static var all: Self { get } // 이 줄 추가
     var label: String { get }
 }
 
@@ -82,9 +77,9 @@ enum LanguageOption: String, PrefsOption {
     case all = "모두"
     case koreanOnly = "한국 도서만"
     case includeForeign = "외국 도서 포함"
-
+    
     static var title: String { "언어" }
-
+    
     var label: String {
         switch self {
         case .all: return "모두"
@@ -99,9 +94,9 @@ enum PageLength: String, PrefsOption {
     case short = "단편 (~200)"
     case medium = "중편 (200~400)"
     case long = "장편 (400~)"
-
+    
     static var title: String { "분량" }
-
+    
     var label: String {
         switch self {
         case .all: return "모두"
@@ -118,9 +113,9 @@ enum AgeGroup: String, PrefsOption {
     case twenty = "20대"
     case thirty = "30대"
     case fortyPlus = "40대 이상"
-
+    
     static var title: String { "연령대" }
-
+    
     var label: String {
         return self.rawValue
     }
@@ -134,13 +129,47 @@ enum ReadingPurpose: String, PrefsOption {
     case study = "공부"
     case light = "가볍게"
     case immersive = "몰입감"
-
+    
     static var title: String { "읽는 목적" }
-
+    
     var label: String {
         return self.rawValue
     }
 }
+
+// MARK: - 공통 장르 Enum
+enum BookGenre: String, PrefsOption, Codable {
+    /// enum case
+    case all             = "모두"
+    case literature      = "문학"
+    case romance         = "로맨스"
+    case mystery         = "추리/스릴러"
+    case fantasy         = "판타지"
+    case scienceFiction  = "SF(공상과학)"
+    case history         = "역사"
+    case selfHelp        = "자기계발"
+    case essay           = "에세이"
+    case humanities      = "인문학"
+    case societyPolitics = "사회/정치"
+    case economics       = "경제/경영"
+    case science         = "과학"
+    case artDesign       = "예술/디자인"
+    case religion        = "종교/철학"
+    case parenting       = "육아/가정"
+    case health          = "건강/의학"
+    case travel          = "여행"
+    case cooking         = "요리"
+    case comics          = "만화/그래픽노블"
+    case youngAdult      = "청소년"
+    case children        = "어린이"
+    
+    // PrefsOption 요구 사항
+    static var title: String { "장르" }
+    var label: String { rawValue }
+}
+
+
+
 
 
 // MARK: - CustomPrefsType
@@ -156,12 +185,9 @@ enum CustomPrefsType: String, CaseIterable, Identifiable, Codable {
     
     
     var isFirstCell: Bool {
-        return self == .language || self == .dislikedGenres
+        return self == .language
     }
-    var isLastCell: Bool {
-        return self == .likedGenres || self == .dislikedGenres
-    }
-
+    
     var isHStackScroll: Bool {
         switch self {
         case .likedGenres, .dislikedGenres:
@@ -170,7 +196,7 @@ enum CustomPrefsType: String, CaseIterable, Identifiable, Codable {
             return false
         }
     }
-
+    
     var title: String {
         switch self {
         case .language:
@@ -187,7 +213,7 @@ enum CustomPrefsType: String, CaseIterable, Identifiable, Codable {
             return "비선호 장르"
         }
     }
-
+    
     var options: [any PrefsOption.Type]? {
         switch self {
         case .language: return [LanguageOption.self]

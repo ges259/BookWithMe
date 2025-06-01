@@ -5,15 +5,14 @@
 //  Created by 계은성 on 5/16/25.
 //
 
-import Foundation
+import SwiftUI
 
 // MARK: - BookCache
 final class BookCache {
     static let shared = BookCache()
     private var storage: [String: Book] = [:]
     
-    var bookPrefs: BookPrefs = BookPrefs.EMPTYDUMMY
-    
+    var bookPrefs = BookPrefs()
     
     
     func store(_ book: Book) {

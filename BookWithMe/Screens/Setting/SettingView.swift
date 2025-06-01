@@ -13,7 +13,7 @@ struct SettingView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
+            VStack(spacing: 10) {
                 sectionList()
             }
             .padding()

@@ -117,8 +117,7 @@ private extension BookDataView {
     func rowTitle(_ row: BookInfoRow) -> some View{
         return RowTitleView(
             title: row.title,
-            isFirstCell: row.isFirstCell,
-            isLastCell: false
+            isFirstCell: row.isFirstCell
         )
     }
     
@@ -208,16 +207,11 @@ extension BookDataView {
                 descriptionMode: .constant(.preview)
             )
         default:
-            TestView2()
+            EmptyView()
         }
     }
 }
 
-struct TestView2: View {
-    var body: some View {
-        Text("")
-    }
-}
 //
 //#Preview {
 //    BookDataView(

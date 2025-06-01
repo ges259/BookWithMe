@@ -41,21 +41,34 @@ final class BookPrefsViewModel {
         self.sheetState = .dynamic
     }
     
-    /// BookHistory모델에 따른 값을 리턴
+    /// CustomPrefsType모델에 따른 값을 리턴
     func value(for row: CustomPrefsType) -> String? {
         switch row {
         case .language:
-            return self.bookprefs.language.label
+            return labelsString(bookprefs.language)
         case .pageLength:
-            return self.bookprefs.pageLength.label
+            return labelsString(bookprefs.pageLength)
         case .ageGroup:
-            return self.bookprefs.ageGroup.label
+            return labelsString(bookprefs.ageGroup)
         case .readingPurpose:
-            return self.bookprefs.readingPurpose.label
+            return labelsString(bookprefs.readingPurpose)
         case .likedGenres:
-            return ""
+            return labelsString(bookprefs.likedGenres)
         case .dislikedGenres:
-            return ""
+            return labelsString(bookprefs.dislikedGenres)
+        }
+    }
+    /// PrefsOption 배열을 문자열로 변환하는 유틸리티 함수
+    func labelsString<T: PrefsOption>(
+        _ options: [T],
+        maxCount: Int = 5
+    ) -> String {
+        let labels = options.map(\.label)
+        if labels.count > maxCount {
+            let shown = labels.prefix(maxCount)
+            return shown.joined(separator: ", ") + " 등"
+        } else {
+            return labels.joined(separator: ", ")
         }
     }
 }

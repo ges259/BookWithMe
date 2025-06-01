@@ -33,7 +33,6 @@ struct BookPrefsView: View {
         .customBackground(Color.baseButton.cornerRadius(30))
         .enableSwipeToDismiss()
         .enableTapToDismiss()
-
     }
 }
 
@@ -55,7 +54,7 @@ private extension BookPrefsView {
             ForEach(self.viewModel.allCases) { row in
                 HStack(alignment: .top, spacing: 20) {
                     self.rowTitle(row)
-                    self.detailView(row)
+                    self.detailText(row)
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
@@ -69,55 +68,17 @@ private extension BookPrefsView {
         .padding(.horizontal)
     }
     
-    
     /// UI - 테이블의 행의 데이터(UI 및 타이틀)를 설정하는 함수
     func rowTitle(_ row: CustomPrefsType) -> some View {
         return RowTitleView(
             title: row.title,
-            isFirstCell: row.isFirstCell,
-            isLastCell: row.isLastCell
+            isFirstCell: row.isFirstCell
         )
     }
     
-    
-    func detailView(_ row: CustomPrefsType) -> some View {
-        Group {
-            if row.isHStackScroll {
-                horizontalBookScroll
-            } else {
-                detailText(row)
-            }
-        }
-    }
     /// UI - 테이블의 Book 및 BookHistory의 정보를 설정하는 함수
     func detailText(_ row: CustomPrefsType) -> some View {
         return RowDetailTextView(detatilText: self.viewModel.value(for: row))
-    }
-    var horizontalBookScroll: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            // HStack
-            LazyHStack(alignment: .top, spacing: 12) {
-                // 테이블뷰 만들기
-                ForEach(viewModel.bookArray, id: \.id) { book in
-                    // 화면이동을 위한 NavigationLink
-                    NavigationLink {
-                        BookDataView(
-                            viewModel: BookDataViewModel(
-                                bookCache: BookCache.shared,
-                                book: book
-                            )
-                        )
-                    } label: {
-                        // 보여질 이미지
-                        BookCardView(
-                            imageURL: book.imageURL,
-                            size: .small
-                        )
-                    }
-                }
-            }
-            .padding(.vertical, 4)
-        }
     }
 }
 
@@ -127,15 +88,10 @@ private extension BookPrefsView {
 private extension BookPrefsView {
     @ViewBuilder
     var moveToBottomSheet: some View {
-        switch self.viewModel.selectedRow {
-        case .language, .pageLength, .ageGroup, .readingPurpose:
-            CustomPrefsAlert(
-                type: self.viewModel.selectedRow,
-                bottomSheetPosition: self.$viewModel.sheetState
-            )
-        case .likedGenres, .dislikedGenres:
-            Text("")
-        }
+        CustomPrefsAlert(
+            type: self.viewModel.selectedRow,
+            bottomSheetPosition: self.$viewModel.sheetState
+        )
     }
 }
 
@@ -144,4 +100,3 @@ private extension BookPrefsView {
 #Preview {
     BookPrefsView(viewModel: BookPrefsViewModel(bookCache: BookCache.shared))
 }
-

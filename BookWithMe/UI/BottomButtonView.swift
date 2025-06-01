@@ -14,7 +14,8 @@ struct BottomButtonView: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .frame(maxWidth: .infinity, maxHeight: 50)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
                 .foregroundStyle(Color.black)
                 .contentShape(Rectangle()) // 터치 영역 확장
         }

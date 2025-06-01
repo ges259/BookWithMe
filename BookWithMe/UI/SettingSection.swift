@@ -39,7 +39,7 @@ enum SettingItem {
         case .changeNickname: return "닉네임 변경"
         case .logout: return "로그아웃"
         case .deleteAccount: return "회원탈퇴"
-        case .bookPrefs: return "검색 설정"
+        case .bookPrefs: return "사용자 맞춤 설정"
         }
     }
 }

@@ -12,7 +12,6 @@ import SwiftUI
 struct RowTitleView: View {
     let title: String
     let isFirstCell: Bool
-    let isLastCell: Bool
 
     var body: some View {
         Text(title)
@@ -23,9 +22,6 @@ struct RowTitleView: View {
             .foregroundColor(.black)
             .if(isFirstCell) {
                 $0.defaultCornerRadius(corners: .topTrailing)
-            }
-            .if(isLastCell) {
-                $0.defaultCornerRadius(corners: .bottomTrailing)
             }
     }
 }
