@@ -118,7 +118,7 @@ private extension CoreDataManager {
 
 
 // MARK: - Upsert Helper (Generic)
-private extension CoreDataManager {
+extension CoreDataManager {
     @discardableResult
     static func upsert<T: NSManagedObject>(
         entity: T.Type,

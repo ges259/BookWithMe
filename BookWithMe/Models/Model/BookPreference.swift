@@ -13,7 +13,8 @@ import Foundation
   언어 (한국 도서만 / 외국 도서 포함)
   책 분량 선호 ( ~200 / 200 ~ 400 / 400~)
   연령대 (10 / 20 / 30 / 40~ )
-  선호 장르, 비선호 장르 (좋아요 / 싫어요)
+  선호 장르
+  비선호 장르
   읽기 목적 (힐링+위로 / 자기계발 / 공부 / 가볍게 / 몰입감)
  
   -------------------------
@@ -23,6 +24,7 @@ import Foundation
  
   -------------------------
  */
+
 // MARK: - Model
 struct BookPrefs: Codable {
     var language: [LanguageOption]
@@ -32,6 +34,7 @@ struct BookPrefs: Codable {
     var likedGenres: [BookGenre]
     var dislikedGenres: [BookGenre]
     
+    // MARK: - DUMMY init
     init(
         language: [LanguageOption] = [.all],
         pageLength: [PageLength]   = [.all],
@@ -50,25 +53,29 @@ struct BookPrefs: Codable {
     
     /// 샘플용 더미 데이터
     static let EMPTYDUMMY = BookPrefs()
-    
-    /// 같은 장르가 둘 다에 들어가지 않도록 헬퍼
-    mutating func validate() {
-        let likedSet = Set(likedGenres).subtracting([.all])
-        let dislikedSet = Set(dislikedGenres).subtracting([.all])
+}
+
+// MARK: - BookPrefs 초기화 (Core Data → Model)
+extension BookPrefs {
+    /// BookPrefsEntity → BookPrefs
+    init?(entity: BookPrefsEntity) {
+        // 모든 프로퍼티가 nil이거나 빈 문자열이면 굳이 모델을 만들 필요 없다고 보고 nil 반환
+        let isAllEmpty =
+            (entity.language ?? "").isEmpty &&
+            (entity.pageLength ?? "").isEmpty &&
+            (entity.ageGroup ?? "").isEmpty &&
+            (entity.readingPurpose ?? "").isEmpty &&
+            (entity.likedGenres ?? "").isEmpty &&
+            (entity.dislikedGenres ?? "").isEmpty
         
-        // 1️⃣ 공통 항목 구하기 (중복)
-        let common = likedSet.intersection(dislikedSet)
-
-        // 2️⃣ liked에서 제거
-        likedGenres.removeAll { common.contains($0) }
-        if likedGenres.isEmpty {
-            likedGenres = [.all]
-        }
-
-        // 3️⃣ disliked에서 제거
-        dislikedGenres.removeAll { common.contains($0) }
-        if dislikedGenres.isEmpty {
-            dislikedGenres = [.all]
-        }
+        if isAllEmpty { return nil }
+        
+        // 문자열 → enum 배열 변환
+        self.language        = [LanguageOption].fromCommaSeparated(entity.language ?? "")
+        self.pageLength      = [PageLength].fromCommaSeparated(entity.pageLength ?? "")
+        self.ageGroup        = [AgeGroup].fromCommaSeparated(entity.ageGroup ?? "")
+        self.readingPurpose  = [ReadingPurpose].fromCommaSeparated(entity.readingPurpose ?? "")
+        self.likedGenres     = [BookGenre].fromCommaSeparated(entity.likedGenres ?? "")
+        self.dislikedGenres  = [BookGenre].fromCommaSeparated(entity.dislikedGenres ?? "")
     }
 }

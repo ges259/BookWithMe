@@ -18,6 +18,14 @@
         <relationship name="book" maxCount="1" deletionRule="Nullify" destinationEntity="BookEntity" inverseName="bookHistory" inverseEntity="BookEntity"/>
         <relationship name="review" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ReviewEntity" inverseName="bookHistory" inverseEntity="ReviewEntity"/>
     </entity>
+    <entity name="BookPrefsEntity" representedClassName="BookPrefsEntity" syncable="YES">
+        <attribute name="ageGroup" attributeType="String"/>
+        <attribute name="dislikedGenres" attributeType="String"/>
+        <attribute name="language" attributeType="String"/>
+        <attribute name="likedGenres" attributeType="String"/>
+        <attribute name="pageLength" attributeType="String"/>
+        <attribute name="readingPurpose" attributeType="String"/>
+    </entity>
     <entity name="ReviewEntity" representedClassName=".ReviewEntity" syncable="YES">
         <attribute name="memorableQuotes" optional="YES" attributeType="String"/>
         <attribute name="rating" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>

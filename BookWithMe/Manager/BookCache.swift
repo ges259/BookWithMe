@@ -18,11 +18,12 @@ final class BookCache {
     private var storage: [String: Book] = [:]
     
     // 관측이 필요한 데이터들
-    var bookPrefs = BookPrefs()
+    var bookPrefs: BookPrefs
     var bookData: [ReadingStatus: [String]] = [:]
     
-    
     init() {
+        self.bookPrefs = CoreDataManager.shared.fetchBookPrefs()
+        dump(bookPrefs)
         DispatchQueue.main.async {
             let books = CoreDataManager.shared.fetchBooksForMonth()
             self.load(books)
@@ -100,4 +101,21 @@ private extension BookCache {
         }
     }
 }
-
+extension BookCache {
+    func saveBookPrefs() {
+        print("1")
+        dump(bookPrefs)
+        Task {
+            do {
+                try await CoreDataManager.shared.save(bookPrefs: bookPrefs)
+                print("2")
+            } catch {
+                print("DEBUG: saveBookPrefsError, \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func saveBookPrefs(_ bookPrefs: BookPrefs) {
+        self.bookPrefs = bookPrefs
+    }
+}

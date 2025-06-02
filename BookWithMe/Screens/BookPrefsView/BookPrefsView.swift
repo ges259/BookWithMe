@@ -16,6 +16,9 @@ struct BookPrefsView: View {
         VStack(alignment: .leading, spacing: 10) {
             self.bodyTable
             Spacer()
+        }        
+        .onDisappear {
+            self.viewModel.saveBookPrefs()
         }
         .ignoresSafeArea(.container, edges: .bottom)
         .background(Color.baseBackground)
@@ -33,6 +36,7 @@ struct BookPrefsView: View {
         .customBackground(Color.baseButton.cornerRadius(30))
         .enableSwipeToDismiss()
         .enableTapToDismiss()
+        
     }
 }
 
@@ -88,11 +92,17 @@ private extension BookPrefsView {
 private extension BookPrefsView {
     @ViewBuilder
     var moveToBottomSheet: some View {
+//        CustomPrefsAlert(
+//            type: self.viewModel.selectedRow,
+//            localPrefs: self.$viewModel.bookprefs
+//        )
         CustomPrefsAlert(
-            type: self.viewModel.selectedRow,
-            bottomSheetPosition: self.$viewModel.sheetState,
-            localPrefs: self.$viewModel.bookprefs
+            viewModel: CustomPrefsAlertViewModel(
+                type:  self.viewModel.selectedRow,
+                prefs: self.$viewModel.bookprefs
+            )
         )
+        
     }
 }
 

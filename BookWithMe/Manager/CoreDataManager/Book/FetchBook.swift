@@ -12,7 +12,7 @@ extension CoreDataManager {
     // MARK: - Constants
     private struct Constants {
         static let bookIdPredicateFormat = "bookId == %@"
-//        static let bookHistoryStartDatePredicate = "bookHistory.startDate >= %@ AND bookHistory.startDate < %@"
+        //        static let bookHistoryStartDatePredicate = "bookHistory.startDate >= %@ AND bookHistory.startDate < %@"
         static let bookHistoryStartDateSort = NSSortDescriptor(
             key: "bookHistory.startDate",
             ascending: true
@@ -39,18 +39,18 @@ extension CoreDataManager {
         if let cached = BookCache.shared.book(id: id) {
             return cached
         }
-
+        
         guard let entity = fetchBook(by: id) else { return nil }
         let book = Book(entity: entity)
         BookCache.shared.store(book)
         return book
     }
-
+    
     private func fetchBook(by bookId: String) -> BookEntity? {
         let predicate = NSPredicate(format: Constants.bookIdPredicateFormat, bookId)
         return fetchBookEntities(predicate: predicate).first
     }
-
+    
     // MARK: - 공통 fetch
     private func fetchBookEntities(
         predicate: NSPredicate?,
@@ -59,13 +59,13 @@ extension CoreDataManager {
         let request: NSFetchRequest<BookEntity> = BookEntity.fetchRequest()
         request.predicate = predicate
         request.sortDescriptors = sortDescriptors
-
+        
         // 🚀 관계 미리 불러오기: N+1 문제 방지
         request.relationshipKeyPathsForPrefetching = [
             #keyPath(BookEntity.bookHistory),
             #keyPath(BookEntity.bookHistory.review)
         ]
-
+        
         do {
             return try context.fetch(request)
         } catch {
@@ -73,7 +73,7 @@ extension CoreDataManager {
             return []
         }
     }
-
+}
 //    // MARK: - 날짜 Predicate
 //    private func datePredicateForMonth(containing date: Date) -> NSPredicate? {
 //        let calendar = Calendar.current
@@ -89,4 +89,4 @@ extension CoreDataManager {
 //            startOfNextMonth as NSDate
 //        )
 //    }
-}
+

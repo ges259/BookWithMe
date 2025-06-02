@@ -54,7 +54,7 @@ final class BookAPIManager {
     static let shared = BookAPIManager(); private init() { }
     
     /// 제목 검색 → `Book` 배열(태그 포함) 반환
-    func fetchBooks(
+    func fetchBooksAPI(
         byTitle title: String,
         page: Int = 1
     ) async throws -> [Book] {

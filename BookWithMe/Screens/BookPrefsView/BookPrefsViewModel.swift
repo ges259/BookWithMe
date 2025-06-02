@@ -24,12 +24,15 @@ final class BookPrefsViewModel {
     }()
     
     
-    init(
-        bookCache: BookCache
-    ) {
+    init(bookCache: BookCache) {
         self.bookCache = bookCache
-        self.bookprefs = BookPrefs.EMPTYDUMMY
+        self.bookprefs = bookCache.bookPrefs
     }
+    
+    func saveBookPrefs() {
+        bookCache.saveBookPrefs()
+    }
+    
     
     /// 화면이동 / 셀 및 특정 화면이 선택되었을 때, 호출되는 메서드.
     func updateSheetState(row: CustomPrefsType) {
