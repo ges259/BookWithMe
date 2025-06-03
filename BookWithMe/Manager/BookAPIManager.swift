@@ -46,7 +46,7 @@ final class BookAPIManager {
         struct Value {
             static let queryType = "Title"
             static let searchTarget = "Book"
-            static let outputFormat = "JS"        // JSON
+            static let outputFormat = "JS"
             static let coverSize = "Big"
         }
     }

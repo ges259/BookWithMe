@@ -13,6 +13,7 @@ enum ViewModeType {
     case preview
     case edit
 }
+
 @Observable
 final class BookDataViewModel {
     // MARK: - 모델
@@ -21,6 +22,8 @@ final class BookDataViewModel {
     private let coreDataManager: CoreDataManager
     
     var book: Book   // 지금 화면에서 사용 중인 책 객체
+    
+    var isShowingAlert = false
     
     /// 현재 책이 저장된 책인지 여부
     private var isSavedBook: Bool {
@@ -143,6 +146,7 @@ extension BookDataViewModel {
     
     /// 새로운 책을 Core Data에 저장함
     private func createBook() async throws {
+        print("DEBUG: createBook --- 1")
         try await self.coreDataManager.save(book: book)
     }
     

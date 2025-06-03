@@ -8,40 +8,25 @@
 import SwiftUI
 import CoreData
 
-final class CoreDataManager {
-    static let shared = CoreDataManager()
-    // 여기에서 context를 가져와서 재사용
-    let context: NSManagedObjectContext = PersistenceManager.shared.context
-    private init() { }
-    
-    
-    // MARK: - 저장
-    func saveContext(_ context: NSManagedObjectContext) throws {
-        guard context.hasChanges else { return }
-        do {
-            try context.save()
-        } catch {
-            /// 원본 오류를 감싼 뒤 상위 호출부로 throw
-            throw CoreDataError.saveFailed(underlying: error)
-        }
-    }
-    
-    
+extension CoreDataManager {
     // MARK: - Book 저장
     // 🚩 단일 진입점: Book + BookHistory + Review 저장
     func save(book model: Book) async throws {
+        print("DEBUG: createBook --- 2")
         try await PersistenceManager.shared.container.performBackgroundTask { context in
             // 1) Book upsert
             let book = try self.upsertBook(
                 model,
                 in: context
             )
+            print("DEBUG: createBook --- 3")
             
             // 2) Review 생성
             let review = self.createReview(
                 from: model.history.review,
                 in: context
             )
+            print("DEBUG: createBook --- 4")
             
             // 3) BookHistory upsert
             try self.upsertBookHistory(
@@ -50,6 +35,7 @@ final class CoreDataManager {
                 from: model.history,
                 in: context
             )
+            print("DEBUG: createBook --- 5")
             
             // 4) Save all changes
             try self.saveContext(context)
@@ -59,9 +45,16 @@ final class CoreDataManager {
 
 
 
+
+// MARK: - upsert
+
 private extension CoreDataManager {
-    // MARK: - Book upsert
-    func upsertBook(_ model: Book, in context: NSManagedObjectContext) throws -> BookEntity {
+    
+    // MARK: - Book
+    func upsertBook(
+        _ model: Book,
+        in context: NSManagedObjectContext
+    ) throws -> BookEntity {
         return try Self.upsert(
             entity: BookEntity.self,
             idKey: "bookId",
@@ -77,8 +70,11 @@ private extension CoreDataManager {
         }
     }
     
-    // MARK: - Review 생성
-    func createReview(from reviewModel: Review, in context: NSManagedObjectContext) -> ReviewEntity {
+    // MARK: - Review
+    func createReview(
+        from reviewModel: Review,
+        in context: NSManagedObjectContext
+    ) -> ReviewEntity {
         let review = ReviewEntity(context: context)
         review.reviewId        = UUID().uuidString
         review.updatedAt       = Date()
@@ -90,7 +86,7 @@ private extension CoreDataManager {
         return review
     }
     
-    // MARK: - BookHistory upsert
+    // MARK: - BookHistory
     func upsertBookHistory(
         for book: BookEntity,
         review: ReviewEntity,
@@ -105,39 +101,12 @@ private extension CoreDataManager {
         ) { (history: BookHistoryEntity) in
             history.bookHistoryId = historyModel.bookHistoryId
             history.status        = historyModel.status.rawValue
-            history.startDate     = historyModel.startDate
+            history.startDate     = historyModel.startDate ?? Date()
             history.endDate       = historyModel.endDate
-            history.book          = book             // 양방향
+            history.book          = book
             book.bookHistory      = history
             history.review        = review
-            review.bookHistory    = history          // 양방향
-        }
-    }
-}
-
-
-
-// MARK: - Upsert Helper (Generic)
-extension CoreDataManager {
-    @discardableResult
-    static func upsert<T: NSManagedObject>(
-        entity: T.Type,
-        idKey: String,
-        idValue: String,
-        in context: NSManagedObjectContext,
-        configure: (T) -> Void
-    ) throws -> T {
-        do {
-            let request = NSFetchRequest<T>(entityName: String(describing: entity))
-            request.predicate  = NSPredicate(format: "%K == %@", idKey, idValue)
-            request.fetchLimit = 1
-            
-            let object = try context.fetch(request).first ?? T(context: context)
-            configure(object)
-            return object
-        } catch {
-            /// fetch 실패 → CoreDataError 로 포장
-            throw CoreDataError.fetchFailed(underlying: error)
+            review.bookHistory    = history
         }
     }
 }

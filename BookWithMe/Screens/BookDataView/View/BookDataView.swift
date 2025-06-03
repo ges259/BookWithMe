@@ -10,14 +10,10 @@ import BottomSheet
 import HorizonCalendar
 
 struct BookDataView: View {
-    @State var startDate: Date? = Date()
-    @State var endDate: Date? = nil
     
-    
+    @Environment(\.dismiss) private var dismiss
     @State var viewModel: BookDataViewModel
     
-
-    private let labelWidth: CGFloat = 60
     
     var body: some View {
         VStack(spacing: 10) {
@@ -55,6 +51,19 @@ struct BookDataView: View {
         .enableSwipeToDismiss()
         .enableTapToDismiss()
         .toolbar {
+            self.buildToolbarItems()
+        }
+    }
+}
+
+
+
+// MARK: - UI
+private extension BookDataView {
+    /// 툴바를 생성하는 코드
+    @ToolbarContentBuilder
+    func buildToolbarItems() -> some ToolbarContent {
+        if self.viewModel.isEditMode {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
                     self.saveToolbarItem
@@ -63,14 +72,6 @@ struct BookDataView: View {
             }
         }
     }
-}
-
-
-
-// MARK: - UI
-
-private extension BookDataView {
-    
     /// UI - 책 설명 뷰
     var bookDescriptionView: some View {
         return BookDescriptionView(
@@ -152,9 +153,18 @@ private extension BookDataView {
     }
     var deleteToolbarItem: some View {
         return Button("삭제") {
-            self.viewModel.deleteBook()
+            self.viewModel.isShowingAlert = true
         }
         .foregroundColor(.red)
+        .confirmationAlert(
+            isPresented: $viewModel.isShowingAlert,
+            type: .deleteBook {
+                // 코어데이터에서 책 삭제
+                self.viewModel.deleteBook()
+                // 삭제 후 뒤로 가기
+                self.dismiss()
+            }
+        )
     }
 }
 

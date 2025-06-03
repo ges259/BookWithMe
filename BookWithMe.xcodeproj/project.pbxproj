@@ -22,6 +22,8 @@
 		5F647AB32DEDE63A000D6B30 /* UpdateBookPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F647AB22DEDE63A000D6B30 /* UpdateBookPrefs.swift */; };
 		5F647AB52DEDE644000D6B30 /* FetchBookPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F647AB42DEDE644000D6B30 /* FetchBookPrefs.swift */; };
 		5F647AB72DEDF75F000D6B30 /* CustomPrefsAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F647AB62DEDF75F000D6B30 /* CustomPrefsAlertViewModel.swift */; };
+		5F6ABE0E2DEEE1A2008E5CDC /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6ABE0D2DEEE1A2008E5CDC /* CoreDataManager.swift */; };
+		5F6ABE102DEEE99F008E5CDC /* ConfirmationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6ABE0F2DEEE99F008E5CDC /* ConfirmationType.swift */; };
 		5F6B70EC2DD104DE005179CE /* HorizonCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6B70EB2DD104DE005179CE /* HorizonCalendarView.swift */; };
 		5F6B70EE2DD104F4005179CE /* SelectionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6B70ED2DD104F4005179CE /* SelectionMode.swift */; };
 		5F6B91B72DCCCA1D00D6C54A /* BookDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6B91B62DCCCA1D00D6C54A /* BookDataViewModel.swift */; };
@@ -109,6 +111,8 @@
 		5F647AB22DEDE63A000D6B30 /* UpdateBookPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBookPrefs.swift; sourceTree = "<group>"; };
 		5F647AB42DEDE644000D6B30 /* FetchBookPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchBookPrefs.swift; sourceTree = "<group>"; };
 		5F647AB62DEDF75F000D6B30 /* CustomPrefsAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPrefsAlertViewModel.swift; sourceTree = "<group>"; };
+		5F6ABE0D2DEEE1A2008E5CDC /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		5F6ABE0F2DEEE99F008E5CDC /* ConfirmationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationType.swift; sourceTree = "<group>"; };
 		5F6B70EB2DD104DE005179CE /* HorizonCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonCalendarView.swift; sourceTree = "<group>"; };
 		5F6B70ED2DD104F4005179CE /* SelectionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMode.swift; sourceTree = "<group>"; };
 		5F6B91B62DCCCA1D00D6C54A /* BookDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDataViewModel.swift; sourceTree = "<group>"; };
@@ -299,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				5F06A9862DC8F31700C0664E /* PersistenceManager.swift */,
+				5F6ABE0D2DEEE1A2008E5CDC /* CoreDataManager.swift */,
 				5F647AAE2DEDE154000D6B30 /* Book */,
 				5F647AAF2DEDE161000D6B30 /* BookPrefs */,
 			);
@@ -414,6 +419,7 @@
 				5FD8E3022DD482AE0058ED94 /* BottomButtonView.swift */,
 				5FCA5D922DD5ECEB00D3C172 /* HeaderRightImageType.swift */,
 				5FF57C752DEAE84400000290 /* RowTitleView.swift */,
+				5F6ABE0F2DEEE99F008E5CDC /* ConfirmationType.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -652,6 +658,7 @@
 				5F647AB32DEDE63A000D6B30 /* UpdateBookPrefs.swift in Sources */,
 				5F9B33CE2DE7054F0026227B /* BookHistoryEntity+CoreDataProperties.swift in Sources */,
 				5F9B33CF2DE7054F0026227B /* ReviewEntity+CoreDataClass.swift in Sources */,
+				5F6ABE0E2DEEE1A2008E5CDC /* CoreDataManager.swift in Sources */,
 				5F9B33D02DE7054F0026227B /* ReviewEntity+CoreDataProperties.swift in Sources */,
 				5F9B33D12DE7054F0026227B /* UserEntity+CoreDataClass.swift in Sources */,
 				5F9B33D22DE7054F0026227B /* UserEntity+CoreDataProperties.swift in Sources */,
@@ -684,6 +691,7 @@
 				5FF8E13F2DCA412D00B7F87E /* PagingTabView.swift in Sources */,
 				5FBF26162DE6C953006C1D8C /* Book+Patch.swift in Sources */,
 				5F8650532DC798BC00784088 /* BookWithMeApp.swift in Sources */,
+				5F6ABE102DEEE99F008E5CDC /* ConfirmationType.swift in Sources */,
 				5F9B33D62DE705A50026227B /* String+Ext.swift in Sources */,
 				5F437A382DCA52D600610056 /* View+Ext.swift in Sources */,
 				5FE499DD2DC8C81E009AC510 /* BookShelfViewModel.swift in Sources */,

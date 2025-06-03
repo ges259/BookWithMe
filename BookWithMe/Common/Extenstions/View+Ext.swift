@@ -106,3 +106,26 @@ enum Corner {
         }
     }
 }
+
+
+
+// MARK: - confirmationAlert
+extension View {
+    func confirmationAlert(
+        isPresented: Binding<Bool>,
+        type: ConfirmationType
+    ) -> some View {
+        self.confirmationDialog(
+            type.title,
+            isPresented: isPresented,
+            titleVisibility: .visible
+        ) {
+            Button(type.confirmTitle, role: .destructive, action: type.action)
+            Button("취소", role: .cancel) {}
+        } message: {
+            if let message = type.message {
+                Text(message)
+            }
+        }
+    }
+}

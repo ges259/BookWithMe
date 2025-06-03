@@ -31,7 +31,7 @@ extension BookHistory {
         self.bookId = bookId
         self.bookHistoryId = bookHistoryId
         self.status = status
-        self.startDate = entity.startDate
+        self.startDate = entity.startDate ?? Date()
         self.endDate = entity.endDate
         
         if
@@ -48,7 +48,7 @@ extension BookHistory {
         self.bookId = bookId
         self.bookHistoryId = UUID().uuidString
         self.status = .none
-        self.startDate = nil
+        self.startDate = Date()
         self.endDate = nil
         self.review = Review()
     }
@@ -58,3 +58,4 @@ extension BookHistory {
         return BookHistory(bookId: "BookHistory_Dummy")
     }
 }
+
