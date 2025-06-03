@@ -21,8 +21,11 @@ final class BookDataViewModel {
     private let bookCache: BookCache
     private let coreDataManager: CoreDataManager
     
-    var book: Book   // 지금 화면에서 사용 중인 책 객체
-    
+    var book: Book {   // 지금 화면에서 사용 중인 책 객체
+        didSet {
+            dump(book)
+        }
+    }
     var isShowingAlert = false
     
     /// 현재 책이 저장된 책인지 여부
@@ -87,13 +90,13 @@ extension BookDataViewModel {
     func value(for row: BookInfoRow) -> String? {
         switch row {
         case .status:
-            return book.history.status.rawValue
+            return book.history.status.title
             
         case .startDate:
-            return formatted(book.history.startDate)
+            return Date.formatDate(book.history.startDate)
             
         case .endDate:
-            return formatted(book.history.endDate)
+            return Date.formatDate(book.history.endDate)
             
         case .rating:
             let rating = book.history.review.rating
@@ -102,21 +105,13 @@ extension BookDataViewModel {
             return rating.truncatingRemainder(dividingBy: 1) == 0
             ? String(Int(rating))
             : String(min(rating, 5))
-            
+                
         case .summary:
             return book.history.review.summary ?? ""
             
         default:
             return ""
         }
-    }
-    
-    /// 날짜를 간단하게 포맷팅 (ex: 24. 5. 1.)
-    private func formatted(_ date: Date?) -> String {
-        guard let date else { return "" }
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        return formatter.string(from: date)
     }
 }
 

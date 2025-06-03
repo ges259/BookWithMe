@@ -129,3 +129,13 @@ extension View {
         }
     }
 }
+
+
+extension Date {
+    /// Date를 "yyyy.MM.dd" 형식으로 변환합니다.
+    static func formatDate(_ date: Date?) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        return formatter.string(from: date ?? Date())
+    }
+}

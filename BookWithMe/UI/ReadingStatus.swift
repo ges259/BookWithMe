@@ -41,7 +41,6 @@ enum ReadingStatus: String {
             return [ .recommended, .reading, .completed, .wishlist, .paused]
         }
     }
-    
 }
 
 

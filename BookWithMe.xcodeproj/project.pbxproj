@@ -15,6 +15,10 @@
 		5F331B4C2DCE44A80061E046 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 5F331B4B2DCE44A80061E046 /* BottomSheet */; };
 		5F4013FF2DEB3F7F00E06293 /* CustomPrefsAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4013FE2DEB3F7F00E06293 /* CustomPrefsAlert.swift */; };
 		5F437A382DCA52D600610056 /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F437A372DCA52D600610056 /* View+Ext.swift */; };
+		5F4FB4802DEF0CDF00B98A7C /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4FB47F2DEF0CDF00B98A7C /* StarView.swift */; };
+		5F4FB4822DEF141200B98A7C /* StarGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4FB4812DEF141200B98A7C /* StarGestureModifier.swift */; };
+		5F4FB4842DEF142700B98A7C /* StarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4FB4832DEF142700B98A7C /* StarType.swift */; };
+		5F4FB4862DEF143D00B98A7C /* StarViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4FB4852DEF143D00B98A7C /* StarViewStyle.swift */; };
 		5F647AAA2DEDDC07000D6B30 /* BookPrefsEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F647AA82DEDDC07000D6B30 /* BookPrefsEntity+CoreDataClass.swift */; };
 		5F647AAB2DEDDC07000D6B30 /* BookPrefsEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F647AA92DEDDC07000D6B30 /* BookPrefsEntity+CoreDataProperties.swift */; };
 		5F647AAD2DEDDFE8000D6B30 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F647AAC2DEDDFE8000D6B30 /* Array+Ext.swift */; };
@@ -104,6 +108,10 @@
 		5F25AE0D2DCD2D5100C89B89 /* BookInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoRow.swift; sourceTree = "<group>"; };
 		5F4013FE2DEB3F7F00E06293 /* CustomPrefsAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPrefsAlert.swift; sourceTree = "<group>"; };
 		5F437A372DCA52D600610056 /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
+		5F4FB47F2DEF0CDF00B98A7C /* StarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
+		5F4FB4812DEF141200B98A7C /* StarGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarGestureModifier.swift; sourceTree = "<group>"; };
+		5F4FB4832DEF142700B98A7C /* StarType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarType.swift; sourceTree = "<group>"; };
+		5F4FB4852DEF143D00B98A7C /* StarViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarViewStyle.swift; sourceTree = "<group>"; };
 		5F647AA82DEDDC07000D6B30 /* BookPrefsEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookPrefsEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5F647AA92DEDDC07000D6B30 /* BookPrefsEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookPrefsEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5F647AAC2DEDDFE8000D6B30 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
@@ -420,6 +428,8 @@
 				5FCA5D922DD5ECEB00D3C172 /* HeaderRightImageType.swift */,
 				5FF57C752DEAE84400000290 /* RowTitleView.swift */,
 				5F6ABE0F2DEEE99F008E5CDC /* ConfirmationType.swift */,
+				5F4FB4832DEF142700B98A7C /* StarType.swift */,
+				5F4FB4852DEF143D00B98A7C /* StarViewStyle.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -533,6 +543,8 @@
 				5FD0BF502DCF8B7700E3CA35 /* HistoryRatingView.swift */,
 				5FBF46112DD49398008E29D4 /* HistoryTextFieldView.swift */,
 				5FD0BF522DCF8B7F00E3CA35 /* HistoryTagView.swift */,
+				5F4FB47F2DEF0CDF00B98A7C /* StarView.swift */,
+				5F4FB4812DEF141200B98A7C /* StarGestureModifier.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -637,6 +649,7 @@
 				5F25AE0E2DCD2D5100C89B89 /* BookInfoRow.swift in Sources */,
 				5F6B91B72DCCCA1D00D6C54A /* BookDataViewModel.swift in Sources */,
 				5FD0BF572DD06BBA00E3CA35 /* HeaderAlignment.swift in Sources */,
+				5F4FB4822DEF141200B98A7C /* StarGestureModifier.swift in Sources */,
 				5FABF2192DCB3D02000CAA61 /* SettingSection.swift in Sources */,
 				5FC5FBAC2DEA13D900E26D15 /* BookPreference.swift in Sources */,
 				5F93FDBC2DC8E51700EC2E9E /* CoreData.xcdatamodeld in Sources */,
@@ -653,6 +666,7 @@
 				5FE499C12DC88985009AC510 /* BookShelfView.swift in Sources */,
 				5F8650552DC798BC00784088 /* ContentView.swift in Sources */,
 				5FB85A762DCA5E12003DF6FC /* SearchViewModel.swift in Sources */,
+				5F4FB4802DEF0CDF00B98A7C /* StarView.swift in Sources */,
 				5FABF2222DCB7E87000CAA61 /* BookDescriptionView.swift in Sources */,
 				5F9B33CD2DE7054F0026227B /* BookHistoryEntity+CoreDataClass.swift in Sources */,
 				5F647AB32DEDE63A000D6B30 /* UpdateBookPrefs.swift in Sources */,
@@ -660,6 +674,7 @@
 				5F9B33CF2DE7054F0026227B /* ReviewEntity+CoreDataClass.swift in Sources */,
 				5F6ABE0E2DEEE1A2008E5CDC /* CoreDataManager.swift in Sources */,
 				5F9B33D02DE7054F0026227B /* ReviewEntity+CoreDataProperties.swift in Sources */,
+				5F4FB4842DEF142700B98A7C /* StarType.swift in Sources */,
 				5F9B33D12DE7054F0026227B /* UserEntity+CoreDataClass.swift in Sources */,
 				5F9B33D22DE7054F0026227B /* UserEntity+CoreDataProperties.swift in Sources */,
 				5F9B33D32DE7054F0026227B /* BookEntity+CoreDataClass.swift in Sources */,
@@ -680,6 +695,7 @@
 				5F647AB52DEDE644000D6B30 /* FetchBookPrefs.swift in Sources */,
 				5F6B91B92DCCE76900D6C54A /* TabItem.swift in Sources */,
 				5FE499D92DC8C549009AC510 /* Review.swift in Sources */,
+				5F4FB4862DEF143D00B98A7C /* StarViewStyle.swift in Sources */,
 				5FD9BDB82DC9F0F600568A58 /* HeaderTitleView.swift in Sources */,
 				5FCA5D932DD5ECEB00D3C172 /* HeaderRightImageType.swift in Sources */,
 				5FD0BF512DCF8B7700E3CA35 /* HistoryRatingView.swift in Sources */,

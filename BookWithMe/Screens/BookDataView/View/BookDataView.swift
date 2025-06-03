@@ -123,8 +123,17 @@ private extension BookDataView {
     }
     
     /// UI - 테이블의 Book 및 BookHistory의 정보를 설정하는 함수
+    @ViewBuilder
     func detailText(_ row: BookInfoRow) -> some View {
-        return RowDetailTextView(detatilText: self.viewModel.value(for: row))
+        switch row {
+        case .rating:
+            StarView(starViewStyle: .custom(), 
+                     rating: $viewModel.book.history.review.rating
+            )
+            
+        default:
+            RowDetailTextView(detatilText: self.viewModel.value(for: row))
+        }
     }
     
     /// UI - 하단 버튼을 설정하는 함수
