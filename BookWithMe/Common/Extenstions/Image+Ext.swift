@@ -29,6 +29,7 @@ extension Image {
     static let starEmpty = Image(systemName: "star")
     
     static let send = Image(systemName: "arrow.right.circle.fill")
+    static let arrowLeft = Image(systemName: "arrow.left")
     
     
     static let searchXmark = Image(systemName: "xmark.circle.fill")

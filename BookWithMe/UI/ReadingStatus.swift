@@ -28,8 +28,8 @@ enum ReadingStatus: String {
         case .completed:    return "다 읽었어요"
         case .paused:       return "잠시 멈췄어요"
         case .wishlist:     return "읽고 싶어요"
-        case .all:         return "전체"
-        case .none:         return ""
+        case .all:          return "전체"
+        case .none:         return "독서 상태를 설정해 주세요."
         }
     }
     

@@ -81,12 +81,14 @@ extension Book {
 }
 
 
+
+// MARK: - diff
 extension Book {
     func diff(from old: Book) -> (
-        book: BookPatch,
-        history: BookHistoryPatch,
-        review: ReviewPatch,
-        changed: Bool
+        bookPatch: BookPatch,
+        historyPatch: BookHistoryPatch,
+        reviewPatch: ReviewPatch,
+        hasChanged: Bool
     ) {
         var bookPatch      = BookPatch()
         var historyPatch   = BookHistoryPatch()

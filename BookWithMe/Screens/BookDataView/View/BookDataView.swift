@@ -33,6 +33,8 @@ struct BookDataView: View {
                 self.bottomButton
             }
         }
+        // 뷰 body 내부
+        .confirmationAlert(for: $viewModel.alertType)
         .ignoresSafeArea(.container, edges: .bottom)
         .background(Color.baseBackground)
         .bottomSheet(
@@ -53,6 +55,8 @@ struct BookDataView: View {
         .toolbar {
             self.buildToolbarItems()
         }
+        .navigationBarBackButtonHidden(true)
+        .interactiveDismissDisabled(true)
     }
 }
 
@@ -60,15 +64,44 @@ struct BookDataView: View {
 
 // MARK: - UI
 private extension BookDataView {
+    
+    // MARK: - 왼쪽 네비게이션 바 아이템
+    var leadingNavigationItem: some View {
+        Button {
+            
+            if self.viewModel.isDiff() {
+                self.viewModel.alertType = .unsavedChanges {
+                    self.viewModel.reset()
+                    self.dismiss()
+                }
+            } else {
+                self.dismiss()
+            }
+            
+        } label: {
+            // 왼쪽 화살표 아이콘
+            Image.arrowLeft
+                .foregroundColor(.primary) // 아이콘 색상
+        }
+    }
+    
+    
+    var trailingNavigationItem: some View {
+        return HStack {
+            self.saveToolbarItem
+            self.deleteToolbarItem
+        }
+    }
+
     /// 툴바를 생성하는 코드
     @ToolbarContentBuilder
     func buildToolbarItems() -> some ToolbarContent {
+        ToolbarItem(placement: .navigationBarLeading) {
+            self.leadingNavigationItem
+        }
         if self.viewModel.isEditMode {
             ToolbarItem(placement: .navigationBarTrailing) {
-                HStack {
-                    self.saveToolbarItem
-                    self.deleteToolbarItem
-                }
+                self.trailingNavigationItem
             }
         }
     }
@@ -160,20 +193,29 @@ private extension BookDataView {
         }
         .foregroundColor(.black)
     }
+//    var deleteToolbarItem: some View {
+//        return Button("삭제") {
+//            self.viewModel.isShowingAlert = true
+//        }
+//        .foregroundColor(.red)
+//        .confirmationAlert(
+//            isPresented: $viewModel.isShowingAlert,
+//            type: .deleteBook {
+//                // 코어데이터에서 책 삭제
+//                self.viewModel.deleteBook()
+//                // 삭제 후 뒤로 가기
+//                self.dismiss()
+//            }
+//        )
+//    }
     var deleteToolbarItem: some View {
-        return Button("삭제") {
-            self.viewModel.isShowingAlert = true
+        Button("삭제") {
+            viewModel.alertType = .deleteBook {
+                viewModel.deleteBook()
+                dismiss()
+            }
         }
         .foregroundColor(.red)
-        .confirmationAlert(
-            isPresented: $viewModel.isShowingAlert,
-            type: .deleteBook {
-                // 코어데이터에서 책 삭제
-                self.viewModel.deleteBook()
-                // 삭제 후 뒤로 가기
-                self.dismiss()
-            }
-        )
     }
 }
 

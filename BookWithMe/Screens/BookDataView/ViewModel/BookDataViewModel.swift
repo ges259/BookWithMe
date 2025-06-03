@@ -20,13 +20,15 @@ final class BookDataViewModel {
     /// 저장된 책들 캐시. CoreData와 동기화된 상태를 캐싱함
     private let bookCache: BookCache
     private let coreDataManager: CoreDataManager
-    
-    var book: Book {   // 지금 화면에서 사용 중인 책 객체
+    // 지금 화면에서 사용 중인 책 객체
+    var book: Book
+    {
         didSet {
+            print("DEBUG: BookDataViewModel")
             dump(book)
         }
     }
-    var isShowingAlert = false
+    var alertType: ConfirmationType? = nil
     
     /// 현재 책이 저장된 책인지 여부
     private var isSavedBook: Bool {
@@ -96,7 +98,9 @@ extension BookDataViewModel {
             return Date.formatDate(book.history.startDate)
             
         case .endDate:
-            return Date.formatDate(book.history.endDate)
+            return book.history.endDate == nil
+            ? "종료일을 설정해 주세요."
+            : Date.formatDate(book.history.endDate)
             
         case .rating:
             let rating = book.history.review.rating
@@ -105,12 +109,56 @@ extension BookDataViewModel {
             return rating.truncatingRemainder(dividingBy: 1) == 0
             ? String(Int(rating))
             : String(min(rating, 5))
-                
+            
         case .summary:
-            return book.history.review.summary ?? ""
+            return book.history.review.summary ?? "한줄평을 적어주세요."
             
         default:
             return ""
+        }
+    }
+}
+
+
+
+// MARK: - Helper
+extension BookDataViewModel {
+    /// 뒤로가기 버튼을 눌렀을 때, 변경하지 않고 나간다면 원래의 데이터로 돌려놓음
+    func reset() {
+        if let data = self.bookCache.book(id: self.book.id) {
+            self.book = data
+        } else {
+            self.book.history = .DUMMY_BOOKHISTORY
+            self.book.history.review = .DUMMY_REVIEW
+            self.descriptionMode = .preview
+        }
+    }
+    
+    // 불편한 편의점
+    /*
+     isSavedBook가 true면 저장되어있는 책
+     -> diffFromCachedBook에서 확인
+     
+     isSavedBook가 false면 저장이 안 되어있는 책
+     -> status를 보면 된다.
+     -> .none이면 아무것도 건들지 않음 == 저장할 필요 없음(리셋필요)
+     -> .none이 아니라면, 저장 필요
+    */
+    func isDiff() -> Bool {
+        if isSavedBook {
+            let hasChanged = self.diffFromCachedBook()?.hasChanged ?? false
+            return hasChanged
+            
+        } else { // 저장되어있지 않은 책
+            // 변경사항이 없음 (status조차 설정하지 않음)
+            if self.book.history.status == .none {
+                self.reset()
+               return false
+                
+                // 변경 사항이 존재 -> 얼럿창 띄우기
+            } else {
+                return true
+            }
         }
     }
 }
@@ -141,28 +189,37 @@ extension BookDataViewModel {
     
     /// 새로운 책을 Core Data에 저장함
     private func createBook() async throws {
-        print("DEBUG: createBook --- 1")
         try await self.coreDataManager.save(book: book)
     }
     
-    /// 기존 책이랑 비교해서 변경사항 있으면 업데이트함
-    private func updateBookIfNeeded() async throws {
-        // 캐시에서 원래 책을 가져옴
-        guard let originalBook = self.bookCache.book(id: self.book.id) else { return }
-        
-        // 변경된 부분 파악 (diff)
-        let (bookPatch, historyPatch, reviewPatch, hasChanged) = book.diff(from: originalBook)
-        guard hasChanged else { return }
+    
 
-        // Core Data에 실제 반영
+    /// 변경사항이 있는 경우 Core Data에 업데이트함
+    private func updateBookIfNeeded() async throws {
+        guard let diffResult = self.diffFromCachedBook() else { return }
+        
         try await self.coreDataManager.update(
             bookId: book.id,
-            bookPatch: bookPatch,
-            historyPatch: historyPatch,
-            reviewPatch: reviewPatch
+            bookPatch: diffResult.bookPatch,
+            historyPatch: diffResult.historyPatch,
+            reviewPatch: diffResult.reviewPatch
         )
     }
 
+    /// 캐시된 책과 현재 책을 비교해서 변경사항이 있으면 diff 결과를 반환
+    func diffFromCachedBook() -> (
+        bookPatch: BookPatch,
+        historyPatch: BookHistoryPatch,
+        reviewPatch: ReviewPatch,
+        hasChanged: Bool
+    )? {
+        // 캐시에서 원래 책을 가져옴
+        guard let originalBook = self.bookCache.book(id: self.book.id) else { return nil }
+        
+        // 변경된 부분 파악 (diff)
+        return book.diff(from: originalBook)
+    }
+    
     /// 에러가 발생했을 때 로그 출력용
     private func log(_ error: Error, context: String) {
         print("\(context) -- DEBUG: \(error.localizedDescription)")

@@ -111,25 +111,31 @@ enum Corner {
 
 // MARK: - confirmationAlert
 extension View {
-    func confirmationAlert(
-        isPresented: Binding<Bool>,
-        type: ConfirmationType
-    ) -> some View {
+    func confirmationAlert(for type: Binding<ConfirmationType?>) -> some View {
         self.confirmationDialog(
-            type.title,
-            isPresented: isPresented,
+            type.wrappedValue?.title ?? "",
+            isPresented: Binding(
+                get: { type.wrappedValue != nil },
+                set: { if !$0 { type.wrappedValue = nil } }
+            ),
             titleVisibility: .visible
         ) {
-            Button(type.confirmTitle, role: .destructive, action: type.action)
-            Button("취소", role: .cancel) {}
+            if let alert = type.wrappedValue {
+                Button(alert.confirmTitle, role: .destructive) {
+                    alert.action()
+                    type.wrappedValue = nil
+                }
+                Button("취소", role: .cancel) {
+                    type.wrappedValue = nil
+                }
+            }
         } message: {
-            if let message = type.message {
+            if let message = type.wrappedValue?.message {
                 Text(message)
             }
         }
     }
 }
-
 
 extension Date {
     /// Date를 "yyyy.MM.dd" 형식으로 변환합니다.
