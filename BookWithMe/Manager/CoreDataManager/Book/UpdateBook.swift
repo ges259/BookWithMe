@@ -19,6 +19,8 @@ enum CoreDataError: LocalizedError {
     case saveFailed(underlying: Error)
     // Update
     case bookNotFound, historyNotFound
+    // Delete
+    case deleteFailed(underlying: Error)
     
     var errorDescription: String? {
         switch self {
@@ -29,6 +31,8 @@ enum CoreDataError: LocalizedError {
             return "Core Data fetch 실패: \(err.localizedDescription)"
         case .saveFailed(let err):
             return "Core Data save 실패: \(err.localizedDescription)"
+        case .deleteFailed(let err):
+            return "Core Data delete 실패: \(err.localizedDescription)"
         }
     }
 }

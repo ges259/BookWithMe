@@ -47,7 +47,8 @@ private extension ReadingHistoryCellView {
                     NavigationLink {
                         BookDataView(
                             viewModel: BookDataViewModel(
-                                bookCache: BookCache.shared,
+                                bookCache: BookCache.shared, 
+                                coreDataManager: CoreDataManager.shared,
                                 book: book)
                         )
                     } label: {

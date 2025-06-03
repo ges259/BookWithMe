@@ -92,10 +92,6 @@ private extension BookPrefsView {
 private extension BookPrefsView {
     @ViewBuilder
     var moveToBottomSheet: some View {
-//        CustomPrefsAlert(
-//            type: self.viewModel.selectedRow,
-//            localPrefs: self.$viewModel.bookprefs
-//        )
         CustomPrefsAlert(
             viewModel: CustomPrefsAlertViewModel(
                 type:  self.viewModel.selectedRow,

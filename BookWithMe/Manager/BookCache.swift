@@ -14,8 +14,12 @@ final class BookCache {
     static let shared = BookCache()
     
     // 관찰 필요 없는 원본 저장소
-//    @ObservationIgnored
+    @ObservationIgnored
     private var storage: [String: Book] = [:]
+    
+    func printStorage() {
+        dump(storage)
+    }
     
     // 관측이 필요한 데이터들
     var bookPrefs: BookPrefs
@@ -23,7 +27,7 @@ final class BookCache {
     
     init() {
         self.bookPrefs = CoreDataManager.shared.fetchBookPrefs()
-        dump(bookPrefs)
+        
         DispatchQueue.main.async {
             let books = CoreDataManager.shared.fetchBooksForMonth()
             self.load(books)
@@ -57,17 +61,42 @@ extension BookCache {
         storage[book.id] = book
         
         if old.history.status != book.history.status {
-            remove(book.id, from: old.history.status)
-            bookData[book.history.status, default: []].append(book.id)
+            move(book.id, from: old.history.status, to: book.history.status)
         }
     }
+    /// 주어진 책 ID를 기준으로, 캐시와 상태 딕셔너리에서 모두 제거해요
+    func delete(_ bookId: String) {
+        // 캐시에 해당 책이 있는지 확인
+        guard let book = storage[bookId] else { return }
+        // 현재 상태에서 bookId 제거
+        removeIDFromBookData(bookId, from: book.history.status)
+        // storage에서 완전히 제거
+        storage.removeValue(forKey: bookId)
+    }
+    
+    
+    // MARK: - CRUD_Helper
+    /// 책의 ID를 이전 상태에서 새 상태로 옮기는 함수
+    private func move(
+        _ id: String,
+        from oldStatus: ReadingStatus,
+        to newStatus: ReadingStatus
+    ) {
+        removeIDFromBookData(id, from: oldStatus)
+        bookData[newStatus, default: []].append(id)
+    }
+    
     // remove 함수도 ID 기준으로 그대로 사용 가능
-    private func remove(_ id: String, from status: ReadingStatus) {
+    private func removeIDFromBookData(
+        _ id: String,
+        from status: ReadingStatus
+    ) {
         guard var arr = bookData[status] else { return }
         arr.removeAll { $0 == id }
         bookData[status] = arr
     }
     
+    /// 모든 데이터를 삭제하는 코드
     func clear() {
         storage.removeAll()
         bookData.removeAll()
@@ -103,12 +132,9 @@ private extension BookCache {
 }
 extension BookCache {
     func saveBookPrefs() {
-        print("1")
-        dump(bookPrefs)
         Task {
             do {
                 try await CoreDataManager.shared.save(bookPrefs: bookPrefs)
-                print("2")
             } catch {
                 print("DEBUG: saveBookPrefsError, \(error.localizedDescription)")
             }

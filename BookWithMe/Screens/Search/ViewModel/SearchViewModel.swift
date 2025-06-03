@@ -10,11 +10,7 @@ import SwiftUI
 class SearchViewModel: ObservableObject {
     
     @Published var searchText: String = ""
-    @Published var searchResult: [Book] = [] {
-        didSet {
-            dump(searchResult)
-        }
-    }
+    @Published var searchResult: [Book] = []
     private var page: Int = 1
     
     let bookAPIManager: BookAPIManager  = BookAPIManager.shared

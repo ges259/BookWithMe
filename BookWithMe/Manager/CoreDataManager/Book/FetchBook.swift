@@ -10,7 +10,7 @@ import CoreData
 
 extension CoreDataManager {
     // MARK: - Constants
-    private struct Constants {
+    struct Constants {
         static let bookIdPredicateFormat = "bookId == %@"
         //        static let bookHistoryStartDatePredicate = "bookHistory.startDate >= %@ AND bookHistory.startDate < %@"
         static let bookHistoryStartDateSort = NSSortDescriptor(
