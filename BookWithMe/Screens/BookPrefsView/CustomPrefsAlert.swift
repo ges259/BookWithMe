@@ -9,7 +9,7 @@ import SwiftUI
 import BottomSheet
 
 struct CustomPrefsAlert: View {
-    @State var viewModel: CustomPrefsAlertViewModel
+    @Bindable var viewModel: CustomPrefsAlertViewModel
     
     
     var body: some View {

@@ -21,13 +21,7 @@ final class BookDataViewModel {
     private let bookCache: BookCache
     private let coreDataManager: CoreDataManager
     // 지금 화면에서 사용 중인 책 객체
-    var book: Book
-    {
-        didSet {
-            print("DEBUG: BookDataViewModel")
-            dump(book)
-        }
-    }
+    var book: Book 
     var alertType: ConfirmationType? = nil
     
     /// 현재 책이 저장된 책인지 여부

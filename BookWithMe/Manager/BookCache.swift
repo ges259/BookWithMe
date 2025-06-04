@@ -15,19 +15,16 @@ final class BookCache {
     
     // 관찰 필요 없는 원본 저장소
     @ObservationIgnored
-    private var storage: [String: Book] = [:] {
+    private var storage: [String: Book] = [:]
+    
+    // 관측이 필요한 데이터들
+    var bookPrefs: BookPrefs {
         didSet {
-            print("DEBUG: storage")
-            dump(storage)
+            dump(bookPrefs)
         }
     }
     
-    func printStorage() {
-        dump(storage)
-    }
     
-    // 관측이 필요한 데이터들
-    var bookPrefs: BookPrefs
     var bookData: [ReadingStatus: [String]] = [:]
     
     init() {

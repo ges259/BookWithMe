@@ -18,12 +18,9 @@ final class CoreDataManager {
     
     // MARK: - 저장
     func saveContext(_ context: NSManagedObjectContext) throws {
-        print("DEBUG: createBook --- 6")
         guard context.hasChanges else { return }
-        print("DEBUG: createBook --- 7")
         do {
             try context.save()
-            print("DEBUG: createBook --- 8")
         } catch {
             /// 원본 오류를 감싼 뒤 상위 호출부로 throw
             throw CoreDataError.saveFailed(underlying: error)

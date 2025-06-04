@@ -12,21 +12,18 @@ extension CoreDataManager {
     // MARK: - Book 저장
     // 🚩 단일 진입점: Book + BookHistory + Review 저장
     func save(book model: Book) async throws {
-        print("DEBUG: createBook --- 2")
         try await PersistenceManager.shared.container.performBackgroundTask { context in
             // 1) Book upsert
             let book = try self.upsertBook(
                 model,
                 in: context
             )
-            print("DEBUG: createBook --- 3")
             
             // 2) Review 생성
             let review = self.createReview(
                 from: model.history.review,
                 in: context
             )
-            print("DEBUG: createBook --- 4")
             
             // 3) BookHistory upsert
             try self.upsertBookHistory(
@@ -35,7 +32,6 @@ extension CoreDataManager {
                 from: model.history,
                 in: context
             )
-            print("DEBUG: createBook --- 5")
             
             // 4) Save all changes
             try self.saveContext(context)
@@ -67,6 +63,7 @@ private extension CoreDataManager {
             book.publisher       = model.publisher
             book.bookDescription = model.description
             book.imageURL        = model.imageURL
+            book.keywords        = model.keywords.toKeywordString()
         }
     }
     
