@@ -7,18 +7,12 @@
 
 import Foundation
 
-enum ReadingStatus: String {
-    case recommended = "recommended"
-    case reading = "reading"
-    case completed = "completed"
-    case paused = "paused"
-    case wishlist = "wishlist"
-    
-    case all = "all"
-    case none = "none"
+enum ReadingStatus: String, Codable {
+    case recommended, reading, completed, paused, wishlist
+    case all, none
     
     static var historyStatus: [ReadingStatus] {
-        return [.reading, .completed, .wishlist, .paused]
+        return [.recommended, .reading, .completed, .wishlist, .paused]
     }
     
     var title: String {
@@ -32,19 +26,4 @@ enum ReadingStatus: String {
         case .none:         return "독서 상태를 설정해 주세요."
         }
     }
-    
-    static func viewTypes(_ type: ReadingViewTypes) -> [ReadingStatus]{
-        switch type {
-        case .bookShelf: 
-            return [.recommended, .reading, .completed, .wishlist, .paused]
-        case .readingHistory:
-            return [ .recommended, .reading, .completed, .wishlist, .paused]
-        }
-    }
-}
-
-
-enum ReadingViewTypes {
-    case bookShelf
-    case readingHistory
 }

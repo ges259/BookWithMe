@@ -17,12 +17,7 @@ final class BookPrefsViewModel {
     
     private(set) var selectedRow: CustomPrefsType = .ageGroup
     private let bookCache: BookCache
-    var bookprefs: BookPrefs {
-        didSet {
-            print("BookPrefsViewModel")
-            dump(bookprefs)
-        }
-    }
+    var bookprefs: BookPrefs
     
     var allCases: [CustomPrefsType] = {
         return CustomPrefsType.allCases

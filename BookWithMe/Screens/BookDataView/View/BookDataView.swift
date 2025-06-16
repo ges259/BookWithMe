@@ -208,12 +208,13 @@ private extension BookDataView {
 //            }
 //        )
 //    }
+    
     var deleteToolbarItem: some View {
         Button("삭제") {
-            viewModel.alertType = .deleteBook {
-                viewModel.deleteBook()
-                dismiss()
-            }
+//            viewModel.alertType = .deleteBook {
+//                viewModel.deleteBook()
+//                dismiss()
+//            }
         }
         .foregroundColor(.red)
     }

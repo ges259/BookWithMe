@@ -125,4 +125,11 @@ enum CustomPrefsType: String, CaseIterable, Identifiable, Codable {
             return "비선호 장르"
         }
     }
+    
+    
+    // "all"을 제외한 필터링을 처리
+       func filterGenres(genres: [BookGenre]) -> [BookGenre] {
+           // "all"을 제외하고 필터링
+           return genres.filter { $0 != .all }
+       }
 }

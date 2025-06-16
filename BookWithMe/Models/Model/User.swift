@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct User {
+struct User: Codable {
     let userId: String
     let name: String
     let userImage: String

@@ -12,7 +12,7 @@ enum Secret {
 //    static var apiKey: String {
 //        Bundle.main.infoDictionary?["API_KEY"] as? String ?? ""
 //    }
-    static var apiKey: String = "Test16"
+    static var apiKey: String = "Test17"
 }
 // 불편한 편의점
 // 도둑맞은

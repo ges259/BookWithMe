@@ -53,7 +53,20 @@ struct BookPrefs: Codable {
     
     /// 샘플용 더미 데이터
     static let EMPTYDUMMY = BookPrefs()
+    
+    
+    
+    // likedGenres와 dislikedGenres에서 "all"을 제외하는 메서드 추가
+    func filteredLikedGenres() -> [BookGenre] {
+        return CustomPrefsType.likedGenres.filterGenres(genres: likedGenres)
+    }
+    
+    func filteredDislikedGenres() -> [BookGenre] {
+        return CustomPrefsType.dislikedGenres.filterGenres(genres: dislikedGenres)
+    }
 }
+
+
 
 // MARK: - BookPrefs 초기화 (Core Data → Model)
 extension BookPrefs {
@@ -77,5 +90,33 @@ extension BookPrefs {
         self.readingPurpose  = [ReadingPurpose].fromCommaSeparated(entity.readingPurpose ?? "")
         self.likedGenres     = [BookGenre].fromCommaSeparated(entity.likedGenres ?? "")
         self.dislikedGenres  = [BookGenre].fromCommaSeparated(entity.dislikedGenres ?? "")
+    }
+}
+
+
+
+extension BookPrefs {
+    func toStringArrays() -> [String: [String]] {
+        var dict: [String: [String]] = [:]
+        
+        let mapping: [(String, [any PrefsOption])] = [
+            ("language", self.language),
+            ("pageLength", self.pageLength),
+            ("ageGroup", self.ageGroup),
+            ("readingPurpose", self.readingPurpose),
+            ("likedGenres", self.likedGenres),
+            ("dislikedGenres", self.dislikedGenres)
+        ]
+        
+        for (key, options) in mapping {
+            let filtered = options.map { $0.rawValue }.filter { $0 != "모두" }
+            // "모두"만 있다면 빈 배열 할당, 그 외에는 "모두"만 제거된 배열을 할당
+            if filtered.isEmpty {
+                dict[key] = []
+            } else {
+                dict[key] = filtered
+            }
+        }
+        return dict
     }
 }
