@@ -24,7 +24,7 @@ extension Book {
         if title       != old.title       { bookPatch.title       = title;         hasChange = true }
         if author      != old.author      { bookPatch.author      = author;        hasChange = true }
         if publisher   != old.publisher   { bookPatch.publisher   = publisher;     hasChange = true }
-        if description != old.description { bookPatch.description = description;   hasChange = true }
+        if description != old.description { bookPatch.description = description;    hasChange = true }
         if imageURL    != old.imageURL    { bookPatch.imageURL    = imageURL;      hasChange = true }
         
         // ✅ BookHistory 필드 비교

@@ -81,17 +81,17 @@ extension Book {
         self.history = entity.bookHistory.flatMap { BookHistory(entity: $0) } ?? BookHistory.DUMMY_BOOKHISTORY
     }
 
-    init?(dto: AladinBookDTO) {
-        // isbn13 없으면 Book 생성 안 함
-        guard let isbn13 = dto.isbn13 else { return nil }
-
-        self.id = isbn13
-        self.title = dto.title
-        self.author = dto.author
-        self.publisher = dto.publisher
-        self.description = dto.description ?? "설명 없음"
-        self.imageURL = dto.cover
-        self.keywords = TagGenerator.generateTags(from: dto) // 책 정보 기반 태그 생성
-        self.history = BookHistory(bookId: isbn13)
-    }
+//    init?(dto: AladinBookDTO) {
+//        // isbn13 없으면 Book 생성 안 함
+//        guard let isbn13 = dto.isbn13 else { return nil }
+//
+//        self.id = isbn13
+//        self.title = dto.title
+//        self.author = dto.author
+//        self.publisher = dto.publisher
+//        self.description = dto.description ?? "설명 없음"
+//        self.imageURL = dto.cover
+//        self.keywords = TagGenerator.generateTags(from: dto) // 책 정보 기반 태그 생성
+//        self.history = BookHistory(bookId: isbn13)
+//    }
 }

@@ -24,6 +24,7 @@ struct BookShelfView: View {
                 }
             }
         }
+        .background(Color.baseBackground)
         .padding(.horizontal, 10)
     }
 }

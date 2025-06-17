@@ -49,7 +49,8 @@ private extension SearchView {
             .focused($isFocused)
             .submitLabel(.search) // 키보드에 "검색" 표시
             .onSubmit { // 검색 버튼을 누른 후, 액션
-                viewModel.searchBooks(isMore: false)
+//                viewModel.searchBooks(isMore: false)
+                viewModel.search()
             }
         }
         .padding(.horizontal)

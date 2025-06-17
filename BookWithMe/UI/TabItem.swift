@@ -22,7 +22,7 @@ enum TabItem: CaseIterable, Hashable {
 
     var navTitle: String {
         switch self {
-        case .bookShelf: return " "
+        case .bookShelf: return ""
         case .readingHistory: return "나의 독서 기록"
         case .search: return "검색"
 //        case .analytics: return "통계"

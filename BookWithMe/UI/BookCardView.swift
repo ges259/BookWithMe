@@ -25,7 +25,8 @@ struct BookCardView: View {
 private extension BookCardView {
     @MainActor
     func imageWithURL(_ url: String) ->  some View {
-        return  KFImage(URL(string: url))
+        
+        return KFImage(URL(string: url))
             .placeholder { Color.contentsBackground2 } // 로딩 중 placeholder
             .resizable()
             .bookSize(self.size)

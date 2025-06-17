@@ -431,8 +431,8 @@
 			isa = PBXGroup;
 			children = (
 				5FCB310A2DD8B394001C9327 /* BookAPIManager.swift */,
-				5F0D25DA2E01BEEA00F5D181 /* BookCache */,
 				5F7A21D92DF0646F0010E3E2 /* AIRecommendations */,
+				5F0D25DA2E01BEEA00F5D181 /* BookCache */,
 				5FAF4BA32DC9061400F6BF62 /* CoreDataManager */,
 			);
 			path = Manager;

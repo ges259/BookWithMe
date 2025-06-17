@@ -92,13 +92,6 @@ final class AIRecommendations {
     }
 }
 
-
-
-
-
-
-
-
 struct RecommendationRequest: Codable {
     let language: [String]
     let pageLength: [String]

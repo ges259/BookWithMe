@@ -54,7 +54,7 @@ private extension BookShelfCellView {
     var baseCardView: some View {
         return BookCardView(
             imageURL: nil,
-            size: .small
+            size: viewModel.cardSize()
         )
     }
     
@@ -76,7 +76,7 @@ private extension BookShelfCellView {
                     } label: {
                         BookCardView(
                             imageURL: book.imageURL,
-                            size: viewModel.cardSize(for: book)
+                            size: viewModel.cardSize()
                         )
                     }
                 }

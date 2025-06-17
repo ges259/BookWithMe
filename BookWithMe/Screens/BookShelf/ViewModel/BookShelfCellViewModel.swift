@@ -27,7 +27,7 @@ final class BookShelfCellViewModel {
         bookArray.append(contentsOf: newBooks)
     }
 
-    func cardSize(for book: Book) -> BookCardSize {
-        book.history.status == .recommended ? .flexible : .small
+    func cardSize() -> BookCardSize {
+        self.readingStatus == .recommended ? .flexible : .small
     }
 }
