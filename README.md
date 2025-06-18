@@ -53,7 +53,7 @@
 
 ---
 
-## 4. 기술 스택 및 아키텍처
+## 3. 기술 스택 및 아키텍처
 - **언어/프레임워크**: Swift 5.9 · SwiftUI · @Observable  
 - **데이터 저장**: Core Data  
 - **AI**: OpenAI GPT-4o (`OpenAIRecommender`)  
@@ -66,7 +66,7 @@
 
 ---
 
-## 3. API Key 설정
+## 4. API Key 설정
 프로젝트 내 적절한 파일(e.g. `APIKey.swift`)에 아래 코드를 추가하고, `"your_aladin_key"`, `"your_openai_key"` 부분을 본인의 실제 API Key로 교체하세요.
 
 ```swift
