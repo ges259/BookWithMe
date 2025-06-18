@@ -24,8 +24,8 @@
 ## 2. 주요 기능
 
 ### 📖 독서 상태 관리
-- 상태 구분: 추천 · 읽는 중 · 완료 · 중단 · 위시리스트  
-- 기간 기록: 시작일 · 종료일 자동/수동 설정 · 진행률 표시  
+- 상태 구분: 추천(이 책은 어때요?) · 읽는 중(읽고 있어요) · 완료(다 읽었어요) · 중단(잠시 멈췄어요) · 위시리스트(읽고 싶어요)
+- 기간 기록: 시작일 · 종료일 표시  
 - 사용자 평가: 평점(1~5) · 한줄평  
 - 목표 기능: 목표 권수·시간 설정 · 달성률 알림  
 <img src="./assets/reading-status.png" alt="독서 상태 관리 화면" width="400"/>
@@ -53,18 +53,6 @@
 
 ---
 
-## 3. API Key 설정
-프로젝트 내 적절한 파일(e.g. `APIKey.swift`)에 아래 코드를 추가하고, `"your_aladin_key"`, `"your_openai_key"` 부분을 본인의 실제 API Key로 교체하세요.
-
-```swift
-enum APIKey {
-    static let aladin_Key = "your_aladin_key"   // Aladin 개발자 센터에서 발급받은 키
-    static let openai_Key = "your_openai_key"   // OpenAI 콘솔에서 발급받은 키
-}
-```
-
----
-
 ## 4. 기술 스택 및 아키텍처
 - **언어/프레임워크**: Swift 5.9 · SwiftUI · @Observable  
 - **데이터 저장**: Core Data  
@@ -75,6 +63,18 @@ enum APIKey {
   - BottomSheet  
   - HorizonCalendar  
   - Kingfisher  
+
+---
+
+## 3. API Key 설정
+프로젝트 내 적절한 파일(e.g. `APIKey.swift`)에 아래 코드를 추가하고, `"your_aladin_key"`, `"your_openai_key"` 부분을 본인의 실제 API Key로 교체하세요.
+
+```swift
+enum APIKey {
+    static let aladin_Key = "your_aladin_key"   // Aladin 개발자 센터에서 발급받은 키
+    static let openai_Key = "your_openai_key"   // OpenAI 콘솔에서 발급받은 키
+}
+```
 
 ---
 
