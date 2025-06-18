@@ -54,7 +54,7 @@
 ---
 
 ## 3. 기술 스택 및 아키텍처
-- **언어/프레임워크**: Swift 5.9 · SwiftUI · @Observable  
+- **언어/프레임워크**: Swift 5.8.1 · SwiftUI · @Observable  
 - **데이터 저장**: Core Data  
 - **AI**: OpenAI GPT-4o (`OpenAIRecommender`)  
 - **네트워킹**: async/await · URLSession  
