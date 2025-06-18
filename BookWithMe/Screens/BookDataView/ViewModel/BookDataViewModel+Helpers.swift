@@ -15,7 +15,7 @@ extension BookDataViewModel {
             self.book = data
         }
     }
-    // 불편한 편의점
+    
     /*
      isSavedBook가 true면 저장되어있는 책
      -> diffFromCachedBook에서 확인

@@ -14,15 +14,25 @@ enum OpenAIRecommender {
 
     static func fetchTitles(prefs: [String: [String]], numTitles: Int) async -> [String] {
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else { return [] }
-
+        
+        // 1) 시스템 프롬프트 (영어)
         let system = """
-        You are an expert in recommending Korean books. Recommend exactly \(numTitles) titles...
+        You are an expert in recommending Korean books. Recommend exactly \(numTitles) book titles as a JSON array.
+        All recommended books must match ALL genres in the 'likedGenres' list—do not recommend any book that does not fit these genres. NEVER include books from any 'dislikedGenres'.
+        Age group, page length, language, and reading purpose must also be reflected as much as possible.
+        All books must be currently in print and searchable by exact title on major Korean bookstores (Aladin, Yes24, Kyobo, etc).
+        Never recommend out-of-print, rare, or foreign-only books.
+        If there are not enough perfect matches, recommend similar and widely available Korean books instead.
         """
 
+        // 2) 출력 지시문 (영어)
         let instruction = """
-        Based on the preferences above, recommend exactly \(numTitles) Korean book titles as a JSON array like:
-        ["불편한 편의점", "아몬드", ...] — ONLY the array, no explanation.
+        Based on the preferences above, recommend exactly \(numTitles) Korean book titles as a single JSON array like the example below:
+        ["불편한 편의점", "완득이", "아몬드", "유령이 된 할아버지", "위저드 베이커리", "날씨가 좋으면 찾아가겠어요", "초콜릿 우체국", "82년생 김지영", "미움받을 용기", "돌이킬 수 없는 약속"]
+        Do not include any explanation or extra text. Output ONLY the JSON array of book titles.
         """
+        
+        
 
         let messages: [[String: String]] = [
             ["role": "system", "content": system],

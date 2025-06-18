@@ -20,7 +20,7 @@ extension Image {
     static let chevronRight = Image(systemName: "chevron.right")
     
     
-    static let dummpyBookImage = Image("불편한편의점_표지")
+    
     
     
     // 별 이미지
