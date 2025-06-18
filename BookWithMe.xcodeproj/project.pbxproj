@@ -41,6 +41,8 @@
 		5F8650552DC798BC00784088 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8650542DC798BC00784088 /* ContentView.swift */; };
 		5F8650572DC798BF00784088 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F8650562DC798BE00784088 /* Assets.xcassets */; };
 		5F86505A2DC798BF00784088 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F8650592DC798BF00784088 /* Preview Assets.xcassets */; };
+		5F8A5F8F2E03187300228BCE /* AladinAPI+BestSeller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8A5F8E2E03187300228BCE /* AladinAPI+BestSeller.swift */; };
+		5F8A5F912E0318F100228BCE /* AladinAPI+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8A5F902E0318F100228BCE /* AladinAPI+Constants.swift */; };
 		5F8ACB3D2E02D82600ABBA76 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8ACB3C2E02D82600ABBA76 /* APIKey.swift */; };
 		5F93FDB92DC8D0DA00EC2E9E /* BookShelfCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F93FDB82DC8D0DA00EC2E9E /* BookShelfCellViewModel.swift */; };
 		5F93FDBC2DC8E51700EC2E9E /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F93FDBA2DC8E51700EC2E9E /* CoreData.xcdatamodeld */; };
@@ -87,7 +89,7 @@
 		5FCF7F672E02166C00BE4630 /* BookRecommender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F662E02166C00BE4630 /* BookRecommender.swift */; };
 		5FCF7F6B2E02B7A200BE4630 /* OpenAIRecommender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F6A2E02B7A200BE4630 /* OpenAIRecommender.swift */; };
 		5FCF7F6D2E02B7AF00BE4630 /* RelaxEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F6C2E02B7AF00BE4630 /* RelaxEngine.swift */; };
-		5FCF7F712E02B7C700BE4630 /* AladinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F702E02B7C700BE4630 /* AladinAPI.swift */; };
+		5FCF7F712E02B7C700BE4630 /* AladinAPI+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F702E02B7C700BE4630 /* AladinAPI+Search.swift */; };
 		5FCF7F732E02B7D000BE4630 /* AladinBookDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F722E02B7D000BE4630 /* AladinBookDTO.swift */; };
 		5FCF7F752E02B7E000BE4630 /* AladinItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F742E02B7E000BE4630 /* AladinItemResponse.swift */; };
 		5FCF7F772E02B87400BE4630 /* Dictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F762E02B87400BE4630 /* Dictionary+Ext.swift */; };
@@ -155,6 +157,8 @@
 		5F8650542DC798BC00784088 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5F8650562DC798BE00784088 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F8650592DC798BF00784088 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5F8A5F8E2E03187300228BCE /* AladinAPI+BestSeller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AladinAPI+BestSeller.swift"; sourceTree = "<group>"; };
+		5F8A5F902E0318F100228BCE /* AladinAPI+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AladinAPI+Constants.swift"; sourceTree = "<group>"; };
 		5F8ACB3C2E02D82600ABBA76 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		5F93FDB82DC8D0DA00EC2E9E /* BookShelfCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfCellViewModel.swift; sourceTree = "<group>"; };
 		5F93FDBB2DC8E51700EC2E9E /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -200,7 +204,7 @@
 		5FCF7F682E021B3700BE4630 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5FCF7F6A2E02B7A200BE4630 /* OpenAIRecommender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRecommender.swift; sourceTree = "<group>"; };
 		5FCF7F6C2E02B7AF00BE4630 /* RelaxEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelaxEngine.swift; sourceTree = "<group>"; };
-		5FCF7F702E02B7C700BE4630 /* AladinAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AladinAPI.swift; sourceTree = "<group>"; };
+		5FCF7F702E02B7C700BE4630 /* AladinAPI+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AladinAPI+Search.swift"; sourceTree = "<group>"; };
 		5FCF7F722E02B7D000BE4630 /* AladinBookDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AladinBookDTO.swift; sourceTree = "<group>"; };
 		5FCF7F742E02B7E000BE4630 /* AladinItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AladinItemResponse.swift; sourceTree = "<group>"; };
 		5FCF7F762E02B87400BE4630 /* Dictionary+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ext.swift"; sourceTree = "<group>"; };
@@ -464,9 +468,11 @@
 			isa = PBXGroup;
 			children = (
 				5FCB310A2DD8B394001C9327 /* BookAPIManager.swift */,
-				5FCF7F702E02B7C700BE4630 /* AladinAPI.swift */,
 				5FCF7F722E02B7D000BE4630 /* AladinBookDTO.swift */,
 				5FCF7F742E02B7E000BE4630 /* AladinItemResponse.swift */,
+				5FCF7F702E02B7C700BE4630 /* AladinAPI+Search.swift */,
+				5F8A5F8E2E03187300228BCE /* AladinAPI+BestSeller.swift */,
+				5F8A5F902E0318F100228BCE /* AladinAPI+Constants.swift */,
 			);
 			path = AladinAPI;
 			sourceTree = "<group>";
@@ -771,6 +777,7 @@
 				5FE499C12DC88985009AC510 /* BookShelfView.swift in Sources */,
 				5F8650552DC798BC00784088 /* ContentView.swift in Sources */,
 				5FB85A762DCA5E12003DF6FC /* SearchViewModel.swift in Sources */,
+				5F8A5F8F2E03187300228BCE /* AladinAPI+BestSeller.swift in Sources */,
 				5F4FB4802DEF0CDF00B98A7C /* StarView.swift in Sources */,
 				5FABF2222DCB7E87000CAA61 /* BookDescriptionView.swift in Sources */,
 				5F9B33CD2DE7054F0026227B /* BookHistoryEntity+CoreDataClass.swift in Sources */,
@@ -786,9 +793,10 @@
 				5F647AB12DEDE628000D6B30 /* CreateBookPrefs.swift in Sources */,
 				5F9B33D42DE7054F0026227B /* BookEntity+CoreDataProperties.swift in Sources */,
 				5FD0BF532DCF8B7F00E3CA35 /* HistoryTagView.swift in Sources */,
-				5FCF7F712E02B7C700BE4630 /* AladinAPI.swift in Sources */,
+				5FCF7F712E02B7C700BE4630 /* AladinAPI+Search.swift in Sources */,
 				5FAF4BAD2DC90DB500F6BF62 /* Date+Ext.swift in Sources */,
 				5F647AB72DEDF75F000D6B30 /* CustomPrefsAlertViewModel.swift in Sources */,
+				5F8A5F912E0318F100228BCE /* AladinAPI+Constants.swift in Sources */,
 				5F647AAA2DEDDC07000D6B30 /* BookPrefsEntity+CoreDataClass.swift in Sources */,
 				5FCF7F792E02B89E00BE4630 /* OpenAIResponse.swift in Sources */,
 				5F647AAB2DEDDC07000D6B30 /* BookPrefsEntity+CoreDataProperties.swift in Sources */,

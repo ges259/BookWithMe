@@ -76,6 +76,14 @@ extension Review {
         self.tags = nil
         self.memorableQuotes = nil
     }
+    mutating func reset() {
+        self.updatedat = Date()
+        self.rating = 0
+        self.summary = nil
+        self.detail = nil
+        self.tags = nil
+        self.memorableQuotes = nil
+    }
 
     static var DUMMY_REVIEW: Review = Review()
 }

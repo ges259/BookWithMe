@@ -79,7 +79,13 @@ extension BookHistory {
         self.endDate = nil
         self.review = Review()
     }
-
+    
+    mutating func reset() {
+        self.status = .none
+        self.startDate = Date()
+        self.endDate = nil
+    }
+    
     /// 테스트용 Dummy
     static var DUMMY_BOOKHISTORY: BookHistory {
         return BookHistory(bookId: "BookHistory_Dummy")

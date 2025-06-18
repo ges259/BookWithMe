@@ -9,7 +9,7 @@ import SwiftUI
 
 enum BookCardSize {
     case large, medium, small, flexible
-//    case
+
 
     var baseWidthRatio: CGFloat? {
         switch self {
@@ -31,7 +31,14 @@ enum BookCardSize {
         return CGSize(width: baseWidth, height: baseWidth * aspectRatio)
     }
     
-    
+    var maxTitleLength: Int {
+        switch self {
+        case .small:
+            return 20
+        case .large, .medium, .flexible:
+            return 30
+        }
+    }
     
     var titleSize: CGFloat {
         switch self {

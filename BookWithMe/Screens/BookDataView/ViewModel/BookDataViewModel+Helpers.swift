@@ -13,10 +13,6 @@ extension BookDataViewModel {
     func reset() {
         if let data = self.bookCache.book(id: self.book.id) {
             self.book = data
-        } else {
-            self.book.history = .DUMMY_BOOKHISTORY
-            self.book.history.review = .DUMMY_REVIEW
-            self.descriptionMode = .preview
         }
     }
     // 불편한 편의점

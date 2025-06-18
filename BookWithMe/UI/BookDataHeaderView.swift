@@ -12,6 +12,9 @@ struct BookDataHeaderView: View {
     private let size: BookCardSize
     private let isShadow: Bool
     
+    /// 최대 글자 수 (이 수를 넘어가면 …을 붙입니다)
+    private static let maxTitleLength = 30
+    
     init(book: Book, size: BookCardSize, isShadow: Bool) {
         self.book = book
         self.size = size
@@ -33,7 +36,7 @@ struct BookDataHeaderView: View {
     
     private var rightVStack: some View {
         return VStack(alignment: .leading, spacing: 8) {
-            Text(book.title)
+            Text(truncatedTitle)
                 .font(.system(size: self.size.titleSize,
                               weight: .bold))
 
@@ -44,6 +47,20 @@ struct BookDataHeaderView: View {
             Spacer()
         }
         .padding(.vertical)
+    }
+    
+    /// 글자 수를 체크해서 잘라내고 …을 붙인 문자열을 반환
+    private var truncatedTitle: String {
+        if book.title.count > Self.maxTitleLength {
+            let idx = book
+                .title
+                .index(book.title.startIndex,
+                       offsetBy: Self.maxTitleLength
+                )
+            return String(book.title[..<idx]) + "..."
+        } else {
+            return book.title
+        }
     }
 }
 
