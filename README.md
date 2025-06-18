@@ -89,4 +89,4 @@ open BookWithMe.xcodeproj
 ---
 
 ## 6. 시연 영상 / 스크린샷
-📽️ [👉 데모 영상 보기 (demo_GIF.mp4)](./assets/demo_GIF.mp4)
+📽️ [👉 데모 영상 보기 (YouTube Shorts)](https://youtube.com/shorts/dSmYxugmNL8)
