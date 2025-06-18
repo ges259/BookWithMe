@@ -76,6 +76,15 @@
 		5FCA5D932DD5ECEB00D3C172 /* HeaderRightImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCA5D922DD5ECEB00D3C172 /* HeaderRightImageType.swift */; };
 		5FCB310B2DD8B394001C9327 /* BookAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCB310A2DD8B394001C9327 /* BookAPIManager.swift */; };
 		5FCE61812DD0BE6800B3280B /* HorizonCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 5FCE61802DD0BE6800B3280B /* HorizonCalendar */; };
+		5FCF7F672E02166C00BE4630 /* BookRecommender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F662E02166C00BE4630 /* BookRecommender.swift */; };
+		5FCF7F6B2E02B7A200BE4630 /* OpenAIRecommender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F6A2E02B7A200BE4630 /* OpenAIRecommender.swift */; };
+		5FCF7F6D2E02B7AF00BE4630 /* RelaxEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F6C2E02B7AF00BE4630 /* RelaxEngine.swift */; };
+		5FCF7F712E02B7C700BE4630 /* AladinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F702E02B7C700BE4630 /* AladinAPI.swift */; };
+		5FCF7F732E02B7D000BE4630 /* AladinBookDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F722E02B7D000BE4630 /* AladinBookDTO.swift */; };
+		5FCF7F752E02B7E000BE4630 /* AladinItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F742E02B7E000BE4630 /* AladinItemResponse.swift */; };
+		5FCF7F772E02B87400BE4630 /* Dictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F762E02B87400BE4630 /* Dictionary+Ext.swift */; };
+		5FCF7F792E02B89E00BE4630 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F782E02B89E00BE4630 /* OpenAIResponse.swift */; };
+		5FCF7F7C2E02B92100BE4630 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF7F7B2E02B92100BE4630 /* APIKey.swift */; };
 		5FD0BF4D2DCF8B5400E3CA35 /* HistoryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF4C2DCF8B5400E3CA35 /* HistoryStatusView.swift */; };
 		5FD0BF4F2DCF8B6C00E3CA35 /* HistoryTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF4E2DCF8B6C00E3CA35 /* HistoryTermView.swift */; };
 		5FD0BF512DCF8B7700E3CA35 /* HistoryRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD0BF502DCF8B7700E3CA35 /* HistoryRatingView.swift */; };
@@ -173,6 +182,16 @@
 		5FC5FBAD2DEAAD6700E26D15 /* BookPrefsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPrefsViewModel.swift; sourceTree = "<group>"; };
 		5FCA5D922DD5ECEB00D3C172 /* HeaderRightImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderRightImageType.swift; sourceTree = "<group>"; };
 		5FCB310A2DD8B394001C9327 /* BookAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAPIManager.swift; sourceTree = "<group>"; };
+		5FCF7F662E02166C00BE4630 /* BookRecommender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRecommender.swift; sourceTree = "<group>"; };
+		5FCF7F682E021B3700BE4630 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5FCF7F6A2E02B7A200BE4630 /* OpenAIRecommender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRecommender.swift; sourceTree = "<group>"; };
+		5FCF7F6C2E02B7AF00BE4630 /* RelaxEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelaxEngine.swift; sourceTree = "<group>"; };
+		5FCF7F702E02B7C700BE4630 /* AladinAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AladinAPI.swift; sourceTree = "<group>"; };
+		5FCF7F722E02B7D000BE4630 /* AladinBookDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AladinBookDTO.swift; sourceTree = "<group>"; };
+		5FCF7F742E02B7E000BE4630 /* AladinItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AladinItemResponse.swift; sourceTree = "<group>"; };
+		5FCF7F762E02B87400BE4630 /* Dictionary+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ext.swift"; sourceTree = "<group>"; };
+		5FCF7F782E02B89E00BE4630 /* OpenAIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponse.swift; sourceTree = "<group>"; };
+		5FCF7F7B2E02B92100BE4630 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		5FD0BF4C2DCF8B5400E3CA35 /* HistoryStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStatusView.swift; sourceTree = "<group>"; };
 		5FD0BF4E2DCF8B6C00E3CA35 /* HistoryTermView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTermView.swift; sourceTree = "<group>"; };
 		5FD0BF502DCF8B7700E3CA35 /* HistoryRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRatingView.swift; sourceTree = "<group>"; };
@@ -252,6 +271,10 @@
 			isa = PBXGroup;
 			children = (
 				5F7A21DA2DF0649F0010E3E2 /* AIRecommendations.swift */,
+				5FCF7F662E02166C00BE4630 /* BookRecommender.swift */,
+				5FCF7F6A2E02B7A200BE4630 /* OpenAIRecommender.swift */,
+				5FCF7F6C2E02B7AF00BE4630 /* RelaxEngine.swift */,
+				5FCF7F782E02B89E00BE4630 /* OpenAIResponse.swift */,
 			);
 			path = AIRecommendations;
 			sourceTree = "<group>";
@@ -275,6 +298,8 @@
 		5F8650512DC798BC00784088 /* BookWithMe */ = {
 			isa = PBXGroup;
 			children = (
+				5FCF7F682E021B3700BE4630 /* Info.plist */,
+				5FCF7F7A2E02B91400BE4630 /* Secrets */,
 				5FE499B12DC88694009AC510 /* App */,
 				5F93FDC92DC8E97300EC2E9E /* CoreData */,
 				5FE499B22DC88697009AC510 /* Common */,
@@ -385,6 +410,25 @@
 			path = BookPrefsView;
 			sourceTree = "<group>";
 		};
+		5FCF7F692E02B78500BE4630 /* AladinAPI */ = {
+			isa = PBXGroup;
+			children = (
+				5FCB310A2DD8B394001C9327 /* BookAPIManager.swift */,
+				5FCF7F702E02B7C700BE4630 /* AladinAPI.swift */,
+				5FCF7F722E02B7D000BE4630 /* AladinBookDTO.swift */,
+				5FCF7F742E02B7E000BE4630 /* AladinItemResponse.swift */,
+			);
+			path = AladinAPI;
+			sourceTree = "<group>";
+		};
+		5FCF7F7A2E02B91400BE4630 /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				5FCF7F7B2E02B92100BE4630 /* APIKey.swift */,
+			);
+			path = Secrets;
+			sourceTree = "<group>";
+		};
 		5FE499B12DC88694009AC510 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -430,7 +474,7 @@
 		5FE499B52DC886B0009AC510 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				5FCB310A2DD8B394001C9327 /* BookAPIManager.swift */,
+				5FCF7F692E02B78500BE4630 /* AladinAPI */,
 				5F7A21D92DF0646F0010E3E2 /* AIRecommendations */,
 				5F0D25DA2E01BEEA00F5D181 /* BookCache */,
 				5FAF4BA32DC9061400F6BF62 /* CoreDataManager */,
@@ -474,6 +518,7 @@
 				5F437A372DCA52D600610056 /* View+Ext.swift */,
 				5F9B33D52DE705A50026227B /* String+Ext.swift */,
 				5F647AAC2DEDDFE8000D6B30 /* Array+Ext.swift */,
+				5FCF7F762E02B87400BE4630 /* Dictionary+Ext.swift */,
 			);
 			path = Extenstions;
 			sourceTree = "<group>";
@@ -690,6 +735,7 @@
 				5FBF26182DE6C970006C1D8C /* BookHistory+Patch.swift in Sources */,
 				5FAF4BA52DC9063700F6BF62 /* CreateBook.swift in Sources */,
 				5FE499D52DC8B7B8009AC510 /* Book.swift in Sources */,
+				5FCF7F772E02B87400BE4630 /* Dictionary+Ext.swift in Sources */,
 				5F647AAD2DEDDFE8000D6B30 /* Array+Ext.swift in Sources */,
 				5FF57C762DEAE84400000290 /* RowTitleView.swift in Sources */,
 				5F0D25E02E01BF8B00F5D181 /* BookCache+AI.swift in Sources */,
@@ -712,9 +758,11 @@
 				5F647AB12DEDE628000D6B30 /* CreateBookPrefs.swift in Sources */,
 				5F9B33D42DE7054F0026227B /* BookEntity+CoreDataProperties.swift in Sources */,
 				5FD0BF532DCF8B7F00E3CA35 /* HistoryTagView.swift in Sources */,
+				5FCF7F712E02B7C700BE4630 /* AladinAPI.swift in Sources */,
 				5FAF4BAD2DC90DB500F6BF62 /* Date+Ext.swift in Sources */,
 				5F647AB72DEDF75F000D6B30 /* CustomPrefsAlertViewModel.swift in Sources */,
 				5F647AAA2DEDDC07000D6B30 /* BookPrefsEntity+CoreDataClass.swift in Sources */,
+				5FCF7F792E02B89E00BE4630 /* OpenAIResponse.swift in Sources */,
 				5F647AAB2DEDDC07000D6B30 /* BookPrefsEntity+CoreDataProperties.swift in Sources */,
 				5FAF4BA92DC9064500F6BF62 /* UpdateBook.swift in Sources */,
 				5FE499C92DC889A9009AC510 /* SettingView.swift in Sources */,
@@ -728,10 +776,13 @@
 				5F6B91B92DCCE76900D6C54A /* TabItem.swift in Sources */,
 				5FE499D92DC8C549009AC510 /* Review.swift in Sources */,
 				5F4FB4862DEF143D00B98A7C /* StarViewStyle.swift in Sources */,
+				5FCF7F672E02166C00BE4630 /* BookRecommender.swift in Sources */,
 				5FD9BDB82DC9F0F600568A58 /* HeaderTitleView.swift in Sources */,
 				5F7A21DB2DF0649F0010E3E2 /* AIRecommendations.swift in Sources */,
 				5FCA5D932DD5ECEB00D3C172 /* HeaderRightImageType.swift in Sources */,
 				5FD0BF512DCF8B7700E3CA35 /* HistoryRatingView.swift in Sources */,
+				5FCF7F732E02B7D000BE4630 /* AladinBookDTO.swift in Sources */,
+				5FCF7F752E02B7E000BE4630 /* AladinItemResponse.swift in Sources */,
 				5FE499C32DC88993009AC510 /* ReadingHistoryView.swift in Sources */,
 				5F0D25E22E01BF9200F5D181 /* BookCache+Prefs.swift in Sources */,
 				5F06A9872DC8F31700C0664E /* PersistenceManager.swift in Sources */,
@@ -741,8 +792,10 @@
 				5FF8E13F2DCA412D00B7F87E /* PagingTabView.swift in Sources */,
 				5FBF26162DE6C953006C1D8C /* Book+Patch.swift in Sources */,
 				5F8650532DC798BC00784088 /* BookWithMeApp.swift in Sources */,
+				5FCF7F6D2E02B7AF00BE4630 /* RelaxEngine.swift in Sources */,
 				5F6ABE102DEEE99F008E5CDC /* ConfirmationType.swift in Sources */,
 				5F9B33D62DE705A50026227B /* String+Ext.swift in Sources */,
+				5FCF7F7C2E02B92100BE4630 /* APIKey.swift in Sources */,
 				5F9F42AF2DF9625B00E5CB29 /* Book+Diff.swift in Sources */,
 				5F437A382DCA52D600610056 /* View+Ext.swift in Sources */,
 				5FE499DD2DC8C81E009AC510 /* BookShelfViewModel.swift in Sources */,
@@ -751,6 +804,7 @@
 				5FC5FBAE2DEAAD6700E26D15 /* BookPrefsViewModel.swift in Sources */,
 				5F6B70EE2DD104F4005179CE /* SelectionMode.swift in Sources */,
 				5FE499DB2DC8C7EF009AC510 /* BookHistory.swift in Sources */,
+				5FCF7F6B2E02B7A200BE4630 /* OpenAIRecommender.swift in Sources */,
 				5FE499D12DC8AD6C009AC510 /* Color+Ext.swift in Sources */,
 				5FBF26142DE6C90F006C1D8C /* Review+Patch.swift in Sources */,
 				5F0D25DE2E01BF8100F5D181 /* BookCache+CRUD.swift in Sources */,
@@ -895,6 +949,7 @@
 				DEVELOPMENT_TEAM = 63D86GVH6K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BookWithMe/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -924,6 +979,7 @@
 				DEVELOPMENT_TEAM = 63D86GVH6K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BookWithMe/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

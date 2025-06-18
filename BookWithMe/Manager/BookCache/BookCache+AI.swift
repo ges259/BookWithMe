@@ -24,36 +24,23 @@ extension BookCache {
 //    }
     
     func fetchAIRecommendations() {
-//        Task {
-//            do {
-//                let books = try await AIRecommendations
-//                    .shared
-//                    .fetchRecommendedBooks(
-//                        userPrefs: self.bookPrefs
-//                    )
-////                let books = try await BooksAPI.shared.fetchRecommendations(prefs: self.bookPrefs.toStringArrays())
-//                
-//                
-//                // 책에 있는 history.status를 .recommended로 바꿈
-//                let wishlistBooks = self.booksChangeToRecommend(books)
-//                // 책을 캐시에 저장
-//                wishlistBooks.forEach {self.store($0) }
-//            } catch {
-//                print("DEBUG - \(#function): \(error.localizedDescription) ")
-//            }
-//        }
-//        
-        AIRecommendations
-            .shared
-            .fetchRecommendedBooks(
-                userPrefs: self.bookPrefs
-            ) { books in
-                
-                // 책에 있는 history.status를 .recommended로 바꿈
-                let wishlistBooks = self.booksChangeToRecommend(books)
-                // 책을 캐시에 저장
-                wishlistBooks.forEach {self.store($0) }
-            }
+        Task {
+            let books = await BookRecommender
+                .shared
+                .fetchRecommendedBooks(
+                    prefs: self.bookPrefs.toStringArrays(),
+                    count: 5
+                )
+            
+            // 책에 있는 history.status를 .recommended로 바꿈
+            let wishlistBooks = self.booksChangeToRecommend(books)
+            // 책을 캐시에 저장
+            wishlistBooks.forEach {self.store($0) }
+            
+            print("________________________________________")
+            dump(books)
+            print("________________________________________")
+        }
     }
     
     func booksChangeToRecommend(_ books: [Book]) -> [Book] {

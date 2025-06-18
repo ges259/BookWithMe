@@ -13,7 +13,7 @@ class SearchViewModel: ObservableObject {
     @Published var searchResult: [Book] = []
     private var page: Int = 1
     
-    let bookAPIManager: BookAPIManager  = BookAPIManager.shared
+//    let bookAPIManager: BookAPIManager  = BookAPIManager.shared
     
     
     
@@ -52,29 +52,19 @@ class SearchViewModel: ObservableObject {
     
     // 불편한
     /// 검색 요청 실행
+    @MainActor
     func search() {
         Task {
-            do {
-                // 빈 문자열이면 무시
-                let term = searchText.trimmingCharacters(in: .whitespaces)
-                guard !term.isEmpty else { return }
-                
-                isLoading = true
-                errorMessage = nil
-                
-                // 알라딘 서비스 호출
-                let results = try await BookAPIManager.shared.searchBooks(query: term)
-                searchResult = results
-                
-                
-                
-                isLoading = false
-            } catch {
-                // 오류 처리
-                errorMessage = error.localizedDescription
-                print("DEBUG - \(#function): \(error.localizedDescription)")
-            }
+            let term = searchText.trimmingCharacters(in: .whitespaces)
+            guard !term.isEmpty else { return }
+
+            isLoading = true
+            errorMessage = nil
+
+            let results = await AladinAPI.searchBooks(query: term, wantCount: 5)
+            searchResult = results
+
+            isLoading = false
         }
-    
     }
 }
