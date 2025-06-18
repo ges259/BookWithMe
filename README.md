@@ -28,27 +28,22 @@
 - 기간 기록: 시작일 · 종료일 자동/수동 설정 · 진행률 표시  
 - 사용자 평가: 평점(1~5) · 한줄평  
 - 목표 기능: 목표 권수·시간 설정 · 달성률 알림  
-![독서 상태 관리 화면](./assets/reading-status.png)
+<img src="./assets/reading-status.png" alt="독서 상태 관리 화면" width="500"/>
 
 ### ⚙️ 사용자 맞춤 설정
 - `BookPrefs` 모델 기반 설정  
 - 언어(`language`), 분량(`pageLength`), 연령대(`ageGroup`), 읽기 목적(`readingPurpose`), 선호 장르(`likedGenres`), 비선호 장르(`dislikedGenres`)  
-![사용자 설정 화면](./assets/user-prefs.png)
+<img src="./assets/user-prefs.png" alt="사용자 설정 화면" width="500"/>
 
 ### 🤖 AI 추천 시스템 (OpenAI 연동)
-- 조건 완화 알고리즘: 우선순위 필드(`ageGroup`, `pageLength`, `language`, `dislikedGenres`, `readingPurpose`, `likedGenres`) 단계별 제거  
-- GPT 키워드 생성: `OpenAIRecommender.fetchTitles` 호출로 키워드 획득  
-- Aladin API 검색: 추천 키워드로 `AladinAPI.searchBooks` 실행  
-- Fallback 보충 로직: 마지막 단계 권수 부족 시 `likedGenres.first` 장르로 추가 검색  
-- 비동기 처리 & 에러 핸들링: `async/await` · 파싱 실패 시 빈 배열 반환  
-- 로깅 & 디버깅: `print`로 단계별 상태 출력  
-![AI 추천 시스템 흐름](./assets/ai-flow.png)
+<img src="./assets/ai-flow1.png" alt="AI 추천 시스템 흐름1" width="500"/>
+<img src="./assets/ai-flow2.png" alt="AI 추천 시스템 흐름2" width="500"/>
 
 ### 🔍 Aladin API 연동 검색
 - 검색 방식: 제목·저자·키워드 기반 · 페이징·무한 스크롤 지원  
 - 이미지 로딩 최적화: 캐시 처리 · 비동기 이미지 불러오기  
 - 상세 정보: 목차 · 책 소개 · 출판사 정보 제공  
-![검색 화면](./assets/search.png)
+<img src="./assets/search.png" alt="검색 화면" width="500"/>
 
 ---
 
