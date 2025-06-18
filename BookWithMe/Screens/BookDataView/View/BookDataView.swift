@@ -120,7 +120,7 @@ private extension BookDataView {
             self.headerView
             // 테이블
             ForEach(self.viewModel.allCases) { row in
-                HStack(alignment: .top, spacing: 20) {
+                HStack(alignment: .center, spacing: 20) {
                     self.rowTitle(row)
                     self.detailText(row)
                 }

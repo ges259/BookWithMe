@@ -4,7 +4,9 @@
 ////
 ////  Created by 계은성 on 6/4/25.
 ////
-//
+
+import Foundation
+
 //import Foundation
 //
 //final class AIRecommendations {

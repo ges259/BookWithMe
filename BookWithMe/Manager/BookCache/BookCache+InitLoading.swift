@@ -16,6 +16,7 @@ extension BookCache {
         DispatchQueue.main.async {
             let books = CoreDataManager.shared.fetchBooksForMonth()
             self.load(books)
+            self.fetchAIRecommendations()
         }
     }
     

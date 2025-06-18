@@ -15,12 +15,17 @@ final class BookCache {
     
     private init() {
         // ai 책 추천
-//        self.fetchAIRecommendations()
+      
     }
     
     // 관찰 필요 없는 원본 저장소
     @ObservationIgnored
     var storage: [String: Book] = [:]
+//    {
+//        didSet {
+//            dump(storage)
+//        }
+//    }
     
     // 관측이 필요한 데이터들
     var bookPrefs: BookPrefs = BookPrefs()

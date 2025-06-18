@@ -25,21 +25,27 @@ extension BookCache {
     
     func fetchAIRecommendations() {
         Task {
+            let prefs: [String: [String]] = self.bookPrefs.toStringArrays()
             let books = await BookRecommender
                 .shared
                 .fetchRecommendedBooks(
-                    prefs: self.bookPrefs.toStringArrays(),
+                    prefs: prefs,
                     count: 5
                 )
             
             // 책에 있는 history.status를 .recommended로 바꿈
             let wishlistBooks = self.booksChangeToRecommend(books)
-            // 책을 캐시에 저장
-            wishlistBooks.forEach {self.store($0) }
+            
+            DispatchQueue.main.async {
+                // 책을 캐시에 저장
+                wishlistBooks.forEach { book in
+                    self.store(book)
+                }
+            }
         }
     }
     
-    func booksChangeToRecommend(_ books: [Book]) -> [Book] {
+    private func booksChangeToRecommend(_ books: [Book]) -> [Book] {
         // status를 .wishlist로 바꿈
         let wishlistBooks = books.map { book -> Book in
             var b = book

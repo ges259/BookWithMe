@@ -12,10 +12,15 @@ extension BookDataViewModel {
     func saveBook() {
         Task { @MainActor in
             do {
-                if self.isSavedBook {
+                let baseData = self.bookCache.book(id: book.id)
+                
+                
+                if self.isSavedBook && baseData?.history.status != .recommended {
+                    print("1")
                     try await updateBookIfNeeded()
                     self.bookCache.update(book)
                 } else {
+                    print("2")
                     try await createBook()
                     self.bookCache.store(book)
                 }
@@ -29,6 +34,7 @@ extension BookDataViewModel {
 
     /// 새로운 책을 Core Data에 저장함
     private func createBook() async throws {
+        print("3")
         try await self.coreDataManager.save(book: book)
     }
 

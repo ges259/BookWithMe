@@ -27,13 +27,25 @@ enum OpenAIRecommender {
 
         // 2) 출력 지시문 (영어)
         let instruction = """
-        Based on the preferences above, recommend exactly \(numTitles) Korean book titles as a single JSON array like the example below:
-        ["불편한 편의점", "완득이", "아몬드", "유령이 된 할아버지", "위저드 베이커리", "날씨가 좋으면 찾아가겠어요", "초콜릿 우체국", "82년생 김지영", "미움받을 용기", "돌이킬 수 없는 약속"]
-        Do not include any explanation or extra text. Output ONLY the JSON array of book titles.
+        You are a Korean keyword generator.
+
+        If 'likedGenres' is not empty:
+        - Generate exactly 10 unique and meaningful Korean keywords that are thematically relevant to **all genres listed in 'likedGenres'**.
+        - Each keyword should reflect common themes, settings, or motifs found in those genres.
+        - Avoid repetition or generic terms.
+
+        If 'likedGenres' is empty:
+        - Instead of keywords, return the titles of 10 different, well-known Korean bestseller books.
+        - These books must be **real**, widely recognized, and currently available on major Korean bookstores such as Aladin, Yes24, or Kyobo.
+        - Ensure that the list does not include duplicate titles or outdated classics unless they are still actively popular.
+        
+        Return only the result as a JSON array with no explanation or extra text.
+
+        Format:
+        ["키워드 또는 제목 1", "키워드 또는 제목 2", ..., "키워드 또는 제목 10"]
+        
         """
         
-        
-
         let messages: [[String: String]] = [
             ["role": "system", "content": system],
             ["role": "user", "content": prefs.jsonString()],

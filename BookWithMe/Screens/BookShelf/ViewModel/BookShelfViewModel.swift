@@ -9,13 +9,18 @@ import SwiftUI
 
 // MARK: - BookShelfViewModel
 @Observable
-final class BookShelfViewModel: FetchBookHistoryProtocol {
+final class BookShelfViewModel {
     var sections: [BookShelfCellViewModel] = []
 
     init() {
         self.sections = self.makeSections()
     }
-
+    func makeSections() -> [BookShelfCellViewModel] {
+        // 모든 ReadingStatus에 대해 섹션 생성 (책이 없어도)
+        return ReadingStatus.historyStatus(type: .bookShelf).map {
+            return BookShelfCellViewModel(readingStatus: $0)
+        }
+    }
     
     /// 추천 섹션(있으면)
     var recommendedSection: BookShelfCellViewModel? {

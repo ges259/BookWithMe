@@ -31,7 +31,6 @@ struct HistoryRatingView: View {
     }
 
     private var ratingView: some View {
-//        StarView(shouldUseGesture: true, height: nil, rating: $rating)
         StarView(starViewStyle: .auto(), rating: $rating)
             .frame(height: 100)
             .background(Color.contentsBackground1)
