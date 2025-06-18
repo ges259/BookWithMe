@@ -36,10 +36,6 @@ extension BookCache {
             let wishlistBooks = self.booksChangeToRecommend(books)
             // 책을 캐시에 저장
             wishlistBooks.forEach {self.store($0) }
-            
-            print("________________________________________")
-            dump(books)
-            print("________________________________________")
         }
     }
     

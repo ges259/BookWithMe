@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct ReadingHistoryCellView: View {
+    enum Constants {
+        static let columns = Array(repeating: GridItem(.flexible()), count: 3)
+        static let itemSpacing: CGFloat = 20
+        static let verticalPadding: CGFloat = 4
+    }
+    
     
     let viewModel: BookShelfCellViewModel
     
@@ -33,36 +39,30 @@ private extension ReadingHistoryCellView {
     }
     
     var lazyVGridView: some View {
-        return LazyVGrid(
-            columns: ReadingHistoryUI.columns,
-            alignment: .leading,
-            spacing: 20
-        ) {
-            
-            // HStack
-            LazyHStack(spacing: 12) {
-                // 테이블뷰 만들기
-                ForEach(viewModel.bookArray, id: \.id) { book in
-                    // 화면이동을 위한 NavigationLink
-                    NavigationLink {
-                        BookDataView(
-                            viewModel: BookDataViewModel(
-                                bookCache: BookCache.shared, 
-                                coreDataManager: CoreDataManager.shared,
-                                book: book)
-                        )
-                    } label: {
-                        // 보여질 이미지
-                        BookCardView(
-                            imageURL: book.imageURL,
-                            size: .small
-                        )
-                    }
-                }
-            }
-            .padding(.vertical, 4)
-        }
-    }
+         LazyVGrid(
+             columns: Constants.columns,
+             alignment: .leading,
+             spacing: Constants.itemSpacing
+         ) {
+             ForEach(viewModel.bookArray) { book in
+                 NavigationLink {
+                     BookDataView(
+                         viewModel: BookDataViewModel(
+                             bookCache: BookCache.shared,
+                             coreDataManager: CoreDataManager.shared,
+                             book: book
+                         )
+                     )
+                 } label: {
+                     BookCardView(
+                         imageURL: book.imageURL,
+                         size: .small
+                     )
+                 }
+             }
+         }
+         .padding(.vertical, Constants.verticalPadding)
+     }
 }
 
 #Preview {

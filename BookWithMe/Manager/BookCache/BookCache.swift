@@ -15,7 +15,7 @@ final class BookCache {
     
     private init() {
         // ai 책 추천
-        self.fetchAIRecommendations()
+//        self.fetchAIRecommendations()
     }
     
     // 관찰 필요 없는 원본 저장소

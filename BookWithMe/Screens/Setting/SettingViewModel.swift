@@ -11,7 +11,4 @@ final class SettingViewModel {
     var sections: [SettingSection] {
         return SettingSection.allCases
     }
-    
-    
-    
 }

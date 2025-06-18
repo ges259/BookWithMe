@@ -11,7 +11,7 @@ enum ReadingStatus: String, Codable {
     case recommended, reading, completed, paused, wishlist
     case all, none
     
-    static func historyStatus(type: BookInfoRowType) -> [ReadingStatus] {
+    static func historyStatus(type: ReadingStatusType) -> [ReadingStatus] {
         switch type {
         case .bookShelf:
             return [.recommended, .reading, .completed, .wishlist, .paused]
@@ -33,7 +33,7 @@ enum ReadingStatus: String, Codable {
     }
 }
 
-enum BookInfoRowType {
+enum ReadingStatusType {
    case bookShelf
    case bookData
 }

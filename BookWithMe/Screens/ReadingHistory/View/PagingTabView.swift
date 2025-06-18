@@ -7,47 +7,39 @@
 
 import SwiftUI
 
-// MARK: - PagingTabViewConstants
-private enum PagingTabViewConstants {
-    static let pageWidthRatio: CGFloat = 0.8 // 각 페이지가 화면 너비의 몇 배를 차지할지 비율
-    static let leadingSpacingRatio: CGFloat = 0.1 // 첫 번째 페이지 앞에 둘 공간 비율
-    static let indicatorSize: CGFloat = 10 // 페이지 인디케이터 크기
-    static let indicatorOpacity: Double = 0.5 // 선택 안 된 페이지 인디케이터 투명도
-}
-
-
-
-
 // MARK: - PagingTabView
 struct PagingTabView: View {
-    @Binding var currentPage: Int // 현재 보고 있는 페이지 인덱스를 외부에서 바인딩
-    let spacing: CGFloat // 페이지들 사이의 간격
-    let views: () -> [AnyView] // 각 페이지에 보여질 뷰들을 담은 클로저
+    /// 현재 보고 있는 페이지 인덱스를 외부에서 바인딩
+    @Binding var currentPage: Int
+    /// 드래그 제스처로 인한 offset 값
+    @State private var offset = CGFloat.zero
     
-    @State private var offset = CGFloat.zero // 드래그 제스처로 인한 offset 값
-    private var pageCount: Int { views().count } // 총 페이지 수
     
+    /// 각 페이지에 보여질 뷰들을 담은 클로저
+    let views: () -> [AnyView]
+    /// 총 페이지 수
+    private var pageCount: Int { views().count }
     
     
     // MARK: - Body
-    
     var body: some View {
-        VStack(spacing: spacing) {
+        VStack(spacing: Constants.pageSpacing) {
             pageContentView // 실제 페이지 컨텐츠를 보여주는 뷰
             pageIndicatorView // 현재 페이지를 나타내는 동그라미들 뷰
         }
     }
-    
-    
-    
-    // MARK: - Private Computed Properties
+}
+
+
+private extension PagingTabView {
+    // MARK: - UI
     /// 실제 페이지 컨텐츠를 보여주는 뷰
-    private var pageContentView: some View {
+    var pageContentView: some View {
         GeometryReader { geo in
             // 각 페이지의 너비 계산 (전체 너비 * 비율)
-            let pageWidth = geo.size.width * PagingTabViewConstants.pageWidthRatio
+            let pageWidth = geo.size.width * Constants.pageWidthRatio
             
-            LazyHStack(spacing: spacing) {
+            LazyHStack(spacing: Constants.pageSpacing) {
                 // 첫 번째 페이지 앞에 공간 만들어서 이전 페이지 살짝 보이게 함
                 leadingSpacingView(parentWidth: geo.size.width)
                 // 각 페이지에 해당하는 뷰를 순회하면서 보여줌
@@ -67,21 +59,23 @@ struct PagingTabView: View {
     }
     
     /// 첫 번째 페이지 앞에 공간 만들어서 이전 페이지 살짝 보이게 하는 뷰
-    private func leadingSpacingView(parentWidth: CGFloat) -> some View {
+    func leadingSpacingView(parentWidth: CGFloat) -> some View {
         Color.clear
         // 화면 너비에 leadingSpacingRatio 곱한 값에서 spacing 뺀 만큼 너비 가짐 (음수면 0)
-            .frame(width: max(parentWidth * PagingTabViewConstants.leadingSpacingRatio - spacing, 0)
+            .frame(width: max(parentWidth * Constants.leadingSpacingRatio - Constants.pageSpacing, 0)
             )
     }
     
     /// 현재 offset 값 계산하는 함수
-    private func calculateOffset(pageWidth: CGFloat) -> CGFloat {
+    func calculateOffset(pageWidth: CGFloat) -> CGFloat {
         // 현재 페이지 인덱스 기준으로 offset 계산해서 페이지 중앙으로 이동시키고, 드래그 offset 더함
-        CGFloat(-currentPage) * (pageWidth + spacing) + offset
+        CGFloat(-currentPage) * (pageWidth + Constants.pageSpacing) + offset
     }
     
+    
+    // MARK: - Drag
     /// 드래그 제스처 처리하는 함수
-    private func pageDragGesture() -> some Gesture {
+    func pageDragGesture() -> some Gesture {
         DragGesture()
         // 드래그 값 변할 때마다 offset 업데이트
             .onChanged { value in
@@ -91,11 +85,11 @@ struct PagingTabView: View {
             .onEnded { value in
                 withAnimation(.easeOut) {
                     // 오른쪽으로 50 넘게 드래그했으면 이전 페이지로
-                    if offset > 50 {
+                    if offset > Constants.dragThreshold {
                         currentPage = max(0, currentPage - 1)
                     }
                     // 왼쪽으로 -50 넘게 드래그했으면 다음 페이지로
-                    else if offset < -50 {
+                    else if offset < -Constants.dragThreshold {
                         currentPage = min(pageCount - 1, currentPage + 1)
                     }
                     // offset 초기화
@@ -104,29 +98,51 @@ struct PagingTabView: View {
             }
     }
     
+    
+    // MARK: - Indicator
     /// 현재 페이지 나타내는 동그라미들 뷰
-    private var pageIndicatorView: some View {
+    var pageIndicatorView: some View {
         HStack {
             // 총 페이지 수만큼 동그라미 생성
             ForEach(0..<pageCount, id: \.self) { index in
                 
                 Circle()
                 // 인디케이터 크기 설정
-                    .frame(width: PagingTabViewConstants.indicatorSize)
+                    .frame(width: Constants.indicatorSize)
                 // 현재 페이지 인덱스랑 같으면 primary 색, 아니면 secondary 색에 투명도 적용
                     .foregroundColor(
-                        index == currentPage 
+                        index == currentPage
                         ? .primary
                         : .secondary.opacity(
-                            PagingTabViewConstants.indicatorOpacity)
+                            Constants.indicatorOpacity)
                     )
-                    .padding(.bottom, 30)
+                    .padding(.bottom, Constants.indicatorBottomPadding)
                 // 탭하면 해당 인덱스로 현재 페이지 업데이트
                     .onTapGesture {
                         currentPage = index
                     }
-                    
             }
         }
+    }
+}
+
+
+// MARK: - Constants
+private extension PagingTabView {
+    enum Constants {
+        // 각 페이지가 화면 너비의 몇 배를 차지할지 비율
+        static let pageWidthRatio: CGFloat = 0.8
+        // 첫 번째 페이지 앞에 둘 공간 비율
+        static let leadingSpacingRatio: CGFloat = 0.1
+        // 페이지 인디케이터 크기
+        static let indicatorSize: CGFloat = 15
+        // 선택 안 된 페이지 인디케이터 투명도
+        static let indicatorOpacity: Double = 0.5
+        // 페이지 사이 기본 간격
+        static let pageSpacing: CGFloat = 20
+        // 인디케이터 아래 여백
+        static let indicatorBottomPadding: CGFloat = 30
+        // 드래그 시 페이지 전환 임계값
+        static let dragThreshold: CGFloat = 50
     }
 }
