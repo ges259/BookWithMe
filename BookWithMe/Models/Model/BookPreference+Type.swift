@@ -87,6 +87,36 @@ enum BookGenre: String, PrefsOption, Codable {
     
     // PrefsOption 요구 사항
     static var title: String { "장르" }
+    
+    var categoryID: String {
+        switch self {
+        case .literature:       return "1"
+        case .health:           return "55890"
+        case .economics:        return "170"
+        case .history:          return "74"
+        case .essay:            return "55889"
+        case .travel:           return "1196"
+        case .science:          return "987"
+        case .artDesign:        return "517"
+        case .religion:         return "1237"
+        case .selfHelp:         return "336"
+        case .cooking:          return "1230"
+        case .comics:           return "2551"
+        case .humanities:       return "656"
+        case .parenting:        return "2030"
+        case .youngAdult:       return "1137"
+        case .children:         return "1108"
+        case .societyPolitics:  return "798"
+        // 매핑되지 않은 항목
+        default:                return "1"
+        }
+    }
+}
+// 삭제하거나 아래처럼 바꿀 수 있음
+extension BookGenre {
+    var aladinCategoryID: String {
+        return self.categoryID
+    }
 }
 
 

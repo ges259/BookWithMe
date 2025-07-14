@@ -39,7 +39,6 @@ class SearchViewModel: ObservableObject {
     }
     
     /// 내부: 지정된 페이지를 서버에서 가져와 append
-//    @MainActor
     private func fetchPage() {
         Task { @MainActor in
             isLoading = true
@@ -55,7 +54,9 @@ class SearchViewModel: ObservableObject {
                 query: term,
                 page: page
             )
-            
+            print("____________________")
+            dump(results)
+            print("____________________")
             // 결과가 없으면 더 이상 불러올 필요 없음
             if results.isEmpty {
                 canLoadMore = false

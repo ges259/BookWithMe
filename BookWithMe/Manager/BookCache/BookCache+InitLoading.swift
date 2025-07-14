@@ -11,11 +11,15 @@ import Foundation
 extension BookCache {
     
     func loadInitialData() async {
+        // '사용자 정의 추천' 가져오기
         self.bookPrefs = CoreDataManager.shared.fetchBookPrefs()
         
         DispatchQueue.main.async {
-            let books = CoreDataManager.shared.fetchBooksForMonth()
+            // 코어데이터에 저장된 모든 책을 가져오기
+            let books = CoreDataManager.shared.fetchCoreDataBooks()
+            // 책정보를 캐시에 저장
             self.load(books)
+            // ai 책 추천 결과를 가져오기
             self.fetchAIRecommendations()
         }
     }

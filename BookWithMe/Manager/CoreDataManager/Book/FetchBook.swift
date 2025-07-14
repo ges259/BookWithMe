@@ -16,11 +16,11 @@ extension CoreDataManager {
             key: "bookHistory.startDate",
             ascending: true
         )
-        static let bookHistoryStartDatePredicate = "bookHistory.startDate >= %@ AND bookHistory.startDate < %@"
+//        static let bookHistoryStartDatePredicate = "bookHistory.startDate >= %@ AND bookHistory.startDate < %@"
     }
     
     // MARK: - Book 리스트
-    func fetchBooksForMonth(containing date: Date = Date()) -> [Book] {
+    func fetchCoreDataBooks(_ date: Date = Date()) -> [Book] {
         let entities = fetchBookEntities(
             predicate: nil,
             sortDescriptors: [Constants.bookHistoryStartDateSort]

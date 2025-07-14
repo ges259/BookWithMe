@@ -2,7 +2,7 @@
 //  ReviewEntity+CoreDataProperties.swift
 //  BookWithMe
 //
-//  Created by 계은성 on 5/28/25.
+//  Created by 계은성 on 7/8/25.
 //
 //
 

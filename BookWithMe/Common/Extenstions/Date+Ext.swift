@@ -40,4 +40,17 @@ extension Date {
         
         return (startOfMonth, endOfMonth)
     }
+    
+    /// 한국 시간 기준 Calendar
+    private static var koreaCalendar: Calendar {
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "Asia/Seoul")!
+        return calendar
+    }
+
+    /// 한국 시간 기준으로 지금이 월요일인지 여부
+    static func isMonday(date: Date = Date()) -> Bool {
+        let weekday = koreaCalendar.component(.weekday, from: date)
+        return weekday == 2
+    }
 }

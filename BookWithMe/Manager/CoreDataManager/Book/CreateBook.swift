@@ -63,7 +63,7 @@ private extension CoreDataManager {
             book.publisher       = model.publisher
             book.bookDescription = model.description
             book.imageURL        = model.imageURL
-            book.keywords        = model.keywords.toKeywordString()
+            book.category        = model.category.toCategoryString()
         }
     }
     

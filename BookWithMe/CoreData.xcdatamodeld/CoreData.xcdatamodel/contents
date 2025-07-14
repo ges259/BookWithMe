@@ -4,8 +4,8 @@
         <attribute name="author" attributeType="String"/>
         <attribute name="bookDescription" attributeType="String"/>
         <attribute name="bookId" attributeType="String"/>
+        <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="imageURL" optional="YES" attributeType="String"/>
-        <attribute name="keywords" optional="YES" attributeType="String"/>
         <attribute name="publisher" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="bookHistory" maxCount="1" deletionRule="Nullify" destinationEntity="BookHistoryEntity" inverseName="book" inverseEntity="BookHistoryEntity"/>
@@ -25,6 +25,11 @@
         <attribute name="likedGenres" attributeType="String"/>
         <attribute name="pageLength" attributeType="String"/>
         <attribute name="readingPurpose" attributeType="String"/>
+    </entity>
+    <entity name="RecommendedBookEntity" representedClassName="RecommendedBookEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
     </entity>
     <entity name="ReviewEntity" representedClassName=".ReviewEntity" syncable="YES">
         <attribute name="memorableQuotes" optional="YES" attributeType="String"/>

@@ -23,14 +23,24 @@ extension BookCache {
             // 새로운 데이터 가져오기
 //    }
     
+    /*
+     1. 월요일인지 확인
+        - 월요일이 아니라면 return
+     2. 월요일이라면, 최근 10개의 책을 가져오기
+     3. BookPrefs와 함께 AI를 통해 책을 가져오기
+     */
+//    func checkRecommendation(books: [Book]) {
+        // 월요일인지 확인, 월요일이 아니라면 return
+//        guard Date.isMonday() else { return }
+//    }
+    
     func fetchAIRecommendations() {
         Task {
-            let prefs: [String: [String]] = self.bookPrefs.toStringArrays()
             let books = await BookRecommender
                 .shared
                 .fetchRecommendedBooks(
-                    prefs: prefs,
-                    count: 5
+                    recentBooks: [],
+                    prefs: self.bookPrefs
                 )
             
             // 책에 있는 history.status를 .recommended로 바꿈
